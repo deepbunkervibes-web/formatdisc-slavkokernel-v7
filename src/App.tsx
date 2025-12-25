@@ -1,80 +1,83 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LandingPage } from './routes/LandingPage';
-// import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
-import { InvestorLogin } from './routes/InvestorLogin';
-import { InvestorPortal } from './routes/InvestorPortal';
-import { InvestorAuthProvider } from './context/InvestorAuthContext';
-import { DocsRoute } from './routes/DocsRoute';
-import { KernelRoute } from './routes/KernelRoute';
-import { MetricsRoute } from './routes/MetricsRoute';
-import { AuditRoute } from './routes/AuditRoute';
-import { Navigation } from './components/ui/Navigation';
-import { Footer } from './components/ui/Footer';
-import { LoadingSpinner } from './components/ui/LoadingSpinner';
+async (params: type) => {
+    import React, { Suspense } from 'react';
+    import { BrowserRouter, Routes, Route } from 'react-router-dom';
+    import { LandingPage } from './routes/LandingPage';
+    // import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
+    import { InvestorLogin } from './routes/InvestorLogin';
+    import { InvestorPortal } from './routes/InvestorPortal';
+    import { InvestorAuthProvider } from './context/InvestorAuthContext';
+    import { DocsRoute } from './routes/DocsRoute';
+    import { KernelRoute } from './routes/KernelRoute';
+    import { MetricsRoute } from './routes/MetricsRoute';
+    import { AuditRoute } from './routes/AuditRoute';
+    import { Navigation } from './components/ui/Navigation';
+    import { Footer } from './components/ui/Footer';
+    import { LoadingSpinner } from './components/ui/LoadingSpinner';
 
-// Lazy load heavy components
-const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then(module => ({ default: module.MvpStudio })));
+    // Lazy load heavy components
+    const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then(module => ({ default: module.MvpStudio })));
 
-import { LanguageProvider } from './context/LanguageContext';
+    import { LanguageProvider } from './context/LanguageContext';
 
-function App() {
-    return (
-        <LanguageProvider>
-            <InvestorAuthProvider>
-                <BrowserRouter>
-                    {/* ... rest of the app ... */}
-                    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
-                        {/* Ambient light wash - subtle perceptual depth */}
-                        <div className="pointer-events-none fixed inset-0 -z-10">
-                            <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-3xl"></div>
-                            <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent-cyan/10 rounded-full blur-3xl"></div>
+    function App() {
+        return (
+            <LanguageProvider>
+                <InvestorAuthProvider>
+                    <BrowserRouter>
+                        {/* ... rest of the app ... */}
+                        <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
+                            {/* Ambient light wash - subtle perceptual depth */}
+                            <div className="pointer-events-none fixed inset-0 -z-10">
+                                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-3xl"></div>
+                                <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent-cyan/10 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <Navigation />
+
+                            <main className="flex-1">
+                                <Suspense fallback={<LoadingSpinner />}>
+                                    <Routes>
+                                        <Route path="/" element={<LandingPage />} />
+                                        <Route
+                                            path="/studio"
+                                            element={<LazyMvpStudio />}
+                                        />
+                                        <Route
+                                            path="/investors"
+                                            element={<InvestorLogin />}
+                                        />
+                                        <Route
+                                            path="/investors/portal"
+                                            element={<InvestorPortal />}
+                                        />
+                                        <Route
+                                            path="/docs"
+                                            element={<DocsRoute />}
+                                        />
+                                        <Route
+                                            path="/kernel"
+                                            element={<KernelRoute />}
+                                        />
+                                        <Route
+                                            path="/metrics"
+                                            element={<MetricsRoute />}
+                                        />
+                                        <Route
+                                            path="/audit"
+                                            element={<AuditRoute />}
+                                        />
+                                    </Routes>
+                                </Suspense>
+                            </main>
+
+                            <Footer />
                         </div>
+                    </BrowserRouter>
+                </InvestorAuthProvider>
+            </LanguageProvider>
+        );
+    }
 
-                        <Navigation />
+    export default App;
 
-                        <main className="flex-1">
-                            <Suspense fallback={<LoadingSpinner />}>
-                                <Routes>
-                                    <Route path="/" element={<LandingPage />} />
-                                    <Route
-                                        path="/studio"
-                                        element={<LazyMvpStudio />}
-                                    />
-                                    <Route
-                                        path="/investors"
-                                        element={<InvestorLogin />}
-                                    />
-                                    <Route
-                                        path="/investors/portal"
-                                        element={<InvestorPortal />}
-                                    />
-                                    <Route
-                                        path="/docs"
-                                        element={<DocsRoute />}
-                                    />
-                                    <Route
-                                        path="/kernel"
-                                        element={<KernelRoute />}
-                                    />
-                                    <Route
-                                        path="/metrics"
-                                        element={<MetricsRoute />}
-                                    />
-                                    <Route
-                                        path="/audit"
-                                        element={<AuditRoute />}
-                                    />
-                                </Routes>
-                            </Suspense>
-                        </main>
-
-                        <Footer />
-                    </div>
-                </BrowserRouter>
-            </InvestorAuthProvider>
-        </LanguageProvider>
-    );
 }
-
-export default App;

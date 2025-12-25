@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --muted: #f5f5f7;
+    --card: #ffffff;
+    --card-border: #e5e7eb;
+  }
+
+  .dark {
+    --background: #0a0a0a;
+    --foreground: #fdfdfd;
+    --muted: #171717;
+    --card: #171717;
+    --card-border: #333333;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}
