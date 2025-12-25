@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -13,7 +13,7 @@ export default {
                     purple: '#7928CA',
                     pink: '#FF0080',
                     cyan: '#0070F3',
-                    DEFAULT: '#7f5af0', // Fallback/Main accent
+                    DEFAULT: '#7f5af0',
                 },
                 muted: 'var(--muted)',
                 card: 'var(--card)',
