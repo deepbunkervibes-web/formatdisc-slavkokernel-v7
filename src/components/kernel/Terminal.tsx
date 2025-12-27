@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useKernel } from '../kernel/KernelProvider';
-import { useKernelMotion } from '../motion/useKernelMotion';
+import { useKernel } from '../../kernel/KernelProvider';
+import { useKernelMotion } from '../../motion/useKernelMotion';
 import { Terminal as TerminalIcon, Cpu, Hash, ArrowRight } from 'lucide-react';
 
 export const Terminal = () => {
