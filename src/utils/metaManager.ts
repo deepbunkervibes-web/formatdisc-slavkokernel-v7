@@ -41,7 +41,7 @@ export class MetaManager {
     }
 
     private setMetaTag(name: string, content: string): void {
-        let meta = document.querySelector(`meta[name="${name}"]`);
+        let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
         if (!meta) {
             meta = document.createElement('meta');
             meta.name = name;
@@ -51,7 +51,7 @@ export class MetaManager {
     }
 
     private setCanonicalTag(href: string): void {
-        let link = document.querySelector('link[rel="canonical"]');
+        let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
         if (!link) {
             link = document.createElement('link');
             link.rel = 'canonical';
