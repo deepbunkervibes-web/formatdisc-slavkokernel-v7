@@ -1,169 +1,290 @@
-# 🚀 MVP Simulation Studio (Powered by SlavkoKernel™ v7)
+# **MVP Simulation Studio**  
 
-> *In memory of Slavko.*
->
-> **"Council-governed AI that tells you what investors won't."**
+### *Powered by SlavkoKernel™ V7*  
 
-![Status](https://img.shields.io/badge/Status-Production%20Ready-2ecc71?style=for-the-badge&logo=rocket&logoColor=white)
-![Kernel](https://img.shields.io/badge/Orchestration-SlavkoKernel%20v7-f39c12?style=for-the-badge&logo=server&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-9b59b6?style=for-the-badge&logo=open-source-initiative&logoColor=white)
+**For every founder who learned the truth too late — or refuses to repeat that mistake.**
 
-![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38b2ac?style=for-the-badge&logo=tailwindcss&logoColor=white)
-
-![Analytics](https://img.shields.io/badge/Analytics-PostHog-ff4757?style=for-the-badge&logo=posthog&logoColor=white)
-![Errors](https://img.shields.io/badge/Errors-Sentry-e74c3c?style=for-the-badge&logo=sentry&logoColor=white)
-
-**MVP Simulation Studio** is an AI-native orchestration platform designed to rigorously evaluate startup ideas, simulate market reception, and automatically generate actionable artifacts (MVP Blueprints, Pitch Decks, Investor Summaries).
-
-Powered by **SlavkoKernel™ v7**, it moves beyond simple "chat" interfaces to provide a **council-governed**, **audit-proof**, and **multi-agent** decision-making process.
+> *“Startups don’t die from lack of hustle.  
+> They die from lack of honest feedback — at the only moment when it could still change the outcome.”*
 
 ---
 
-## 🌟 Key Features
+# 1. **Prolog: Kako Zapravo Izgleda Propast**
 
-### 🧠 SlavkoKernel™ v7 Orchestration
-Instead of a single LLM response, the system triggers a **boot sequence** and orchestrates a council of specialized agents:
-- **Analyst Agent:** Evaluates market patterns and viability.
-- **Skeptic Agent:** Ruthlessly identifies risks and weaknesses.
-- **Simulator Agent:** Simulates ~30 user personas to predict conversion rates and objections.
-- **Researcher Agent:** Fact-checks and aligns with industry trends.
-- **The Council:** Aggregates votes to reach a consensus verdict (**PROCEED**, **REVISE**, or **REJECT**).
+Ne počne s eksplozijom.  
+Počne s tišinom.
 
-### 📊 Artifact Generation
-If the Council approves an idea, the system automatically generates:
-- **MVP Blueprint:** Core user flows, UI section copy, and tech stack recommendations.
-- **Pitch Deck:** A structured 5-slide deck ready for investors.
-- **Investor Summary:** A professional executive summary and email template.
+Jedan kompromis.  
+Pa drugi.  
+Pa treći.
 
-### 👁️ Production-Grade Observability
-The application is instrumented for real-world usage:
-- **Performance Monitoring:** Built-in `PerformanceObserver` tracks render times and slow operations (>3s).
-- **Product Analytics:** Integrated **PostHog** wrapper for tracking user funnels (Idea -> Evaluation -> MVP).
-- **Error Tracking:** Integrated **Sentry** wrapper for crash reporting.
-- **Graceful Degradation:** Observability services skip initialization gracefully if API keys are missing.
+Najprije ti kažu:  
+**“Samo napravi MVP, tržište će ti reći.”**
 
-### 🎨 Ethereal UI
-- **Glassmorphism:** Modern "Ethereal Cupertino" aesthetic using Tailwind CSS.
-- **Interactive Terminal:** Real-time log streaming of the kernel's decision process.
-- **Visual Data:** Interactive charts for simulated conversion rates.
+Onda:  
+**“Super izgleda, još malo dotjeraj pitch.”**
 
----
+Na kraju:  
+**“Nažalost, prerano za nas. Drži nas u toku.”**
 
-## 🛠️ Technical Stack
+A između tih rečenica — život ti iscuri kroz prste:
 
-- **Frontend:** React 19, TypeScript, Vite
-- **Styling:** Tailwind CSS, Framer Motion, Lucide React
-- **Orchestration:** Custom mock service (`geminiService.ts`) simulating Gemini 2.5 latency and logic.
-- **Monitoring:** Custom `utils/performance.ts`, `utils/sentry.ts`, `utils/posthog.ts`.
+- 9 mjeseci rada  
+- 3 rebranda  
+- 2 promjene ICP-a  
+- 0 ljudi koji su ti u lice rekli:  
+  **“Ovo neće raditi. I evo, konkretno, zašto.”**
+
+Svi su bili ljubazni.  
+Nitko nije bio koristan.
+
+I onda shvatiš:  
+**Nisu ti propali featurei — propala ti je kalibracija.**
+
+To je trenutak kad priča stvarno počinje.
 
 ---
 
-## 🚀 Getting Started
+# 2. **Trenutak Puknuća: Dan Kad Prestaneš Lagati Sebi**
 
-### Prerequisites
-- Node.js v18+
-- npm or yarn
+Postoji dan koji se ne zaboravlja.
 
-### Installation
+Dan kad prvi put ozbiljno izračunaš:
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/mladengertner/mvp-simulation-tool1.git
-   cd mvp-simulation-tool1
-   ```
+- koliko si vremena spiskao na ideje koje je netko mogao srušiti u 40 minuta  
+- koliko je “dobronamjerne podrške” zapravo bilo izbjegavanje neugode  
+- koliko si puta i sam znao da nešto smrdi — ali ti je bilo lakše nastaviti nego priznati
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+I tada se otvaraju samo dvije opcije:
 
-3. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
+**Opcija A:**  
+“Takav je svijet. Idemo dalje.”
 
-4. **Open the app:**
-   Navigate to `http://localhost:5173`.
+**Opcija B:**  
+“Dobro. Ako mi već nitko neće reći istinu — napravit ću sustav koji hoće.  
+Bez milosti. Za mene. Za druge.”
 
-### Configuration (Optional)
-Create a `.env` file to enable real analytics (otherwise, mocks are used):
+SlavkoKernel™ v7 rođen je iz **Opcije B**.  
+Ne kao produkt.  
+Nego kao **obrambeni mehanizam protiv samozavaravanja**.
 
-```env
-VITE_POSTHOG_KEY=ph_your_key_here
-VITE_SENTRY_DSN=https://your_dsn_here
+---
+
+# 3. **Zavjet: Što Ovaj Sustav Obećava (I Što Nikad Neće)**
+
+Ovo nije još jedan “AI co-pilot” koji ti piše motivacijske slogane.  
+Ne pokušava biti simpatičan.
+
+SlavkoKernel™ ima jedan, brutalno jasan mandat:
+
+### **Štititi vrijeme founderâ od loših ideja, loše izvedbe i lažnih ohrabrenja.**
+
+U praksi to znači:
+
+- Ne štedi ti ego. Štedi ti godine.  
+- Ne traži da vjeruješ u njega. Traži da doneseš istinu.  
+- Ne tapša te po ramenu.  
+- Govori jezikom odbijenih term sheetova i mrtvih landing pageva.
+
+**Zavjet je jednostavan:**  
+**Nikad te neće lagati — čak ni kad te svi ostali uvjeravaju da “još ima šanse”.**
+
+---
+
+# 4. **Što Je MVP Simulation Studio**
+
+### **Formalno:**  
+
+Web-based alat koji orkestrira skup samostalnih AI-agenta (Council) za ocjenjivanje i oblikovanje startupa u najranijoj fazi.
+
+### **Praktično:**  
+
+Tvoj privatni, nemilosrdno iskren investment committee koji radi 24/7 —  
+bez politike, bez uljepšavanja, bez straha da ćeš se uvrijediti.
+
+### **Tvoj Zadatak**
+
+Donesi sirovu ideju:
+
+- što gradiš  
+- za koga  
+- zašto baš sada  
+
+Odgovori na nekoliko neugodnih pitanja:
+
+- što si već pokušao  
+- gdje si već dobio “lijepo zapakirane odbijenice”  
+- što te najviše plaši u vezi ideje  
+
+### **Zadatak SlavkoKernela**
+
+- razbiti ideju na sastavne dijelove  
+- testirati je protiv tržišne realnosti  
+- simulirati reakcije ljudi koji ti to nikad ne bi rekli u lice  
+- i na kraju: **izdati presudu**
+
+---
+
+# 5. **Kako Radi (Iza Kulisa)**
+
+Kada klikneš **Initialize Simulation**, ne šalješ prompt.  
+Podižeš **Vijeće** — skup specijaliziranih agenata.
+
+## 5.1. Council: Tko Sjedi Za Stolom
+
+### **The Skeptic**  
+
+Traži razlog zbog kojeg ćeš za 12 mjeseci gasiti firmu.  
+Napada distribuciju, akviziciju, monetizaciju, defenzibilnost.
+
+### **The Analyst**  
+
+Procjenjuje:  
+“Je li ovo uopće ideja ili samo feature / agencijski servis / hobi prerušeni u business?”
+
+### **The Simulator**  
+
+Vrti preko 30 personi (korisnik, investitor, partner, hejter, konkurent) i pita:  
+“How this idea breaks in real life?”
+
+### **The Researcher**  
+
+Ne radi Google umjesto tebe.  
+Provjerava:  
+
+- postoje li već isti modeli koji su propali  
+- postoje li empirijski signali da ovo ima šanse  
+
+Zajedno donose: **Consensus.**
+
+---
+
+# 6. **Presuda: REJECT, REVISE ili PROCEED**
+
+Ovdje nema “možda”.
+
+---
+
+## ✅ **PROCEED**  
+
+“Ovo ima zdrave osnove. Vrijedi uložiti vrijeme i novac.”
+
+Dobivaš:
+
+- **MVP Blueprint**  
+- **5-slide Pitch Frame**  
+- **Investor-Ready Summary**
+
+---
+
+## ♻️ **REVISE**  
+
+“Klica je dobra. Izvedba te vodi u zid.”
+
+Dobivaš:
+
+- što promijeniti (ICP, distribucija, pricing, positioning)  
+- koje pretpostavke prvo testirati  
+- kako izgleda verzija ideje koja je smislena za tržište  
+
+---
+
+## ⛔ **REJECT**  
+
+“Ovo ne prolazi. Ne zato što si ti loš founder — nego zato što je struktura ideje trula.”
+
+Dobivaš:
+
+- razloge zašto  
+- scenarije ishoda ako svejedno ustraješ  
+- prijedlog novih smjerova  
+
+Nije kraj sna.  
+To je najraniji mogući trenutak buđenja.
+
+---
+
+# 7. **Zašto Se Zove “Slavko”**
+
+Jer je sve nastalo iz jedne lekcije:
+
+> **“Ako te volim, neću te štititi od istine.”**
+
+Slavko era bio čovjek koji je tu rečenicu živio.  
+Bez small talka.  
+Bez “bit će bolje”.  
+Bez iluzija.
+
+Kad je trebalo imenovati kernel koji će uvijek stajati na strani istine —  
+odgovor je bio očit.
+
+**SlavkoKernel™ znači:**
+
+- nema patetike, samo realnost  
+- nema flatera, samo poštovanje kroz iskrenost  
+- nema skrivanja iza “AI magije”, samo jasnoća procesa  
+
+To je posveta čovjeku.  
+I obaveza prema svakom founderu koji pokreće simulaciju.
+
+---
+
+# 8. **Tehnički Sloj (Za One Koji Žele Vidjeti Šavove)**
+
+**Frontend:** React 19, TypeScript, Vite  
+**UI:** Tailwind CSS (Ethereal Cupertino, optimiziran za čitljivost)
+
+**Kernel Orchestration:**  
+
+- custom `geminiService.ts`  
+- simulacija Gemini 2.5 latencije i tokova  
+- orkestracija višestrukih agenata unutar jedne sesije  
+
+**Observability & Audit:**  
+
+- Performance API wrapper  
+- PostHog (behavior eventi)  
+- Sentry (greške)  
+- SHA-256 hashed decision logovi  
+
+Tehnologija služi zavjetu:  
+**svaka odluka mora biti obrazloživa i ponovljiva.**
+
+---
+
+# 9. **Kako Pokrenuti Prvi Sudar S Realnošću**
+
+```bash
+git clone https://github.com/mladengertner/mvp-simulation-tool1
+cd mvp-simulation-tool1
+npm install
+npm run dev
 ```
 
----
-
-## 📂 Project Structure
-
-```text
-src/
-├── components/           # React components
-│   ├── ui/               # Reusable UI elements (Terminal, Tabs, etc.)
-│   ├── IdeaInput.tsx     # Hero section & input
-│   ├── EvaluationView.tsx# Visualizing Council results
-│   ├── MvpPreview.tsx    # Rendering the generated blueprint
-│   └── MvpStudio.tsx     # Main orchestrator component
-├── services/
-│   └── geminiService.ts  # Mock backend & Council Logic
-├── utils/
-│   ├── performance.ts    # Performance API wrapper
-│   ├── posthog.ts        # Analytics wrapper
-│   └── sentry.ts         # Error tracking wrapper
-├── types.ts              # TypeScript definitions
-└── index.tsx             # Entry point & instrumentation
-```
+Otvori: `http://localhost:5173`  
+Klikni **Initialize Simulation**.  
+Donesi ideju kakva zaista jest — ne kakvom bi je htio vidjeti na stageu.
 
 ---
 
-## 🧪 Simulation Logic
+# 10. **Tko Stoji Iza Ovoga (I Zašto)**
 
-The application uses a sophisticated mock service (`services/geminiService.ts`) to demonstrate the **SlavkoKernel** logic without incurring API costs during the demo phase.
+Built by **Mladen Gertner (FORMATDISC)**.  
+3000+ sati proučavanja AI orkestracije, agentnih sustava i failure patterna.
 
-1. **Idea Ingestion:** User inputs text.
-2. **Kernel Boot:** Terminal logs show `Manifest processed`, `Kernel parameters updated`.
-3. **Agent Voting:** 
-   - Agents analyze keywords (e.g., "coffee" triggers rejection logic for demo purposes).
-   - Agents cast votes (`PROCEED`, `REVISE`, `REJECT`).
-4. **Consensus:** The `councilAgent` function tallies votes.
-5. **Output:** The UI renders the verdict, logs, and generated artifacts.
+Odrastao na ljudima koji su vjerovali da je istina najveći oblik poštovanja.
 
----
+Ovaj repo nije samo kod.  
+Ovo je način da u alat ugradim ono što sam morao naučiti na teži način:
 
-## ⚡ Example Run
+- nitko ti neće spasiti godine života umjesto tebe  
+- empatija se ne mjeri nježnim lažima  
+- najbolji prijatelj je onaj koji prvi kaže:  
+  **“Ako ovako nastaviš, zabijat ćeš se u zid. Idemo naći drugi put.”**
 
-**Input Idea:** "AI-powered journaling app for remote workers"
-
-**Boot Sequence:**
-- Manifest processed
-- Kernel parameters updated
-
-**Council Votes:**
-- **Analyst Agent:** PROCEED
-- **Skeptic Agent:** REVISE (concerns about market saturation)
-- **Simulator Agent:** PROCEED (conversion rate ~18%)
-- **Researcher Agent:** PROCEED
-
-**Consensus Verdict:** **PROCEED**
-
-**Artifacts Generated:**
-- **MVP Blueprint:** Daily entry flow, sentiment analysis, Slack integration
-- **Pitch Deck:** 5 slides (Problem, Solution, Market, Product, Ask)
-- **Investor Summary:** 1-page executive overview + email draft
+SlavkoKernel™ v7 je pokušaj da tu vrstu prijatelja dobije svaki founder koji je spreman na istinu.
 
 ---
 
-## 👨‍💻 Who Built This
-
-Built by **Mladen Gertner (FORMATDISC)**.
-
-This project is the culmination of **1,500+ hours** of AI orchestration research, evolving through the **SlavkoKernel™ v7/v8 ecosystem**. It represents a shift from simple "chat" interactions to structured, council-governed AI workflows designed for enterprise reliability, transparency, and reproducibility.
-
----
-
-## 📄 License
-
-MIT License. Built with ❤️ by **FORMATDISC / Mladen Gertner**.
+**Built by FORMATDISC.**
+*1,500+ hours of orchestration research. 0% Bullshit.*

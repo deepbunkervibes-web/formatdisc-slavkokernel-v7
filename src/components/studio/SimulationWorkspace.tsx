@@ -39,6 +39,14 @@ export const SimulationWorkspace = React.memo(({ activeTab, setActiveTab, state 
 
             {/* Right Column: Artifacts & Terminal */}
             <div className="space-y-4">
+                <div className="px-4 py-2 border-l-2 border-accent-cyan/30 bg-accent-cyan/5">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-neutral-500 font-mono">
+                        Council Deliberation Stream
+                    </p>
+                    <p className="text-xs text-neutral-400 mt-1">
+                        Watching <span className="text-accent-cyan">SlavkoKernel™ v7</span> assemble and dismantle hypotheses around your idea in real-time.
+                    </p>
+                </div>
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} mvpBlueprint={mvpBlueprint} pitchDeck={pitchDeck} />
                 <GlassCard className="min-h-[600px] max-h-[800px] p-0 overflow-hidden flex flex-col bg-[#0d1117] border-neutral-800">
                     <Suspense fallback={<TerminalSkeleton />}>

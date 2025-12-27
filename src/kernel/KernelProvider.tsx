@@ -1,6 +1,18 @@
-import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { HealthService, KernelHealth } from './monitoring/HealthService';
 
 type KernelState = 'init' | 'ready';
+
+export interface AuditMetadata {
+    model?: string;
+    route?: 'creative' | 'technical' | 'analytics';
+    latency?: number;
+    prompt?: string;
+    response?: string;
+    tokenUsage?: { prompt: number; completion: number };
+    fallback?: boolean;
+    [key: string]: any;
+}
 
 export interface AuditEntry {
     id: string;
@@ -8,14 +20,20 @@ export interface AuditEntry {
     actor: string;
     action: string;
     hash: string;
+    sessionId?: string;
+    metadata?: AuditMetadata;
 }
 
 interface KernelContextType {
     state: KernelState;
     tick: number;
     audit: AuditEntry[];
-    emit: (actor: string, action: string) => void;
+    currentSessionId: string | null;
+    startNewSession: () => string;
+    emit: (actor: string, action: string, metadata?: AuditMetadata) => void;
     resetAudit: () => void;
+    getHealth: () => KernelHealth;
+    recordLatency: (latency: number, success: boolean) => void;
 }
 
 const KernelContext = createContext<KernelContextType | null>(null);
@@ -34,8 +52,12 @@ const generateHash = (payload: string): string => {
 export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [state, setState] = useState<KernelState>('init');
     const [tick, setTick] = useState(0);
+    const [currentSessionId, setCurrentSessionId] = useState<string | null>(crypto.randomUUID());
     const auditRef = useRef<AuditEntry[]>([]);
     const [, setAuditVersion] = useState(0);
+
+    // Core monitoring service
+    const healthService = useMemo(() => new HealthService(), []);
 
     useEffect(() => {
         const boot = setTimeout(() => {
@@ -55,13 +77,16 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     useEffect(() => {
         if (state === 'ready') {
-            const loop = setInterval(() => setTick(t => t + 1), 16);
+            const loop = setInterval(() => {
+                setTick(t => t + 1);
+                healthService.recordTick();
+            }, 16);
             return () => clearInterval(loop);
         }
-    }, [state]);
+    }, [state, healthService]);
 
-    const emit = useCallback((actor: string, action: string) => {
-        const payload = `${Date.now()}::${actor}::${action}`;
+    const emit = useCallback((actor: string, action: string, metadata?: AuditMetadata) => {
+        const payload = `${Date.now()}::${actor}::${action}::${JSON.stringify(metadata || {})}`;
         const hash = generateHash(payload);
 
         auditRef.current.push({
@@ -69,10 +94,28 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             ts: Date.now(),
             actor,
             action,
-            hash
+            hash,
+            metadata,
+            sessionId: currentSessionId || undefined
         });
+        healthService.recordAuditEvent();
         setAuditVersion(v => v + 1);
-    }, []);
+    }, [healthService, currentSessionId]);
+
+    const startNewSession = useCallback(() => {
+        const newSessionId = crypto.randomUUID();
+        setCurrentSessionId(newSessionId);
+        emit('kernel', 'session:start', { sessionId: newSessionId });
+        return newSessionId;
+    }, [emit]);
+
+    const recordLatency = useCallback((latency: number, success: boolean) => {
+        healthService.recordProviderCall(latency, success);
+    }, [healthService]);
+
+    const getHealth = useCallback(() => {
+        return healthService.getHealth();
+    }, [healthService]);
 
     const resetAudit = useCallback(() => {
         auditRef.current = [];
@@ -85,8 +128,12 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 state,
                 tick,
                 audit: auditRef.current,
+                currentSessionId,
+                startNewSession,
                 emit,
-                resetAudit
+                resetAudit,
+                getHealth,
+                recordLatency
             }}
         >
             {children}

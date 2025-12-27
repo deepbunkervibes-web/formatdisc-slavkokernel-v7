@@ -5,7 +5,7 @@ import { useKernel } from './KernelProvider';
  * Triggers deterministic deployment events in the kernel audit log.
  */
 export const useDeployment = () => {
-    const { emit } = useKernel();
+    const { emit, recordLatency } = useKernel();
 
     return {
         deploy: (environment: 'staging' | 'production' = 'production') => {
@@ -15,6 +15,9 @@ export const useDeployment = () => {
             setTimeout(() => {
                 emit('slavkokernel', 'policy:eu_ai_act_enforced');
                 emit('system', `audit:sealed_${new Date().toISOString().replace(/[:.-]/g, '')}`);
+
+                // Track simulated provider performance (random latency 200-800ms)
+                recordLatency(200 + Math.random() * 600, true);
 
                 if (environment === 'production') {
                     emit('security', 'checksum_validation:passed');

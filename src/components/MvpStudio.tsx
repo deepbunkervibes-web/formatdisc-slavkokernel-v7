@@ -1,11 +1,14 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
 import { MvpStudioState, IdeaEvaluation } from '../types';
 import { mvpStudioService } from '../services/geminiService';
 import { IdeaInput } from './IdeaInput';
-import { ResultActions } from './ResultActions';
+import { CinematicBoot } from './studio/CinematicBoot';
+import { QuantumCanvas } from './studio/QuantumCanvas';
+import { useKernel } from '../kernel/KernelProvider';
+import { KernelBootPhase } from '../constants/kernelVisuals';
+
 import { Toaster } from './ui/toaster';
 import { useToast } from '../hooks/use-toast';
-import { PulsatingBackground } from './PulsatingBackground';
 import { markPerformance, measurePerformancePoint } from '../utils/performance';
 import { trackEvent } from '../utils/posthog';
 
@@ -26,10 +29,13 @@ export function MvpStudio() {
     investorSummary: null,
     error: null,
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [ollamaStatus, setOllamaStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasBooted, setHasBooted] = useState(false);
+  const [visualPhase, setVisualPhase] = useState<KernelBootPhase>('INIT');
   const [activeTab, setActiveTab] = useState<'council' | 'mvp' | 'deck'>('council');
   const { toast } = useToast();
+  const { startNewSession, currentSessionId } = useKernel();
 
   // Enforce dark mode on component mount & check Ollama
   useEffect(() => {
@@ -116,6 +122,7 @@ export function MvpStudio() {
 
   const handleSubmitIdea = useCallback(async (idea: string) => {
     setIsLoading(true);
+    startNewSession(); // Start a fresh audit session
     setState((prev) => ({ ...prev, phase: 'EVALUATING', idea, error: null }));
     setActiveTab('council');
     trackEvent('idea_submitted', { length: idea.length });
@@ -151,6 +158,22 @@ export function MvpStudio() {
     }
   }, [handleGenerateMvp, toast]);
 
+  // Sync visual phase with simulation phase
+  useEffect(() => {
+    if (hasBooted) {
+      setVisualPhase(state.phase as KernelBootPhase);
+    }
+  }, [state.phase, hasBooted]);
+
+  // Memoize boot callbacks to prevent infinite re-render
+  const handleBootComplete = useCallback(() => {
+    setHasBooted(true);
+  }, []);
+
+  const handlePhaseChange = useCallback((phase: string) => {
+    setVisualPhase(phase as KernelBootPhase);
+  }, []);
+
   const handleReset = useCallback(() => {
     trackEvent('session_reset');
     setState({
@@ -167,48 +190,60 @@ export function MvpStudio() {
 
   return (
     <>
-      <PulsatingBackground />
-      <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-20 pb-20">
-        <div className="max-w-7xl mx-auto px-4 w-full">
-          {state.phase === 'IDEA_INPUT' ? (
-            <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} />
-          ) : (
-            <div className="space-y-6">
-              <PhaseHeader
-                phase={state.phase}
-                progress={progressValue}
-                evaluation={state.evaluation}
-                ollamaStatus={ollamaStatus}
-              />
+      <QuantumCanvas
+        phase={visualPhase}
+        verdict={state.evaluation?.verdict}
+        sessionHash={currentSessionId || undefined}
+      />
 
-              <SimulationWorkspace
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                state={state}
-              />
+      {!hasBooted ? (
+        <CinematicBoot
+          onComplete={handleBootComplete}
+          onPhaseChange={handlePhaseChange}
+        />
+      ) : (
+        <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-24 pb-20">
+          <div className="max-w-7xl mx-auto px-4 w-full">
+            {state.phase === 'IDEA_INPUT' ? (
+              <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} ollamaStatus={ollamaStatus} />
+            ) : (
+              <div className="space-y-6">
+                <PhaseHeader
+                  phase={state.phase}
+                  progress={progressValue}
+                  evaluation={state.evaluation}
+                  ollamaStatus={ollamaStatus}
+                />
 
-              {state.phase === 'RESULT' && (
-                <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
-                  <ResultActions
-                    evaluation={state.evaluation}
-                    mvpBlueprint={state.mvpBlueprint}
-                    pitchDeck={state.pitchDeck}
-                    investorSummary={state.investorSummary}
-                    onReset={handleReset}
-                    onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)}
-                  />
-                </Suspense>
-              )}
+                <SimulationWorkspace
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                  state={state}
+                />
 
-              {state.error && (
-                <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
-                  <strong>Error:</strong> {state.error}
-                </div>
-              )}
-            </div>
-          )}
+                {state.phase === 'RESULT' && (
+                  <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
+                    <ResultActions
+                      evaluation={state.evaluation}
+                      mvpBlueprint={state.mvpBlueprint}
+                      pitchDeck={state.pitchDeck}
+                      investorSummary={state.investorSummary}
+                      onReset={handleReset}
+                      onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)}
+                    />
+                  </Suspense>
+                )}
+
+                {state.error && (
+                  <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
+                    <strong>Error:</strong> {state.error}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <Toaster />
     </>
   );

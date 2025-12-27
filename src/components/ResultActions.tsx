@@ -44,10 +44,15 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
               <AlertTriangle className="w-6 h-6 text-red-400" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-xl font-semibold text-white">Simulation Blocked</h3>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono mb-1">
+                Final Consensus · SlavkoKernel™ v7
+              </p>
+              <h3 className="text-xl font-bold text-white">The Council sees a path – but not like this.</h3>
               <p className="text-neutral-400 text-sm max-w-md">
-                The Council consensus was to <span className="text-red-400 font-medium">REVISE</span>.
-                Consider refining your value proposition or target market before proceeding.
+                If you proceed this way, you work against your own years. You can ignore the Kernel, but not the consequences.
+              </p>
+              <p className="text-[11px] text-neutral-500 italic mt-2">
+                The Council has spoken. What you do next defines you.
               </p>
             </div>
           </div>
@@ -85,9 +90,15 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
               <Sparkles className="w-6 h-6 text-accent-cyan" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-xl font-semibold text-white">Mission Complete</h3>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono mb-1">
+                Final Consensus · SlavkoKernel™ v7
+              </p>
+              <h3 className="text-xl font-bold text-white">The Council grants permission to build.</h3>
               <p className="text-neutral-400 text-sm max-w-md">
-                All artifacts have been synthesized. Your 48-hour MVP simulation is ready for review.
+                The Consensus stands. This does not guarantee success. But it means the structure is sound enough to merit further investment.
+              </p>
+              <p className="text-[11px] text-neutral-500 italic mt-2">
+                The Council has spoken. What you do next defines you.
               </p>
             </div>
           </div>
@@ -163,3 +174,5 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
     </motion.div>
   );
 }
+
+export default ResultActions;

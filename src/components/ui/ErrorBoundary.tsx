@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 type Props = {
     children: ReactNode;
@@ -11,11 +11,8 @@ type State = {
     error?: Error;
 };
 
-export class ErrorBoundary extends Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { hasError: false };
-    }
+export class ErrorBoundary extends React.Component<Props, State> {
+    state: State = { hasError: false };
 
     static getDerivedStateFromError(error: Error): State {
         return { hasError: true, error };
@@ -30,7 +27,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     render() {
         if (this.state.hasError) {
-            const fallback = this.props.fallback ?? (
+            return this.props.fallback ?? (
                 <div className="mx-auto max-w-2xl p-6 text-center bg-red-50 dark:bg-red-950/20 rounded-lg border border-red-100 dark:border-red-900/30">
                     <h2 className="text-xl font-semibold text-red-600 dark:text-red-400">Ups… nešto je pošlo po zlu</h2>
                     <p className="mt-2 text-muted-foreground">
@@ -44,7 +41,6 @@ export class ErrorBoundary extends Component<Props, State> {
                     </button>
                 </div>
             );
-            return fallback;
         }
 
         return this.props.children;

@@ -17,63 +17,66 @@ import { LoadingSpinner } from './components/ui/LoadingSpinner';
 const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then(module => ({ default: module.MvpStudio })));
 
 import { LanguageProvider } from './context/LanguageContext';
+import { KernelProvider } from './kernel/KernelProvider';
 
 function App() {
     return (
-        <LanguageProvider>
-            <InvestorAuthProvider>
-                <BrowserRouter>
-                    {/* ... rest of the app ... */}
-                    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
-                        {/* Ambient light wash - subtle perceptual depth */}
-                        <div className="pointer-events-none fixed inset-0 -z-10">
-                            <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-3xl"></div>
-                            <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent-cyan/10 rounded-full blur-3xl"></div>
+        <KernelProvider>
+            <LanguageProvider>
+                <InvestorAuthProvider>
+                    <BrowserRouter>
+                        {/* ... rest of the app ... */}
+                        <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
+                            {/* Ambient light wash - subtle perceptual depth */}
+                            <div className="pointer-events-none fixed inset-0 -z-10">
+                                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-3xl"></div>
+                                <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent-cyan/10 rounded-full blur-3xl"></div>
+                            </div>
+
+                            <Navigation />
+
+                            <main className="flex-1">
+                                <Suspense fallback={<LoadingSpinner />}>
+                                    <Routes>
+                                        <Route path="/" element={<LandingPage />} />
+                                        <Route
+                                            path="/studio"
+                                            element={<LazyMvpStudio />}
+                                        />
+                                        <Route
+                                            path="/investors"
+                                            element={<InvestorLogin />}
+                                        />
+                                        <Route
+                                            path="/investors/portal"
+                                            element={<InvestorPortal />}
+                                        />
+                                        <Route
+                                            path="/docs"
+                                            element={<DocsRoute />}
+                                        />
+                                        <Route
+                                            path="/kernel"
+                                            element={<KernelRoute />}
+                                        />
+                                        <Route
+                                            path="/metrics"
+                                            element={<MetricsRoute />}
+                                        />
+                                        <Route
+                                            path="/audit"
+                                            element={<AuditRoute />}
+                                        />
+                                    </Routes>
+                                </Suspense>
+                            </main>
+
+                            <Footer />
                         </div>
-
-                        <Navigation />
-
-                        <main className="flex-1">
-                            <Suspense fallback={<LoadingSpinner />}>
-                                <Routes>
-                                    <Route path="/" element={<LandingPage />} />
-                                    <Route
-                                        path="/studio"
-                                        element={<LazyMvpStudio />}
-                                    />
-                                    <Route
-                                        path="/investors"
-                                        element={<InvestorLogin />}
-                                    />
-                                    <Route
-                                        path="/investors/portal"
-                                        element={<InvestorPortal />}
-                                    />
-                                    <Route
-                                        path="/docs"
-                                        element={<DocsRoute />}
-                                    />
-                                    <Route
-                                        path="/kernel"
-                                        element={<KernelRoute />}
-                                    />
-                                    <Route
-                                        path="/metrics"
-                                        element={<MetricsRoute />}
-                                    />
-                                    <Route
-                                        path="/audit"
-                                        element={<AuditRoute />}
-                                    />
-                                </Routes>
-                            </Suspense>
-                        </main>
-
-                        <Footer />
-                    </div>
-                </BrowserRouter>
-            </InvestorAuthProvider>
-        </LanguageProvider>
+                    </BrowserRouter>
+                </InvestorAuthProvider>
+            </LanguageProvider>
+        </KernelProvider>
     );
 }
 
