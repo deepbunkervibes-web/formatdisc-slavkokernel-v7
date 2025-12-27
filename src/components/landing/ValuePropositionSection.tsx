@@ -1,27 +1,27 @@
-import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Lightbulb, Layers, Rocket } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
-const cards = [
+const getCards = (t: any) => [
     {
-        title: 'The Idea',
+        title: t.valueProp.cards.idea.title,
         icon: Lightbulb,
-        description: 'You start with a simple concept – e.g., "I want an app that sends automatic reminders to users."',
-        bullet: 'No specs, no architecture, no tech decisions.',
+        description: t.valueProp.cards.idea.desc,
+        bullet: t.valueProp.cards.idea.bullet,
         color: 'from-amber-500/20 to-orange-500/10'
     },
     {
-        title: 'The System',
+        title: t.valueProp.cards.system.title,
         icon: Layers,
-        description: 'FormatDisc designs the full system – backend, API, data model, UI layout, and documentation.',
-        bullet: 'All generated as a coherent, production‑ready package.',
+        description: t.valueProp.cards.system.desc,
+        bullet: t.valueProp.cards.system.bullet,
         color: 'from-blue-500/20 to-cyan-500/10'
     },
     {
-        title: 'The Result',
+        title: t.valueProp.cards.result.title,
         icon: Rocket,
-        description: 'You receive a live preview, clean code, API endpoints and investor‑ready docs – all in 48 hours.',
-        bullet: 'Ready to ship, auditable and compliant.',
+        description: t.valueProp.cards.result.desc,
+        bullet: t.valueProp.cards.result.bullet,
         color: 'from-emerald-500/20 to-green-500/10'
     }
 ];
@@ -43,16 +43,18 @@ const itemVariants = {
     }
 };
 
-export function ValuePropositionSection() {
+export const ValuePropositionSection = React.memo(() => {
+    const { t } = useLanguage();
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
+    const cards = React.useMemo(() => getCards(t), [t]);
 
     return (
         <section className="py-32 bg-background relative overflow-hidden">
             {/* Background gradient orbs */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-accent-cyan/5 to-transparent blur-3xl" />
-                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-accent-purple/5 to-transparent blur-3xl" />
+                <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-accent-cyan/5 to-transparent blur-3xl opacity-40" />
+                <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-accent-purple/5 to-transparent blur-3xl opacity-40" />
             </div>
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -70,13 +72,13 @@ export function ValuePropositionSection() {
                         viewport={{ once: true }}
                         className="text-accent-cyan font-mono text-xs mb-4 tracking-[0.3em] uppercase"
                     >
-                        The Process
+                        {t.valueProp.label}
                     </motion.p>
                     <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
-                        From idea to working MVP in 48 hours
+                        {t.valueProp.title}
                     </h2>
                     <p className="max-w-2xl mx-auto text-muted-foreground text-lg">
-                        What usually takes a small team weeks, FormatDisc delivers in two days – structured, documented, and ready to ship.
+                        {t.valueProp.description}
                     </p>
                 </motion.div>
 
@@ -105,7 +107,7 @@ export function ValuePropositionSection() {
                                 <div className="relative">
                                     {/* Icon */}
                                     <motion.div
-                                        className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-foreground transition-colors duration-300"
+                                        className="w-14 h-14 rounded-xl bg-secondary dark:bg-neutral-800 flex items-center justify-center mb-6 group-hover:bg-foreground transition-colors duration-300"
                                         whileHover={{ scale: 1.1, rotate: 5 }}
                                         transition={{ type: 'spring', stiffness: 400 }}
                                     >
@@ -124,4 +126,6 @@ export function ValuePropositionSection() {
             </div>
         </section>
     );
-}
+});
+
+ValuePropositionSection.displayName = 'ValuePropositionSection';

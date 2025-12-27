@@ -1,43 +1,47 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, Shield, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
-const tiles = [
-    {
-        title: "Launch Studio",
-        desc: "Start building your deterministic MVP now.",
-        icon: Terminal,
-        link: "/studio",
-        primary: true
-    },
-    {
-        title: "Read the Docs",
-        desc: "Understand the protocol and governance layers.",
-        icon: Shield,
-        link: "/docs",
-        primary: false
-    },
-    {
-        title: "Book a Demo",
-        desc: "For enterprise engineering teams and CTOs.",
-        icon: Rocket,
-        link: "https://cal.com/mladengertner",
-        external: true,
-        primary: false
-    }
-];
+export const CtaGrid = React.memo(() => {
+    const { t } = useLanguage();
 
-export function CtaGrid() {
+    const tiles = useMemo(() => [
+        {
+            title: t.ctaGrid.tiles.studio.title,
+            desc: t.ctaGrid.tiles.studio.desc,
+            icon: Terminal,
+            link: "/studio",
+            primary: true,
+            external: false
+        },
+        {
+            title: t.ctaGrid.tiles.docs.title,
+            desc: t.ctaGrid.tiles.docs.desc,
+            icon: Shield,
+            link: "/docs",
+            primary: false,
+            external: false
+        },
+        {
+            title: t.ctaGrid.tiles.demo.title,
+            desc: t.ctaGrid.tiles.demo.desc,
+            icon: Rocket,
+            link: "https://cal.com/mladengertner",
+            external: true,
+            primary: false
+        }
+    ], [t]);
+
     return (
         <section className="py-32 bg-neutral-950 text-white relative overflow-hidden">
-            {/* Animated background glow */}
             <motion.div
                 className="absolute inset-0 pointer-events-none"
                 initial={{ opacity: 0.3 }}
             >
                 <motion.div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-cyan/10"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-cyan/10 blur-3xl"
                     animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
                     transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
                 />
@@ -56,9 +60,11 @@ export function CtaGrid() {
                         viewport={{ once: true }}
                         className="text-accent-cyan font-mono text-xs mb-4 tracking-[0.3em] uppercase"
                     >
-                        Next Steps
+                        {t.ctaGrid.label}
                     </motion.p>
-                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Ready to Deploy?</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+                        {t.ctaGrid.title}
+                    </h2>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -78,7 +84,7 @@ export function CtaGrid() {
                                 transition={{ delay: i * 0.1, duration: 0.5 }}
                             >
                                 <Component
-                                    {...linkProps}
+                                    {...linkProps as any}
                                     className={`
                                         group block p-10 rounded-2xl transition-all duration-300 border h-full
                                         ${tile.primary
@@ -97,7 +103,7 @@ export function CtaGrid() {
                                         {tile.desc}
                                     </p>
                                     <div className="flex items-center text-sm font-medium">
-                                        <span>Get Started</span>
+                                        <span>{t.ctaGrid.cta}</span>
                                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                                     </div>
                                 </Component>
@@ -108,4 +114,6 @@ export function CtaGrid() {
             </div>
         </section>
     );
-}
+});
+
+CtaGrid.displayName = 'CtaGrid';

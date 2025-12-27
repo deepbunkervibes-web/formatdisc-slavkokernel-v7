@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 
-export function MetricsSection() {
+export const MetricsSection = React.memo(() => {
+    const { t } = useLanguage();
+
+    const metrics = useMemo(() => [
+        { label: t.metrics.velocity.label, value: t.metrics.velocity.value },
+        { label: t.metrics.audit.label, value: t.metrics.audit.value },
+        { label: t.metrics.compliance.label, value: t.metrics.compliance.value },
+        { label: t.metrics.integrity.label, value: t.metrics.integrity.value }
+    ], [t]);
+
     return (
-        <section className="py-24 bg-white border-t border-neutral-100">
+        <section className="py-24 bg-white dark:bg-neutral-950 border-t border-neutral-100 dark:border-neutral-900">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-                    {[
-                        { label: "Deployment Velocity", value: "48h" },
-                        { label: "Audit Traceability", value: "100%" },
-                        { label: "Compliance Mapping", value: "EU AI Act" },
-                        { label: "System Integrity", value: "Deterministic" }
-                    ].map((metric, i) => (
-                        <div key={i} className="space-y-2">
-                            <div className="text-3xl font-semibold text-neutral-900 tracking-tight">{metric.value}</div>
-                            <div className="text-xs text-neutral-400 uppercase tracking-widest">{metric.label}</div>
+                    {metrics.map((metric, i) => (
+                        <div key={i} className="space-y-2 group">
+                            <div className="text-3xl font-semibold text-neutral-900 dark:text-white tracking-tight group-hover:text-accent-cyan transition-colors duration-300">
+                                {metric.value}
+                            </div>
+                            <div className="text-xs text-neutral-400 dark:text-neutral-500 uppercase tracking-widest">
+                                {metric.label}
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
     );
-}
+});
+
+MetricsSection.displayName = 'MetricsSection';

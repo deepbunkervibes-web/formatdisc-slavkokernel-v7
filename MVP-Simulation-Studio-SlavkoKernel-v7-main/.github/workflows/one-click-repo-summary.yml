@@ -1,0 +1,95 @@
+name: One-click repo summary
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  actions: read
+
+jobs:
+  summary:
+    name: Generate repo summary and create Issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create summary issue with repository state
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const now = new Date().toISOString();
+
+            // Helper to safe-get author info
+            const safeAuthor = (commit) => {
+              if (!commit || !commit.author) return { name: 'unknown', date: 'unknown' };
+              return { name: commit.author.name || 'unknown', date: commit.author.date ? commit.author.date.split('T')[0] : 'unknown' };
+            };
+
+            // Recent commits (use github.rest)
+            const commitsRes = await github.rest.repos.listCommits({
+              owner, repo, per_page: 10
+            });
+            const commits = (commitsRes.data || []).map(c => {
+              const ca = safeAuthor(c.commit);
+              const msg = (c.commit && c.commit.message) ? c.commit.message.split('\n')[0] : 'no message';
+              return `- ${c.sha.slice(0,7)} — ${msg} (${ca.name}, ${ca.date})`;
+            });
+
+            // Open PRs
+            const prsRes = await github.rest.pulls.list({
+              owner, repo, state: 'open', per_page: 20
+            });
+            const openPRs = (prsRes.data || []).map(p => `- #${p.number} ${p.title} — ${p.user ? p.user.login : 'unknown'} (${p.html_url})`);
+
+            // Recently merged PRs (closed & merged)
+            const closedRes = await github.rest.pulls.list({
+              owner, repo, state: 'closed', per_page: 30
+            });
+            const merged = (closedRes.data || [])
+              .filter(p => p.merged_at)
+              .slice(0,10)
+              .map(p => `- #${p.number} ${p.title} — merged ${p.merged_at.split('T')[0]} by ${p.merged_by ? p.merged_by.login : (p.user ? p.user.login : 'unknown')}`);
+
+            // Open issues (excluding PRs)
+            const issuesRes = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', per_page: 20
+            });
+            const openIssues = (issuesRes.data || []).filter(i => !i.pull_request).map(i => `- #${i.number} ${i.title} — ${i.user ? i.user.login : 'unknown'} (${i.html_url})`);
+
+            // Last workflow runs (CI)
+            const runsRes = await github.rest.actions.listWorkflowRunsForRepo({
+              owner, repo, per_page: 20
+            });
+            const runs = (runsRes.data && runsRes.data.workflow_runs ? runsRes.data.workflow_runs : [])
+              .filter(r => r.head_branch === 'main' || r.head_branch === context.ref.replace('refs/heads/',''))
+              .slice(0,10)
+              .map(r => `- ${r.name || r.workflow_id} on ${r.head_branch} — ${r.conclusion || r.status} (${r.html_url})`);
+
+            // Build issue body in Croatian
+            let body = `Automatski sažetak repozitorija za ${owner}/${repo}\n\nGenerirano: ${now}\n\n## Zadnjih 10 commitova\n`;
+            body += commits.length ? commits.join('\n') : '- Nema commitova';
+            body += `\n\n## Otvoreni pull requestovi\n`;
+            body += openPRs.length ? openPRs.join('\n') : '- Nema otvorenih PR-ova';
+            body += `\n\n## Nedavno spojen(i) PR-ovi\n`;
+            body += merged.length ? merged.join('\n') : '- Nema nedavno spojenih PR-ova';
+            body += `\n\n## Otvoreni issue-i\n`;
+            body += openIssues.length ? openIssues.join('\n') : '- Nema otvorenih issue-a';
+            body += `\n\n## Posljednji workflow/CI pokusi (na glavnoj grani)\n`;
+            body += runs.length ? runs.join('\n') : '- Nema nedavnih workflow runova';
+            body += `\n\n---\nPreporuka: pregledaj otvorene PR-ove i crvene (failed) workflow runove. Ako želiš, označi issue sažetkom kao \"read\" ili ga arhiviraj nakon pregleda.`;
+
+            const title = `Automatski sažetak repozitorija — ${new Date().toLocaleString('hr-HR')}`;
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: ["automated-summary"]
+            });

@@ -24,9 +24,7 @@ Powered by **SlavkoKernel™ v7**, it moves beyond simple "chat" interfaces to p
 ## 🌟 Key Features
 
 ### 🧠 SlavkoKernel™ v7 Orchestration
-
 Instead of a single LLM response, the system triggers a **boot sequence** and orchestrates a council of specialized agents:
-
 - **Analyst Agent:** Evaluates market patterns and viability.
 - **Skeptic Agent:** Ruthlessly identifies risks and weaknesses.
 - **Simulator Agent:** Simulates ~30 user personas to predict conversion rates and objections.
@@ -34,24 +32,19 @@ Instead of a single LLM response, the system triggers a **boot sequence** and or
 - **The Council:** Aggregates votes to reach a consensus verdict (**PROCEED**, **REVISE**, or **REJECT**).
 
 ### 📊 Artifact Generation
-
 If the Council approves an idea, the system automatically generates:
-
 - **MVP Blueprint:** Core user flows, UI section copy, and tech stack recommendations.
 - **Pitch Deck:** A structured 5-slide deck ready for investors.
 - **Investor Summary:** A professional executive summary and email template.
 
 ### 👁️ Production-Grade Observability
-
 The application is instrumented for real-world usage:
-
 - **Performance Monitoring:** Built-in `PerformanceObserver` tracks render times and slow operations (>3s).
 - **Product Analytics:** Integrated **PostHog** wrapper for tracking user funnels (Idea -> Evaluation -> MVP).
 - **Error Tracking:** Integrated **Sentry** wrapper for crash reporting.
 - **Graceful Degradation:** Observability services skip initialization gracefully if API keys are missing.
 
 ### 🎨 Ethereal UI
-
 - **Glassmorphism:** Modern "Ethereal Cupertino" aesthetic using Tailwind CSS.
 - **Interactive Terminal:** Real-time log streaming of the kernel's decision process.
 - **Visual Data:** Interactive charts for simulated conversion rates.
@@ -70,38 +63,31 @@ The application is instrumented for real-world usage:
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js v18+
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository:**
-
    ```bash
    git clone https://github.com/mladengertner/mvp-simulation-tool1.git
    cd mvp-simulation-tool1
    ```
 
 2. **Install dependencies:**
-
    ```bash
    npm install
    ```
 
-3. **Run the development server (Full Stack):**
-
+3. **Run the development server:**
    ```bash
-   npm run dev:full
+   npm run dev
    ```
 
-   This starts both the Vite frontend (Port 3000) and the Express API server (Port 3001).
-
 4. **Open the app:**
-   Navigate to `http://localhost:3000`.
+   Navigate to `http://localhost:5173`.
 
 ### Configuration (Optional)
-
 Create a `.env` file to enable real analytics (otherwise, mocks are used):
 
 ```env
@@ -116,14 +102,13 @@ VITE_SENTRY_DSN=https://your_dsn_here
 ```text
 src/
 ├── components/           # React components
-│   ├── studio/           # Modular Studio components (Hero, Workspace, etc.)
 │   ├── ui/               # Reusable UI elements (Terminal, Tabs, etc.)
 │   ├── IdeaInput.tsx     # Hero section & input
 │   ├── EvaluationView.tsx# Visualizing Council results
-│   └── MvpStudio.tsx     # Main orchestrator component (Modular)
+│   ├── MvpPreview.tsx    # Rendering the generated blueprint
+│   └── MvpStudio.tsx     # Main orchestrator component
 ├── services/
-│   ├── geminiService.ts  # Mock backend & Council Logic
-│   └── ollamaService.ts  # Local AI Integration (v7.1+)
+│   └── geminiService.ts  # Mock backend & Council Logic
 ├── utils/
 │   ├── performance.ts    # Performance API wrapper
 │   ├── posthog.ts        # Analytics wrapper
@@ -140,7 +125,7 @@ The application uses a sophisticated mock service (`services/geminiService.ts`) 
 
 1. **Idea Ingestion:** User inputs text.
 2. **Kernel Boot:** Terminal logs show `Manifest processed`, `Kernel parameters updated`.
-3. **Agent Voting:**
+3. **Agent Voting:** 
    - Agents analyze keywords (e.g., "coffee" triggers rejection logic for demo purposes).
    - Agents cast votes (`PROCEED`, `REVISE`, `REJECT`).
 4. **Consensus:** The `councilAgent` function tallies votes.
@@ -153,12 +138,10 @@ The application uses a sophisticated mock service (`services/geminiService.ts`) 
 **Input Idea:** "AI-powered journaling app for remote workers"
 
 **Boot Sequence:**
-
 - Manifest processed
 - Kernel parameters updated
 
 **Council Votes:**
-
 - **Analyst Agent:** PROCEED
 - **Skeptic Agent:** REVISE (concerns about market saturation)
 - **Simulator Agent:** PROCEED (conversion rate ~18%)
@@ -167,7 +150,6 @@ The application uses a sophisticated mock service (`services/geminiService.ts`) 
 **Consensus Verdict:** **PROCEED**
 
 **Artifacts Generated:**
-
 - **MVP Blueprint:** Daily entry flow, sentiment analysis, Slack integration
 - **Pitch Deck:** 5 slides (Problem, Solution, Market, Product, Ask)
 - **Investor Summary:** 1-page executive overview + email draft

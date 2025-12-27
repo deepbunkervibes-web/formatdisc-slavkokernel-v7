@@ -13,6 +13,11 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+// Health check
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Helper to adapt Express req/res to VercelServerless style
 const adapter = (handler: any) => async (req: any, res: any) => {
     try {

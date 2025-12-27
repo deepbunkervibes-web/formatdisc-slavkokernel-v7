@@ -21,24 +21,30 @@ interface OllamaResponse {
 }
 
 /**
- * Generate a response from the local Ollama model
+ * Generate a response from the local Ollama model with timeout
  */
 export async function generateWithOllama(prompt: string, systemPrompt?: string): Promise<string> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
     try {
         const response = await fetch(`${OLLAMA_HOST}/api/generate`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            signal: controller.signal,
             body: JSON.stringify({
                 model: OLLAMA_MODEL,
                 prompt: prompt,
                 system: systemPrompt || 'You are SlavkoKernel v7, a multi-agent orchestration system. Respond with structured, deterministic outputs.',
                 stream: false,
                 options: {
-                    temperature: 0.3, // Low temperature for deterministic outputs
+                    temperature: 0.3,
                     top_p: 0.9,
                 }
             })
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             throw new Error(`Ollama API error: ${response.status} ${response.statusText}`);
@@ -47,6 +53,11 @@ export async function generateWithOllama(prompt: string, systemPrompt?: string):
         const data: OllamaResponse = await response.json();
         return data.response;
     } catch (error) {
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+            console.error('Ollama request timed out (5s)');
+            throw new Error('Ollama service unavailable. Simulation paused.');
+        }
         console.error('Ollama generation failed:', error);
         throw error;
     }
