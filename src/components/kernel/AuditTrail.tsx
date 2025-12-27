@@ -1,5 +1,5 @@
 import React from 'react';
-import { useKernel } from '../kernel/KernelProvider';
+import { useKernel } from '../../kernel/KernelProvider';
 import { CheckCircle, Hash, Clock, User } from 'lucide-react';
 
 export const AuditTrail = () => {

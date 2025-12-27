@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDeployment } from '../kernel/useDeployment';
-import { useKernelMotion } from '../motion/useKernelMotion';
+import { useDeployment } from '../../kernel/useDeployment';
+import { useKernelMotion } from '../../motion/useKernelMotion';
 import { Rocket, Shield, AlertTriangle } from 'lucide-react';
 
 export const DeploymentControls = () => {
