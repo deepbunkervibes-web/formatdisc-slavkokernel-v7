@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { LandingPage } from './routes/LandingPage';
 // import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
 import { InvestorLogin } from './routes/InvestorLogin';
@@ -70,6 +71,7 @@ function App() {
                         </main>
 
                         <Footer />
+                        <Analytics />
                     </div>
                 </BrowserRouter>
             </InvestorAuthProvider>
