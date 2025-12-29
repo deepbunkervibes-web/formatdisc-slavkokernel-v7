@@ -100,7 +100,9 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-10">
 
               <motion.a
-                href="/studio"
+                href="https://simulate.formatdisc.hr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-black px-8 py-4 font-medium relative overflow-hidden"
                 whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
 

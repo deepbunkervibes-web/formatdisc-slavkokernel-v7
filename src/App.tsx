@@ -20,7 +20,7 @@ import { Footer } from './components/ui/Footer';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
 
 // Lazy load heavy components
-const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then((module) => ({ default: module.MvpStudio })));
+// const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then((module) => ({ default: module.MvpStudio })));
 
 import { LanguageProvider } from './context/LanguageContext';
 import { KernelProvider } from './kernel/KernelProvider';
@@ -33,7 +33,7 @@ function AnimatedRoutes() {
             <MotionPresence routeKey={location.pathname}>
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/studio" element={<LazyMvpStudio />} />
+                    {/* Studio moved to https://simulate.formatdisc.hr */}
                     <Route path="/investors" element={<InvestorsRoute />} />
                     <Route path="/investors/login" element={<InvestorLogin />} />
                     <Route path="/investors/portal" element={<InvestorPortal />} />
