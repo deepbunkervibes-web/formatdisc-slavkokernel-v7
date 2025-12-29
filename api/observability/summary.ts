@@ -1,9 +1,12 @@
-import { Request, Response } from 'express';
-
-export default async function handler(req: Request, res: Response) {
-    res.json([
-        { service: 'auth-service', severity: 'low', count: 12, avg_confidence: 98 },
-        { service: 'payment-gateway', severity: 'high', count: 3, avg_confidence: 85 },
-        { service: 'kernel-core', severity: 'medium', count: 7, avg_confidence: 92 },
-    ]);
+export default function summaryHandler(req: any, res: any) {
+    // In a full implementation, this would query the DB for the current state/summary.
+    // For this MVP Signal version, we return a basic status.
+    return res.json({
+        success: true,
+        summary: {
+            status: 'active',
+            message: 'Observability System Online',
+            timestamp: new Date().toISOString()
+        }
+    });
 }

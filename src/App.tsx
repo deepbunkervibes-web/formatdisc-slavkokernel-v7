@@ -23,6 +23,11 @@ const AuditRoute = lazy(() => import('./routes/AuditRoute').then(m => ({ default
 const ObservabilityRoute = lazy(() => import('./routes/ObservabilityRoute').then(m => ({ default: m.ObservabilityRoute })));
 const LaunchpadRoute = lazy(() => import('./routes/LaunchpadRoute').then(m => ({ default: m.LaunchpadRoute })));
 const KernelDashboard = lazy(() => import('./routes/KernelDashboard').then(m => ({ default: m.KernelDashboard })));
+const ObservabilityDashboard = lazy(() => import('./components/observability/ObservabilityDashboard'));
+const LectureLandingPage = lazy(() => import('./components/lecture/LectureLandingPage'));
+const OrchestrationHub = lazy(() => import('./routes/OrchestrationHub'));
+const ManualOrchestration = lazy(() => import('./routes/ManualOrchestration'));
+const AutomatedOrchestration = lazy(() => import('./routes/AutomatedOrchestration'));
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -43,6 +48,11 @@ function AnimatedRoutes() {
                         <Route path="/observability" element={<ObservabilityRoute />} />
                         <Route path="/launchpad" element={<LaunchpadRoute />} />
                         <Route path="/kernel-dashboard" element={<KernelDashboard />} />
+                        <Route path="/signal" element={<ObservabilityDashboard />} />
+                        <Route path="/lecture" element={<LectureLandingPage />} />
+                        <Route path="/orchestration" element={<OrchestrationHub />} />
+                        <Route path="/orchestration/manual" element={<ManualOrchestration />} />
+                        <Route path="/orchestration/automated" element={<AutomatedOrchestration />} />
                     </Routes>
                 </MotionPresence>
             </Suspense>

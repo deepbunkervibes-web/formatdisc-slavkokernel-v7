@@ -32,6 +32,7 @@ const FounderStorySection = React.lazy(importFounder);
 const MetricsSection = React.lazy(importMetrics);
 const CtaGrid = React.lazy(importCta);
 const PricingSection = React.lazy(importPricing);
+const OrchestrationTeaser = React.lazy(() => import('../components/orchestration/OrchestrationTeaser').then(m => ({ default: m.OrchestrationTeaser })));
 
 // ---------- FALLBACK WRAPPER ----------
 const SectionWrapper = ({ children, height, prefetchFn }: { children: React.ReactNode; height: string; prefetchFn?: () => Promise<any>; }) => {
@@ -65,6 +66,12 @@ export function LandingPage() {
             <MotionLanding order={1}>
                 <SectionWrapper height="h-screen">
                     <HeroSection />
+                </SectionWrapper>
+            </MotionLanding>
+
+            <MotionLanding order={1.5}>
+                <SectionWrapper height="h-[400px]">
+                    <OrchestrationTeaser />
                 </SectionWrapper>
             </MotionLanding>
 

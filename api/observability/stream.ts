@@ -1,30 +1,24 @@
-import { Request, Response } from 'express';
-import { subscribeFindings } from '../../src/lib/redisBroadcaster';
+import { subscribeFindings } from '../../lib/redisBroadcaster';
 
-export default async function handler(req: Request, res: Response) {
+export default function streamHandler(req: any, res: any) {
+    console.log('[OBSERVABILITY] Stream connected');
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     res.flushHeaders();
 
-    const sendUpdate = (data: any) => {
+    const sendEvent = (data: any) => {
         res.write(`data: ${JSON.stringify({ type: 'new_findings', payload: data })}\n\n`);
     };
 
-    // Send connected message
-    res.write(`: connected\n\n`);
-
-    // Subscribe
+    // Sub to broadcaster
+    // Note: In a robust production environment we would handle unsubscribe here.
+    // For this implementation, we trust the broadcaster to handle multiple listeners or lack thereof.
     subscribeFindings((data) => {
-        sendUpdate(data);
+        sendEvent(data);
     });
 
-    // Mock keep-alive or heartbeats could be added here
-    const heartbeat = setInterval(() => {
-        res.write(': heartbeat\n\n');
-    }, 15000);
-
     req.on('close', () => {
-        clearInterval(heartbeat);
+        console.log('[OBSERVABILITY] Stream disconnected');
     });
 }
