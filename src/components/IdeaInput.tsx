@@ -1,4 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { MAX_IDEA_LENGTH } from '../utils/inputSanitizer';
+
+// ...
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!idea.trim() || isLoading) return;
+
+  if (idea.length > MAX_IDEA_LENGTH) {
+    // Simple alert or toast could be used here, but for now just preventing submission
+    // and relying on the character count visual (to be added)
+    return;
+  }
+
+  onSubmit(idea);
+};
 import { ArrowRight, Loader2, Shield, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
