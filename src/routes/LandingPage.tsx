@@ -1,10 +1,12 @@
-import * as React from 'react';import { Suspense, useMemo } from 'react';
+import * as React from 'react';
+import { Suspense, useMemo } from 'react';
 
 import { useMeta } from '../utils/metaManager';
 import { useLanguage } from '../context/LanguageContext';
 import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 import { SectionSkeleton } from '../components/ui/SectionSkeleton';
 import { usePrefetchSection } from '../hooks/usePrefetchSection';
+import { MotionLanding } from '../components/motion/MotionTemplates';
 
 // ---------- LAZY LOADED SECTIONS (Dynamic Imports) ----------
 const importHero = () => import('../components/landing/HeroSection').then((mod) => ({ default: mod.HeroSection }));
@@ -30,71 +32,93 @@ const MetricsSection = React.lazy(importMetrics);
 const CtaGrid = React.lazy(importCta);
 
 // ---------- FALLBACK WRAPPER ----------
-const SectionWrapper = ({ children, height, prefetchFn }: {children: React.ReactNode;height: string;prefetchFn?: () => Promise<any>;}) => {
-  const prefetchRef = usePrefetchSection(prefetchFn);
-  return (
-    <ErrorBoundary fallback={<SectionSkeleton height={height} />}>
+const SectionWrapper = ({ children, height, prefetchFn }: { children: React.ReactNode; height: string; prefetchFn?: () => Promise<any>; }) => {
+    const prefetchRef = usePrefetchSection(prefetchFn);
+    return (
+        <ErrorBoundary fallback={<SectionSkeleton height={height} />}>
             <Suspense fallback={<SectionSkeleton height={height} />}>
                 {children}
             </Suspense>
             {prefetchRef && <div ref={prefetchRef} className="h-1 w-1" />}
-        </ErrorBoundary>);
-
+        </ErrorBoundary>
+    );
 };
 
 export function LandingPage() {
-  const { t } = useLanguage();
+    const { t } = useLanguage();
 
-  const metaData = useMemo(() => ({
-    title: t.meta?.landingTitle || 'FormatDisc — Od ideje do MVP-a u 48 sata',
-    description: t.meta?.landingDesc || 'FormatDisc pomaže timovima i osnivačima da u kratkom roku izgrade i isporuče audit-pripremni MVP.',
-    keywords: 'AI governance, 48h MVP, deterministic AI, SlavkoKernel',
-    canonical: 'https://formatdisc.hr/'
-  }), [t]);
+    const metaData = useMemo(() => ({
+        title: t.meta?.landingTitle || 'FormatDisc — Od ideje do MVP-a u 48 sata',
+        description: t.meta?.landingDesc || 'FormatDisc pomaže timovima i osnivačima da u kratkom roku izgrade i isporuče audit-pripremni MVP.',
+        keywords: 'AI governance, 48h MVP, deterministic AI, SlavkoKernel',
+        canonical: 'https://formatdisc.hr/'
+    }), [t]);
 
-  useMeta(metaData);
+    useMeta(metaData);
 
-  return (
-    <div className="pt-16 space-y-0 overflow-x-hidden bg-background">
-            <SectionWrapper height="h-screen">
-                <HeroSection />
-            </SectionWrapper>
+    // We strictly order the sections for the deterministic motion system.
+    // Each MotionLanding wrapper will handle its own entrance animation.
+    return (
+        <div className="pt-16 space-y-0 overflow-x-hidden bg-background">
+            <MotionLanding order={1}>
+                <SectionWrapper height="h-screen">
+                    <HeroSection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[600px]" prefetchFn={importValue}>
-                <ValuePropositionSection />
-            </SectionWrapper>
+            <MotionLanding order={2}>
+                <SectionWrapper height="h-[600px]" prefetchFn={importValue}>
+                    <ValuePropositionSection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[300px]" prefetchFn={importTimeline}>
-                <JourneyTimeline />
-            </SectionWrapper>
+            <MotionLanding order={3}>
+                <SectionWrapper height="h-[300px]" prefetchFn={importTimeline}>
+                    <JourneyTimeline />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[600px]" prefetchFn={importArch}>
-                <ArchitectureVisualization />
-            </SectionWrapper>
+            <MotionLanding order={4}>
+                <SectionWrapper height="h-[600px]" prefetchFn={importArch}>
+                    <ArchitectureVisualization />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-screen" prefetchFn={importCompliance}>
-                <ComplianceDemoSection />
-            </SectionWrapper>
+            <MotionLanding order={5}>
+                <SectionWrapper height="h-screen" prefetchFn={importCompliance}>
+                    <ComplianceDemoSection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[500px]" prefetchFn={importTryNow}>
-                <TryItNowSection />
-            </SectionWrapper>
+            <MotionLanding order={6}>
+                <SectionWrapper height="h-[500px]" prefetchFn={importTryNow}>
+                    <TryItNowSection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[300px]" prefetchFn={importProblem}>
-                <ProblemSolutionComparison />
-            </SectionWrapper>
+            <MotionLanding order={7}>
+                <SectionWrapper height="h-[300px]" prefetchFn={importProblem}>
+                    <ProblemSolutionComparison />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[400px]" prefetchFn={importFounder}>
-                <FounderStorySection />
-            </SectionWrapper>
+            <MotionLanding order={8}>
+                <SectionWrapper height="h-[400px]" prefetchFn={importFounder}>
+                    <FounderStorySection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[200px]" prefetchFn={importMetrics}>
-                <MetricsSection />
-            </SectionWrapper>
+            <MotionLanding order={9}>
+                <SectionWrapper height="h-[200px]" prefetchFn={importMetrics}>
+                    <MetricsSection />
+                </SectionWrapper>
+            </MotionLanding>
 
-            <SectionWrapper height="h-[600px]" prefetchFn={importCta}>
-                <CtaGrid />
-            </SectionWrapper>
-        </div>);
-
+            <MotionLanding order={10}>
+                <SectionWrapper height="h-[600px]" prefetchFn={importCta}>
+                    <CtaGrid />
+                </SectionWrapper>
+            </MotionLanding>
+        </div>
+    );
 }

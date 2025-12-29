@@ -1,6 +1,8 @@
-import * as React from 'react';import { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import * as React from 'react';
+import { Suspense } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
+import { MotionPresence } from './components/motion/MotionPresence';
 import { LandingPage } from './routes/LandingPage';
 // import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
 import { InvestorLogin } from './routes/InvestorLogin';
@@ -23,13 +25,36 @@ const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then((mo
 import { LanguageProvider } from './context/LanguageContext';
 import { KernelProvider } from './kernel/KernelProvider';
 
+function AnimatedRoutes() {
+    const location = useLocation();
+
+    return (
+        <Suspense fallback={<LoadingSpinner />}>
+            <MotionPresence routeKey={location.pathname}>
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/studio" element={<LazyMvpStudio />} />
+                    <Route path="/investors" element={<InvestorsRoute />} />
+                    <Route path="/investors/login" element={<InvestorLogin />} />
+                    <Route path="/investors/portal" element={<InvestorPortal />} />
+                    <Route path="/docs" element={<DocsRoute />} />
+                    <Route path="/kernel" element={<KernelRoute />} />
+                    <Route path="/metrics" element={<MetricsRoute />} />
+                    <Route path="/audit" element={<AuditRoute />} />
+                    <Route path="/observability" element={<ObservabilityRoute />} />
+                    <Route path="/launchpad" element={<LaunchpadRoute />} />
+                </Routes>
+            </MotionPresence>
+        </Suspense>
+    );
+}
+
 function App() {
-  return (
-    <KernelProvider>
+    return (
+        <KernelProvider>
             <LanguageProvider>
                 <InvestorAuthProvider>
                     <BrowserRouter>
-                        {/* ... rest of the app ... */}
                         <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
                             {/* Ambient light wash - subtle perceptual depth */}
                             <div className="pointer-events-none fixed inset-0 -z-10">
@@ -40,51 +65,7 @@ function App() {
                             <Navigation />
 
                             <main className="flex-1">
-                                <Suspense fallback={<LoadingSpinner />}>
-                                    <Routes>
-                                        <Route path="/" element={<LandingPage />} />
-                                        <Route
-                      path="/studio"
-                      element={<LazyMvpStudio />} />
-                    
-                                        <Route
-                      path="/investors"
-                      element={<InvestorsRoute />} />
-                    
-                                        <Route
-                      path="/investors/login"
-                      element={<InvestorLogin />} />
-                    
-                                        <Route
-                      path="/investors/portal"
-                      element={<InvestorPortal />} />
-                    
-                                        <Route
-                      path="/docs"
-                      element={<DocsRoute />} />
-                    
-                                        <Route
-                      path="/kernel"
-                      element={<KernelRoute />} />
-                    
-                                        <Route
-                      path="/metrics"
-                      element={<MetricsRoute />} />
-                    
-                                        <Route
-                      path="/audit"
-                      element={<AuditRoute />} />
-                    
-                                        <Route
-                      path="/observability"
-                      element={<ObservabilityRoute />} />
-                    
-                                        <Route
-                      path="/launchpad"
-                      element={<LaunchpadRoute />} />
-                    
-                                    </Routes>
-                                </Suspense>
+                                <AnimatedRoutes />
                             </main>
 
                             <Footer />
@@ -92,8 +73,8 @@ function App() {
                     </BrowserRouter>
                 </InvestorAuthProvider>
             </LanguageProvider>
-        </KernelProvider>);
-
+        </KernelProvider>
+    );
 }
 
 export default App;

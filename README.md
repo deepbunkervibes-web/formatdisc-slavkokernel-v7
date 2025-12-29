@@ -1,5 +1,7 @@
 # **MVP Simulation Studio**  
 
+![CI Status](https://github.com/mladengertner/mvp-simulation-tool1/actions/workflows/ci.yml/badge.svg)
+
 ### *Powered by SlavkoKernel™ V7*  
 
 **For every founder who learned the truth too late — or refuses to repeat that mistake.**

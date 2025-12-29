@@ -1,0 +1,76 @@
+:root {
+  /* Durations */
+  --motion-duration-fast: 90ms;
+  --motion-duration-medium: 150ms;
+  --motion-duration-slow: 200ms;
+
+  /* Easing */
+  --motion-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Composite tokens */
+  --motion-fast: var(--motion-duration-fast) var(--motion-ease-standard);
+  --motion-medium: var(--motion-duration-medium) var(--motion-ease-standard);
+  --motion-slow: var(--motion-duration-slow) var(--motion-ease-standard);
+}
+
+/* Keyframes */
+
+@keyframes fd-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fd-fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fd-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fd-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Utility klase (van Tailwinda, ali kompatibilne) */
+
+.fd-animate-fade-in-up {
+  animation: fd-fade-in-up var(--motion-medium) forwards;
+}
+
+.fd-animate-fade-in-down {
+  animation: fd-fade-in-down var(--motion-medium) forwards;
+}
+
+.fd-animate-fade-in {
+  animation: fd-fade-in var(--motion-medium) forwards;
+}
+
+.fd-animate-scale-in {
+  animation: fd-scale-in var(--motion-medium) forwards;
+}
