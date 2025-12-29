@@ -6,7 +6,7 @@
  */
 
 // Maximum length for an idea description to prevent token exhaustion attacks
-const MAX_IDEA_LENGTH = 5000;
+export const MAX_IDEA_LENGTH = 5000;
 
 // Patterns that might indicate a jailbreak or injection attempt
 const INJECTION_PATTERNS = [

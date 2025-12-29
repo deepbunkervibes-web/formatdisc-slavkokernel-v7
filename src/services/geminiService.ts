@@ -4,6 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import { IdeaEvaluation, MvpBlueprint, PitchDeck, InvestorSummary } from '../types';
 
 import { generateWithOllama, checkOllamaHealth } from './ollamaService';
+import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
 
 // Flag to track if we should use Ollama or fallback to mocks
 let useOllama = true;
@@ -48,12 +49,6 @@ Focus on 48-hour buildable scope. Be specific and actionable.`;
 const PITCH_SYSTEM_PROMPT = `You are SlavkoKernel v7, an investor pitch deck generator.
 Create a 5-slide pitch deck structure with: Problem, Solution, Market, Business Model, and The Ask.
 Each slide should have 3-4 bullet points. Be concise and compelling.`;
-
-import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
-
-// ... (existing imports)
-
-// ...
 
 export const mvpStudioService = {
   async evaluateIdea(idea: string): Promise<IdeaEvaluation> {
