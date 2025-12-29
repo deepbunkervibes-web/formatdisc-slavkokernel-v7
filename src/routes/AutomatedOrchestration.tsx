@@ -33,11 +33,11 @@ const AutomatedOrchestration: React.FC = () => {
                         <Network size={14} /> System Execution
                     </div>
                     <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-12 leading-[0.85]">
-                        Kinetic <br />
-                        <span className="text-white border-b-8 border-cyan-500/30">Scaling.</span>
+                        Automatizirana <br />
+                        <span className="text-white border-b-8 border-cyan-500/30">Orkestracija.</span>
                     </h1>
                     <p className="text-2xl text-gray-500 leading-tight max-w-2xl mb-16">
-                        Kad je zakon ručno definiran, kernel preuzima volan. Skalabilnost bez gubitka suvereniteta.
+                        Kad Kernel Preuzme Teret, Ali Ne I Odgovornost. Skalabilnost bez gubitka suvereniteta.
                     </p>
 
                     <div className="p-10 bg-gray-950 border border-white/10 rounded-sm flex items-center justify-between">
@@ -56,24 +56,22 @@ const AutomatedOrchestration: React.FC = () => {
 
                 {/* Definition */}
                 <section className="mb-32">
-                    <HeadingBlock title="Implementacija" subtitle="Automatizacija kao Code-as-Law" />
+                    <HeadingBlock title="Implementacija" subtitle="Što podrazumijevam pod “automatiziranom orkestracijom”?" />
                     <div className="space-y-12 text-gray-400 text-xl leading-relaxed">
                         <p>
-                            Automatizacija u SlavkoKernel svijetu nije prepuštanje "crnoj kutiji".
-                            To je reprodukcija ručno dokazanih tokova kroz suverenu infrastrukturu.
-                            Kernel drži ritam, a Kubernetes služi kao egzekutor zakona.
+                            Automatizirana orkestracija znači da HPA, CI/CD, monitoring i audit rade bez ručnog nadzora – ali na temelju ručno definiranih pravila i forenzički provjerenih tokova.
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {[
-                                { icon: Repeat, title: "Deterministički Tokovi", desc: "Isti input -> isti output -> isti hash. Svaki put." },
-                                { icon: Activity, label: "HPA Skaliranje", desc: "Sustav raste bez ugrožavanja audit integriteta." },
-                                { icon: FileCode, label: "Zero-Touch Audit", desc: "Automatsko generiranje forenzičkih logova po zakonu." },
-                                { icon: Cpu, label: "Sovereign Infra", desc: "Vlastiti CI/CD pipelineovi koji enforcaju pravila." }
+                                { icon: Repeat, title: "Regulatorni Kontekst", desc: "EU AI Act traži dokazive tokove, ne samo “radi nam u produkciji”." },
+                                { icon: Activity, title: "Operativna Realnost", desc: "Ručna orkestracija ne skala – ali automatizacija bez ručnog temelja je hazard." },
+                                { icon: FileCode, title: "FORMATDISC Pristup", desc: "Prvo ručno, forenzički, dokazivo. Tek onda automatizirano, skalabilno, reproducibilno." },
+                                { icon: Cpu, title: "Code-as-Law", desc: "Podrazumijeva AI sustave koji su deterministički i auditabilni po dizajnu." }
                             ].map((item, i) => (
                                 <div key={i} className="p-8 border border-white/5 bg-gray-900/10 group hover:border-cyan-500/30 transition-colors">
                                     <div className="flex gap-4 items-center mb-6">
                                         {item.icon && <item.icon className="text-cyan-500 w-6 h-6" />}
-                                        <div className="text-white font-black uppercase tracking-tight">{item.title || item.label}</div>
+                                        <div className="text-white font-black uppercase tracking-tight">{item.title}</div>
                                     </div>
                                     <p className="text-sm leading-relaxed">{item.desc}</p>
                                 </div>
@@ -82,21 +80,36 @@ const AutomatedOrchestration: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Quantum Preview Automated */}
+                {/* Predavanja Section */}
                 <section className="mb-32">
+                    <HeadingBlock title="Predavanja 2025" subtitle="Kako izgleda kernel koji radi sam" />
+                    <ul className="grid grid-cols-1 gap-4 mb-32">
+                        {[
+                            "Od ručnog do automatiziranog",
+                            "Anatomija SlavkoKernel infrastrukture",
+                            "SlavkoAuditKit u produkciji",
+                            "Zero-touch deploy, full-touch audit",
+                            "EU AI Act kao CI/CD zahtjev"
+                        ].map((theme, i) => (
+                            <li key={i} className="flex gap-4 items-center p-4 bg-gray-900/40 text-gray-300 border-l-2 border-cyan-500/50">
+                                <span className="text-cyan-500 text-xs font-black">[{i + 1}]</span>
+                                <span className="font-bold uppercase tracking-tight text-sm">{theme}</span>
+                            </li>
+                        ))}
+                    </ul>
+
                     <div className="mb-12">
-                        <HeadingBlock title="Quantum Infra" subtitle="Sistemski Pregled Tokova" />
+                        <HeadingBlock title="Quantum TV" subtitle="4D Pregled Automatizirane Infrastrukture" />
                         <p className="text-gray-500 max-w-xl text-lg italic uppercase tracking-tighter">
-                            Vizualizacija kinetičke egzekucije pod opterećenjem.
+                            Ne pričamo samo o YAML-u i logovima – gledamo kako se sustav ponaša kroz vrijeme.
                         </p>
                     </div>
                     <QuantumPreview mode="automated" />
                     <div className="mt-10 p-8 bg-gray-950 border border-white/10 rounded-sm">
                         <h4 className="text-white font-black uppercase text-sm mb-4 tracking-widest">Što gledaš:</h4>
                         <p className="text-gray-500 text-sm leading-relaxed">
-                            Ovo je vizualizacija automatizirane orkestracije: CI/CD pipelineovi guraju nove verzije,
-                            dok se audit logovi monolitno zapisuju u realnom vremenu. Automatizacija ovdje nije
-                            “AI radi što hoće”, nego “sustav izvršava ono što je ručno definirano”.
+                            Vizualni prikaz CI/CD pipelineova, HPA skaliranja i audit logova.
+                            Ovo je 4D render vašeg AI sustava pod opterećenjem, pod greškom i pod regulatornim zahtjevom.
                         </p>
                     </div>
                 </section>
@@ -110,7 +123,7 @@ const AutomatedOrchestration: React.FC = () => {
                 >
                     <h2 className="text-4xl md:text-5xl font-black uppercase mb-6 tracking-tighter text-cyan-400">Tehnička radionica</h2>
                     <p className="text-xl font-bold mb-10 text-gray-300 uppercase tracking-tight max-w-xl mx-auto">
-                        Fokusirana infra radionica za timove koji žele auditabilni, deterministički CI/CD.
+                        Javi se s naslovom “Predavanje – Automatizirana Orkestracija AI Sustava”.
                     </p>
                     <a
                         href="mailto:mladen@formatdisc.hr?subject=Radionica - Automatizirana Orkestracija"
