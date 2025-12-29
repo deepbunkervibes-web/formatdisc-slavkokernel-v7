@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Download, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
+import { Download, Lock, FileText, ChevronRight } from 'lucide-react';
 
 import { useInvestorAuth } from '../context/InvestorAuthContext';
 import { OrchestrationWall } from '../components/investors/OrchestrationWall';
@@ -9,20 +9,20 @@ import { LineageMap } from '../components/investors/LineageMap';
 import { Navigation } from '../components/ui/Navigation';
 
 export function InvestorPortal() {
-    const { isAuthenticated, logout } = useInvestorAuth();
-    const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('vision');
+  const { isAuthenticated, logout } = useInvestorAuth();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('vision');
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/investors');
-        }
-    }, [isAuthenticated, navigate]);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/investors');
+    }
+  }, [isAuthenticated, navigate]);
 
-    if (!isAuthenticated) return null;
+  if (!isAuthenticated) return null;
 
-    return (
-        <div className="min-h-screen bg-neutral-950 text-white selection:bg-accent-cyan/30 selection:text-white">
+  return (
+    <div className="min-h-screen bg-neutral-950 text-white selection:bg-accent-cyan/30 selection:text-white">
             <Navigation />
 
             <div className="pt-24 pb-20">
@@ -42,9 +42,9 @@ export function InvestorPortal() {
                             </h1>
                         </div>
                         <button
-                            onClick={logout}
-                            className="text-xs text-neutral-500 hover:text-white transition-colors uppercase tracking-widest"
-                        >
+              onClick={logout}
+              className="text-xs text-neutral-500 hover:text-white transition-colors uppercase tracking-widest">
+              
                             Log Out
                         </button>
                     </div>
@@ -57,24 +57,24 @@ export function InvestorPortal() {
                     <aside className="lg:col-span-1 space-y-8">
                         <nav className="space-y-1">
                             {[
-                                { id: 'vision', label: 'Vision & Why Now' },
-                                { id: 'market', label: 'Market & Problem' },
-                                { id: 'traction', label: 'Validation ' },
-                                { id: 'roadmap', label: 'Execution ' },
-                                { id: 'ask', label: 'The Ask' }
-                            ].map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => setActiveTab(item.id)}
-                                    className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all flex items-center justify-between group ${activeTab === item.id
-                                        ? 'bg-neutral-900 text-white border border-neutral-800 shadow-inner'
-                                        : 'text-neutral-500 hover:text-white hover:bg-neutral-900/50'
-                                        }`}
-                                >
+              { id: 'vision', label: 'Vision & Why Now' },
+              { id: 'market', label: 'Market & Problem' },
+              { id: 'traction', label: 'Validation ' },
+              { id: 'roadmap', label: 'Execution ' },
+              { id: 'ask', label: 'The Ask' }].
+              map((item) =>
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all flex items-center justify-between group ${activeTab === item.id ?
+                'bg-neutral-900 text-white border border-neutral-800 shadow-inner' :
+                'text-neutral-500 hover:text-white hover:bg-neutral-900/50'}`
+                }>
+                
                                     {item.label}
                                     {activeTab === item.id && <ChevronRight className="w-4 h-4 text-accent-cyan" />}
                                 </button>
-                            ))}
+              )}
                         </nav>
 
                         {/* Documents Box */}
@@ -120,17 +120,17 @@ export function InvestorPortal() {
                     <div className="lg:col-span-3 min-h-[600px]">
 
                         {/* VISION TAB */}
-                        {activeTab === 'vision' && (
-                            <motion.section
-                                key="vision"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
+                        {activeTab === 'vision' &&
+            <motion.section
+              key="vision"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}>
+              
                                 <h2 className="text-2xl font-semibold mb-6 text-white">Founder Statement</h2>
                                 <blockquote className="border-l-2 border-accent-cyan pl-6 italic text-neutral-300 text-lg leading-relaxed mb-8">
-                                    "FormatDisc nije projekt. FormatDisc je 3.000 sati sustavne, solo, neprekidne orkestracije.
-                                    Nije nastao na hackathonu. Nastao je iz opsesivne potrebe da se kaos AI razvoja pretvori u deterministički inženjerski proces."
+                                    &quot;FormatDisc nije projekt. FormatDisc je 3.000 sati sustavne, solo, neprekidne orkestracije.
+                                    Nije nastao na hackathonu. Nastao je iz opsesivne potrebe da se kaos AI razvoja pretvori u deterministički inženjerski proces.&quot;
                                 </blockquote>
                                 <div className="prose prose-invert prose-sm text-neutral-400 leading-relaxed mb-12 max-w-none">
                                     <p>
@@ -143,16 +143,16 @@ export function InvestorPortal() {
                                 <div className="h-12" />
                                 <LineageMap />
                             </motion.section>
-                        )}
+            }
 
                         {/* MARKET TAB */}
-                        {activeTab === 'market' && (
-                            <motion.section
-                                key="market"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
+                        {activeTab === 'market' &&
+            <motion.section
+              key="market"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}>
+              
                                 <h2 className="text-2xl font-semibold mb-8 text-white">Market & Problem: The Black Box Dilemma</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                                     <div className="bg-neutral-900/30 p-8 rounded-2xl border border-neutral-800">
@@ -195,16 +195,16 @@ export function InvestorPortal() {
                                     <p className="text-neutral-300 text-lg">EU-based Enterprises in Finance & Insurance (Algorithmic Trading, Claims Processing) where compliance is non-negotiable.</p>
                                 </div>
                             </motion.section>
-                        )}
+            }
 
                         {/* TRACTION TAB */}
-                        {activeTab === 'traction' && (
-                            <motion.section
-                                key="traction"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
+                        {activeTab === 'traction' &&
+            <motion.section
+              key="traction"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}>
+              
                                 <h2 className="text-2xl font-semibold mb-8 text-white">Founder-Stage Validation</h2>
                                 <div className="space-y-6">
                                     <div className="flex items-start gap-4 p-6 bg-neutral-900/30 border border-neutral-800 rounded-xl">
@@ -225,21 +225,21 @@ export function InvestorPortal() {
                                         <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-white font-bold">3</div>
                                         <div>
                                             <h3 className="text-white font-medium mb-1">Market Signal</h3>
-                                            <p className="text-neutral-400 text-sm">Positive feedback from compliance officers on the "Deterministic Execution" approach as a viable EU AI Act solution.</p>
+                                            <p className="text-neutral-400 text-sm">Positive feedback from compliance officers on the &quot;Deterministic Execution&quot; approach as a viable EU AI Act solution.</p>
                                         </div>
                                     </div>
                                 </div>
                             </motion.section>
-                        )}
+            }
 
                         {/* ROADMAP TAB */}
-                        {activeTab === 'roadmap' && (
-                            <motion.section
-                                key="roadmap"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
+                        {activeTab === 'roadmap' &&
+            <motion.section
+              key="roadmap"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}>
+              
                                 <h2 className="text-2xl font-semibold mb-8 text-white">18-Month Execution Plan</h2>
                                 <div className="relative border-l border-neutral-800 ml-3 space-y-12 py-4">
                                     <div className="relative pl-8">
@@ -262,16 +262,16 @@ export function InvestorPortal() {
                                     </div>
                                 </div>
                             </motion.section>
-                        )}
+            }
 
                         {/* ASK TAB */}
-                        {activeTab === 'ask' && (
-                            <motion.section
-                                key="ask"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
+                        {activeTab === 'ask' &&
+            <motion.section
+              key="ask"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}>
+              
                                 <h2 className="text-2xl font-semibold mb-8 text-white">The Ask: Seed Round</h2>
                                 <div className="bg-gradient-to-br from-neutral-900 via-neutral-900 to-accent-purple/10 p-10 rounded-2xl border border-neutral-800 text-center mb-10">
                                     <div className="text-sm font-mono text-neutral-400 uppercase tracking-widest mb-4">Capital Requirement</div>
@@ -298,11 +298,11 @@ export function InvestorPortal() {
                                     </div>
                                 </div>
                             </motion.section>
-                        )}
+            }
                     </div>
 
                 </main>
             </div>
-        </div>
-    );
+        </div>);
+
 }

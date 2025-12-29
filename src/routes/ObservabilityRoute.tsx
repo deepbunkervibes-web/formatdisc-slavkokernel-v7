@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { motion } from 'framer-motion';
 
 import { useObservabilitySSE } from '@/lib/sseClient';
@@ -8,11 +8,11 @@ import { CorrelationGraph } from '@/components/observability/CorrelationGraph';
 import { LiveAlertsTicker } from '@/components/observability/LiveAlertsTicker';
 
 export function ObservabilityRoute() {
-    // Connect to SSE stream
-    useObservabilitySSE();
+  // Connect to SSE stream
+  useObservabilitySSE();
 
-    return (
-        <div className="min-h-screen bg-black text-white p-4 md:p-8 space-y-8 relative overflow-hidden">
+  return (
+    <div className="min-h-screen bg-black text-white p-4 md:p-8 space-y-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,241,217,0.1)_0%,transparent_70%)] pointer-events-none" />
 
             <header className="flex flex-col gap-4 relative z-10">
@@ -29,11 +29,11 @@ export function ObservabilityRoute() {
 
             <main className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="lg:col-span-2 space-y-6"
-                >
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="lg:col-span-2 space-y-6">
+          
                     <section>
                         <h2 className="text-xl font-bold mb-4 text-white/90 flex items-center gap-2">
                             <span className="w-1.5 h-6 bg-cyan-500 rounded-sm"></span>
@@ -52,11 +52,11 @@ export function ObservabilityRoute() {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="space-y-6"
-                >
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-6">
+          
                     <section>
                         <h2 className="text-xl font-bold mb-4 text-white/90 flex items-center gap-2">
                             <span className="w-1.5 h-6 bg-emerald-500 rounded-sm"></span>
@@ -74,6 +74,6 @@ export function ObservabilityRoute() {
                     </div>
                 </motion.div>
             </main>
-        </div>
-    );
+        </div>);
+
 }

@@ -1,11 +1,12 @@
-import { useKernel } from '../kernel/KernelProvider';
+import { useKernel, useKernelTick } from '../kernel/KernelProvider';
 
 /**
  * useKernelMotion
  * Syncs animations to the deterministic kernel click.
  */
 export const useKernelMotion = (phase: number = 0) => {
-    const { tick, state } = useKernel();
+    const { state } = useKernel();
+    const { tick } = useKernelTick();
     if (state !== 'ready') return 0;
 
     // Calculate motion progress based on global tick

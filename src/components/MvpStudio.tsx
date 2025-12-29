@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
+import * as React from 'react';import { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
 
 import { MvpStudioState, IdeaEvaluation } from '../types';
 import { mvpStudioService } from '../services/geminiService';
@@ -18,7 +18,7 @@ import { PhaseHeader } from './studio/PhaseHeader';
 import { SimulationWorkspace } from './studio/SimulationWorkspace';
 
 // Lazy-loaded high-weight components
-const ResultActions = React.lazy(() => import('./ResultActions').then(mod => ({ default: mod.ResultActions })));
+const ResultActions = React.lazy(() => import('./ResultActions').then((mod) => ({ default: mod.ResultActions })));
 
 export function MvpStudio() {
   const [state, setState] = useState<MvpStudioState>({
@@ -28,7 +28,7 @@ export function MvpStudio() {
     mvpBlueprint: null,
     pitchDeck: null,
     investorSummary: null,
-    error: null,
+    error: null
   });
   const [ollamaStatus, setOllamaStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
   const [isLoading, setIsLoading] = useState(false);
@@ -60,11 +60,11 @@ export function MvpStudio() {
 
   const progressValue = useMemo(() => {
     switch (state.phase) {
-      case 'IDEA_INPUT': return 10;
-      case 'EVALUATING': return 40;
-      case 'MVP_BUILDING': return 75;
-      case 'RESULT': return 100;
-      default: return 0;
+      case 'IDEA_INPUT':return 10;
+      case 'EVALUATING':return 40;
+      case 'MVP_BUILDING':return 75;
+      case 'RESULT':return 100;
+      default:return 0;
     }
   }, [state.phase]);
 
@@ -78,7 +78,7 @@ export function MvpStudio() {
 
       toast({
         title: 'Building MVP...',
-        description: 'The Council is generating the MVP blueprint and pitch deck.',
+        description: 'The Council is generating the MVP blueprint and pitch deck.'
       });
 
       markPerformance('build-start');
@@ -95,14 +95,14 @@ export function MvpStudio() {
           phase: 'RESULT',
           mvpBlueprint,
           pitchDeck,
-          investorSummary,
+          investorSummary
         }));
 
         trackEvent('mvp_generation_completed');
 
         toast({
           title: 'Generation Complete!',
-          description: 'All artifacts have been successfully generated.',
+          description: 'All artifacts have been successfully generated.'
         });
 
       } catch (error) {
@@ -112,7 +112,7 @@ export function MvpStudio() {
         toast({
           title: 'Error',
           description: msg,
-          variant: 'destructive',
+          variant: 'destructive'
         });
       } finally {
         setIsLoading(false);
@@ -142,7 +142,7 @@ export function MvpStudio() {
         toast({
           title: 'Evaluation Complete',
           description: `The Council suggests revising the idea.`,
-          variant: evaluation.verdict === 'REJECT' ? 'destructive' : 'default',
+          variant: evaluation.verdict === 'REJECT' ? 'destructive' : 'default'
         });
         setIsLoading(false);
       }
@@ -153,11 +153,11 @@ export function MvpStudio() {
       toast({
         title: 'Error',
         description: msg,
-        variant: 'destructive',
+        variant: 'destructive'
       });
       setIsLoading(false);
     }
-  }, [handleGenerateMvp, toast]);
+  }, [handleGenerateMvp, toast, startNewSession]);
 
   // Sync visual phase with simulation phase
   useEffect(() => {
@@ -184,7 +184,7 @@ export function MvpStudio() {
       mvpBlueprint: null,
       pitchDeck: null,
       investorSummary: null,
-      error: null,
+      error: null
     });
     setActiveTab('council');
   }, []);
@@ -194,58 +194,58 @@ export function MvpStudio() {
       <QuantumCanvas
         phase={visualPhase}
         verdict={state.evaluation?.verdict}
-        sessionHash={currentSessionId || undefined}
-      />
+        sessionHash={currentSessionId || undefined} />
 
-      {!hasBooted ? (
-        <CinematicBoot
-          onComplete={handleBootComplete}
-          onPhaseChange={handlePhaseChange}
-        />
-      ) : (
-        <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-24 pb-20">
+
+      {!hasBooted ?
+      <CinematicBoot
+        onComplete={handleBootComplete}
+        onPhaseChange={handlePhaseChange} /> :
+
+
+      <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-24 pb-20">
           <div className="max-w-7xl mx-auto px-4 w-full">
-            {state.phase === 'IDEA_INPUT' ? (
-              <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} ollamaStatus={ollamaStatus} />
-            ) : (
-              <div className="space-y-6">
+            {state.phase === 'IDEA_INPUT' ?
+          <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} ollamaStatus={ollamaStatus} /> :
+
+          <div className="space-y-6">
                 <PhaseHeader
-                  phase={state.phase}
-                  progress={progressValue}
-                  evaluation={state.evaluation}
-                  ollamaStatus={ollamaStatus}
-                />
+              phase={state.phase}
+              progress={progressValue}
+              evaluation={state.evaluation}
+              ollamaStatus={ollamaStatus} />
+
 
                 <SimulationWorkspace
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                  state={state}
-                />
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              state={state} />
 
-                {state.phase === 'RESULT' && (
-                  <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
+
+                {state.phase === 'RESULT' &&
+            <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
                     <ResultActions
-                      evaluation={state.evaluation}
-                      mvpBlueprint={state.mvpBlueprint}
-                      pitchDeck={state.pitchDeck}
-                      investorSummary={state.investorSummary}
-                      onReset={handleReset}
-                      onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)}
-                    />
-                  </Suspense>
-                )}
+                evaluation={state.evaluation}
+                mvpBlueprint={state.mvpBlueprint}
+                pitchDeck={state.pitchDeck}
+                investorSummary={state.investorSummary}
+                onReset={handleReset}
+                onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)} />
 
-                {state.error && (
-                  <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
+                  </Suspense>
+            }
+
+                {state.error &&
+            <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
                     <strong>Error:</strong> {state.error}
                   </div>
-                )}
+            }
               </div>
-            )}
+          }
           </div>
         </div>
-      )}
+      }
       <Toaster />
-    </>
-  );
+    </>);
+
 }

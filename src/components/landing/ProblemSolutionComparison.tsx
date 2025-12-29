@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 
 import { useLanguage } from '../../context/LanguageContext';
 
 export const ProblemSolutionComparison = React.memo(() => {
-    const { t } = useLanguage();
-    return (
-        <section className="py-24 bg-white dark:bg-neutral-950 border-t border-neutral-100 dark:border-neutral-900">
+  const { t } = useLanguage();
+  return (
+    <section className="py-24 bg-white dark:bg-neutral-950 border-t border-neutral-100 dark:border-neutral-900">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-6">
@@ -18,8 +18,8 @@ export const ProblemSolutionComparison = React.memo(() => {
                     </div>
                 </div>
             </div>
-        </section>
-    );
+        </section>);
+
 });
 
 ProblemSolutionComparison.displayName = 'ProblemSolutionComparison';

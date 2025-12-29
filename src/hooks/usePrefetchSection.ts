@@ -4,11 +4,11 @@ import { useEffect, useRef } from 'react';
  * usePrefetchSection
  * Proactively preloads a lazy-loaded component when it's about to enter the viewport.
  */
-export function usePrefetchSection(importFn: () => Promise<any>) {
+export function usePrefetchSection(importFn?: () => Promise<any>) {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        if (!ref.current) return;
+        if (!ref.current || !importFn) return;
 
         const observer = new IntersectionObserver(
             (entries) => {

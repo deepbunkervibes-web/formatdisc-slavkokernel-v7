@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 
 import { useLanguage } from '../../context/LanguageContext';
 
 export const FounderStorySection = React.memo(() => {
-    const { t } = useLanguage();
-    return (
-        <section className="py-24 bg-neutral-50 dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800">
+  const { t } = useLanguage();
+  return (
+    <section className="py-24 bg-neutral-50 dark:bg-neutral-900 border-t border-neutral-100 dark:border-neutral-800">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="max-w-3xl">
                     <h2 className="text-3xl font-semibold text-neutral-900 dark:text-white tracking-tight">{t.founder.title}</h2>
@@ -23,8 +23,8 @@ export const FounderStorySection = React.memo(() => {
                     </div>
                 </div>
             </div>
-        </section>
-    );
+        </section>);
+
 });
 
 FounderStorySection.displayName = 'FounderStorySection';

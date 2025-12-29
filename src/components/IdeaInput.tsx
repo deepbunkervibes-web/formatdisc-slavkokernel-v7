@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Loader2, Shield, Info } from 'lucide-react';
+import * as React from 'react'; import { useState, useEffect } from 'react';
+import { ArrowRight, Loader2, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { MAX_IDEA_LENGTH } from '../utils/inputSanitizer';
@@ -21,8 +21,8 @@ const subtitles = [
   "Enter your idea. The Council will evaluate it, then automatically assemble an MVP simulation and pitch deck.",
   "From a spark of genius to a full-fledged pitch, all in one seamless flow.",
   "Validating startup dreams with the power of AI.",
-  "Turn your next big idea into a tangible blueprint in minutes."
-];
+  "Turn your next big idea into a tangible blueprint in minutes."];
+
 
 const getHeroTextForIdea = (idea: string): string => {
   const lowerIdea = idea.toLowerCase();
@@ -49,7 +49,7 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSubtitleIndex(prev => (prev + 1) % subtitles.length);
+      setSubtitleIndex((prev) => (prev + 1) % subtitles.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -66,7 +66,7 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
       toast({
         title: 'Input too long',
         description: `Please keep your idea under ${MAX_IDEA_LENGTH} characters.`,
-        variant: 'destructive',
+        variant: 'destructive'
       });
       return;
     }
@@ -79,9 +79,9 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
     trackEvent('demo_idea_selected', { idea_snippet: demoIdea.substring(0, 30) });
     toast({
       title: 'Scenario Loaded',
-      description: 'System locked on demo parameters. Ready to engage.',
+      description: 'System locked on demo parameters. Ready to engage.'
     });
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 w-full relative">
@@ -92,21 +92,21 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
 
         {/* Regulator Info Modal */}
         <AnimatePresence>
-          {showRegulatorInfo && (
+          {showRegulatorInfo &&
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowRegulatorInfo(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            >
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+
               <motion.div
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 max-w-md w-full shadow-2xl relative"
-              >
+                className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 max-w-md w-full shadow-2xl relative">
+
                 <div className="flex items-center gap-3 mb-4 text-accent-cyan">
                   <Shield className="w-6 h-6" />
                   <h3 className="text-lg font-bold">Regulatory Compliance</h3>
@@ -122,13 +122,13 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
                 </ul>
                 <button
                   onClick={() => setShowRegulatorInfo(false)}
-                  className="w-full py-2 bg-white text-black rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors"
-                >
+                  className="w-full py-2 bg-white text-black rounded-lg font-medium text-sm hover:bg-neutral-200 transition-colors">
+
                   Acknowledge Compliance
                 </button>
               </motion.div>
             </motion.div>
-          )}
+          }
         </AnimatePresence>
 
         {/* Header Section */}
@@ -157,8 +157,8 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
 
             <button
               onClick={() => setShowRegulatorInfo(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/50 text-[10px] text-neutral-400 font-mono uppercase hover:border-neutral-700 hover:text-neutral-300 transition-colors"
-            >
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/50 text-[10px] text-neutral-400 font-mono uppercase hover:border-neutral-700 hover:text-neutral-300 transition-colors">
+
               <Shield size={10} />
               Explain to Regulator
             </button>
@@ -172,8 +172,8 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="text-4xl md:text-5xl font-bold tracking-tight text-white font-mono uppercase"
-              >
+                className="text-4xl md:text-5xl font-bold tracking-tight text-white font-mono uppercase">
+
                 {heroText}
               </motion.h1>
             </AnimatePresence>
@@ -188,7 +188,7 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
               <span className="text-white font-medium"> No selling. No pitching. Just the truth.</span>
             </p>
             <p className="text-xs text-neutral-500 italic max-w-md mx-auto">
-              The Kernel doesn't seek perfection. It seeks truth. The more honest you are about your weaknesses, the more useful the simulation will be.
+              The Kernel doesn&apos;t seek perfection. It seeks truth. The more honest you are about your weaknesses, the more useful the simulation will be.
             </p>
           </div>
         </div>
@@ -223,11 +223,11 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
             <textarea
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
-              placeholder="Example: I'm building a tool that... I'm targeting people who... Today they solve it by... The biggest risk I see is..."
+              placeholder="Example: I&apos;m building a tool that... I&apos;m targeting people who... Today they solve it by... The biggest risk I see is..."
               rows={6}
               className="relative w-full rounded-xl bg-neutral-900 border border-neutral-800 px-6 py-5 text-lg text-white placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-accent-cyan/50 resize-none transition-all shadow-2xl font-sans leading-relaxed"
-              disabled={isLoading}
-            />
+              disabled={isLoading} />
+
           </div>
 
           <div className="flex justify-between items-center px-2">
@@ -235,63 +235,63 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
               Be honest. The Kernel can smell fear and bullshit.
             </p>
             <p className="text-[10px] text-neutral-500 font-mono uppercase tracking-[0.1em]">
-              Savvy: Include what you already know doesn't work.
+              Savvy: Include what you already know doesn&apos;t work.
             </p>
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Dynamic Hints */}
             <div className="flex-1">
-              {!idea.trim() ? (
+              {!idea.trim() ?
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="flex flex-wrap gap-2 items-center text-xs text-neutral-500 font-mono"
-                >
+                  className="flex flex-wrap gap-2 items-center text-xs text-neutral-500 font-mono">
+
                   <div className="flex items-center gap-2">
                     <span className="text-accent-cyan">ℹ</span>
                     <span>Be specific. The Simulation loves details.</span>
                   </div>
-                  <span className="animate-pulse hidden md:inline">Waiting for input... (Try: 'Architectural Audit Platform')</span>
+                  <span className="animate-pulse hidden md:inline">Waiting for input... (Try: &apos;Architectural Audit Platform&apos;)</span>
+                </motion.div> :
+
+                idea.trim().length < 20 &&
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-xs text-amber-500/80 font-mono">
+
+                  ⚠ Add details: user goal, data type, expected outcome.
                 </motion.div>
-              ) : (
-                idea.trim().length < 20 && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-xs text-amber-500/80 font-mono"
-                  >
-                    ⚠ Add details: user goal, data type, expected outcome.
-                  </motion.div>
-                )
-              )}
+
+              }
             </div>
 
             <button
               type="submit"
               disabled={!idea.trim() || isLoading}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-8 py-4 bg-white text-black font-bold tracking-tight hover:bg-neutral-200 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
-            >
-              {isLoading ? (
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-lg px-8 py-4 bg-white text-black font-bold tracking-tight hover:bg-neutral-200 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]">
+
+              {isLoading ?
                 <>
                   <Loader2 size={18} className="animate-spin" />
                   <span>Engaging Agents...</span>
-                </>
-              ) : (
+                </> :
+
                 <>
                   <span>Initialize Simulation</span>
                   <ArrowRight size={18} />
                 </>
-              )}
+              }
             </button>
           </div>
 
-          {error && (
+          {error &&
             <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-400 flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
               {error}
             </div>
-          )}
+          }
         </form>
 
         {/* Quick Start / Demo Scenarios */}
@@ -301,6 +301,6 @@ export function IdeaInput({ initialIdea, onSubmit, error, isLoading, ollamaStatu
         </div>
 
       </div>
-    </div>
-  );
+    </div>);
+
 }

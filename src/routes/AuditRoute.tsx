@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react'; import { useState, useEffect } from 'react';
 import {
-    Search, Filter, Download, RefreshCw, Eye, Calendar,
-    Loader2, Clock, CheckCircle, XCircle, Shield
-} from 'lucide-react';
+    Search, Download, RefreshCw, Eye,
+    XCircle, Shield
+} from
+    'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { Navigation } from '@/components/ui/Navigation';
 import { Footer } from '@/components/ui/Footer';
+import { logger } from '@/utils/logger';
 
 // Types (Mirrored from API)
 interface AuditLog {
@@ -50,13 +52,13 @@ export function AuditRoute() {
                 setLogs(data.data.logs);
             }
         } catch (err) {
-            console.error(err);
+            logger.error('Failed to load audit logs', err);
         } finally {
             setLoading(false);
         }
     };
 
-    const filteredLogs = logs.filter(l =>
+    const filteredLogs = logs.filter((l) =>
         l.input.prompt.toLowerCase().includes(search.toLowerCase()) ||
         l.decisionId.includes(search)
     );
@@ -84,8 +86,8 @@ export function AuditRoute() {
                         <button
                             onClick={loadLogs}
                             disabled={loading}
-                            className="flex items-center px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 transition-colors text-sm"
-                        >
+                            className="flex items-center px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 transition-colors text-sm">
+
                             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                             Refresh Ledger
                         </button>
@@ -106,8 +108,8 @@ export function AuditRoute() {
                         placeholder="Search by Decision ID, Prompt content or Session..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-neutral-200 placeholder:text-neutral-600 focus:outline-none focus:border-blue-500/50 transition-colors"
-                    />
+                        className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-neutral-200 placeholder:text-neutral-600 focus:outline-none focus:border-blue-500/50 transition-colors" />
+
                 </div>
 
                 {/* Logs Table */}
@@ -126,7 +128,7 @@ export function AuditRoute() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
-                                {filteredLogs.map((log) => (
+                                {filteredLogs.map((log) =>
                                     <tr key={log.id} className="hover:bg-white/[0.02] transition-colors group">
                                         <td className="px-6 py-4 text-neutral-400 whitespace-nowrap">
                                             {new Date(log.timestamp).toLocaleTimeString()}
@@ -140,8 +142,8 @@ export function AuditRoute() {
                                             {log.input.prompt}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${log.output.route === 'error' ? 'bg-red-500/10 text-red-400' : 'bg-blue-500/10 text-blue-400'
-                                                }`}>
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${log.output.route === 'error' ? 'bg-red-500/10 text-red-400' : 'bg-blue-500/10 text-blue-400'}`
+                                            }>
                                                 {log.output.route}
                                             </span>
                                         </td>
@@ -154,42 +156,42 @@ export function AuditRoute() {
                                         <td className="px-6 py-4 text-right">
                                             <button
                                                 onClick={() => setSelectedLog(log)}
-                                                className="text-neutral-500 hover:text-white transition-colors"
-                                            >
+                                                className="text-neutral-500 hover:text-white transition-colors">
+
                                                 <Eye className="w-4 h-4" />
                                             </button>
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </div>
-                    {filteredLogs.length === 0 && (
+                    {filteredLogs.length === 0 &&
                         <div className="p-12 text-center text-neutral-500">
                             No logs found matching your criteria.
                         </div>
-                    )}
+                    }
                 </div>
 
             </div>
 
             {/* Detail Modal (Simple Overlay) */}
             <AnimatePresence>
-                {selectedLog && (
+                {selectedLog &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedLog(null)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-                        />
+                            className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
-                            className="relative bg-[#0F0F0F] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto p-6 shadow-2xl"
-                        >
+                            className="relative bg-[#0F0F0F] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
+
                             <div className="flex justify-between items-start mb-6">
                                 <h2 className="text-xl font-bold">Log Details</h2>
                                 <button onClick={() => setSelectedLog(null)} className="text-neutral-500 hover:text-white">
@@ -221,19 +223,19 @@ export function AuditRoute() {
 
                         </motion.div>
                     </div>
-                )}
+                }
             </AnimatePresence>
 
             <Footer />
-        </div>
-    );
+        </div>);
+
 }
 
-function DetailItem({ label, value }: { label: string, value: string }) {
+function DetailItem({ label, value }: { label: string; value: string; }) {
     return (
         <div className="p-3 bg-white/5 rounded-lg">
             <div className="text-xs text-neutral-500 mb-1">{label}</div>
             <div className="text-sm font-medium text-neutral-200 truncate" title={value}>{value}</div>
-        </div>
-    )
+        </div>);
+
 }

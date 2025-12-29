@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import { validateAndSanitizeInput, MAX_IDEA_LENGTH, wrapUserPrompt } from './inputSanitizer';
 
 describe('Input Sanitization', () => {

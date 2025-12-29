@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Play, Download, Code, Shield } from 'lucide-react';
+import * as React from 'react'; import { useState } from 'react';
 
 export function KernelPlayground() {
     // Retaining imports and logic exactly as they are, replacing ONLY the return JSX
@@ -22,8 +20,8 @@ export function KernelPlayground() {
                     { step: 2, action: "Environment locked", timestamp: Date.now() + 100 },
                     { step: 3, action: "Deterministic execution", timestamp: Date.now() + 200 },
                     { step: 4, action: "Lineage captured", timestamp: Date.now() + 300 },
-                    { step: 5, action: "Audit trail generated", timestamp: Date.now() + 400 }
-                ],
+                    { step: 5, action: "Audit trail generated", timestamp: Date.now() + 400 }],
+
                 output: `Deterministic result for "${input}" (seed: ${seed})`,
                 reproducible: true,
                 auditTrail: "Cryptographically chained execution lineage"
@@ -43,8 +41,13 @@ export function KernelPlayground() {
                 p-6 md:p-8
                 shadow-card
                 transition-ui
-              "
-                >
+              ">
+
+
+
+
+
+
                     {/* Ambient light (extremely subtle) */}
                     <div className="pointer-events-none absolute inset-0 rounded-xl before:absolute before:inset-0 before:bg-accent-cyan/5 before:blur-3xl before:opacity-30" />
 
@@ -72,6 +75,11 @@ export function KernelPlayground() {
                       focus-within:ring-2 focus-within:ring-accent-cyan/40
                       transition-all duration-150
                     ">
+
+
+
+
+
                                     <textarea
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
@@ -81,9 +89,14 @@ export function KernelPlayground() {
                           outline-none resize-none
                           placeholder:text-neutral-400
                         "
+
+
+
+
+
                                         rows={10}
-                                        placeholder="Enter any text to test deterministic execution..."
-                                    />
+                                        placeholder="Enter any text to test deterministic execution..." />
+
                                 </div>
                             </div>
 
@@ -103,7 +116,7 @@ export function KernelPlayground() {
                       transition-ui
                       ${result ? 'opacity-100' : 'opacity-70'}
                     `}>
-                                    {result ? (
+                                    {result ?
                                         <div className="space-y-4">
                                             <div className="text-emerald-700 font-semibold mb-2 flex items-center gap-2">
                                                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -115,19 +128,19 @@ export function KernelPlayground() {
                                             </div>
                                             <div className="pt-4 border-t border-neutral-100 space-y-2">
                                                 <div className="text-xs text-neutral-400 uppercase tracking-widest">Lineage Trace</div>
-                                                {result.executionSteps.map((step: any, i: number) => (
+                                                {result.executionSteps.map((step: any, i: number) =>
                                                     <div key={i} className="flex gap-3 text-neutral-500">
                                                         <span className="text-neutral-300">{step.step.toString().padStart(2, '0')}</span>
                                                         <span>{step.action}</span>
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
-                                        </div>
-                                    ) : (
+                                        </div> :
+
                                         <div className="h-full flex items-center justify-center text-neutral-300 select-none italic">
-                                // Waiting for execution trigger...
+                                            Waiting for execution trigger...
                                         </div>
-                                    )}
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -147,14 +160,24 @@ export function KernelPlayground() {
                       focus-visible:outline-none
                       focus-visible:ring-2 focus-visible:ring-accent-cyan/40
                       flex items-center gap-2
-                    "
-                            >
+                    ">
+
+
+
+
+
+
+
+
+
+
+
                                 {isRunning ? 'Executing...' : 'Run Kernel'} {isRunning && <span className="animate-spin">◌</span>}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    );
+        </section>);
+
 }

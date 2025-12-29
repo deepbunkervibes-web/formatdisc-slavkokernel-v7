@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Download, ExternalLink } from 'lucide-react';
 
 export function DocsRoute() {
-    return (
-        <section className="relative min-h-screen bg-background pt-32 pb-24">
+  return (
+    <section className="relative min-h-screen bg-background pt-32 pb-24">
             {/* Ambient light (extremely subtle) */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-accent-cyan/5 blur-3xl opacity-50" />
@@ -13,14 +13,14 @@ export function DocsRoute() {
 
             <div className="relative max-w-7xl mx-auto px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 32, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                        duration: 1.2,
-                        ease: [0.16, 1, 0.3, 1]
-                    }}
-                    className="text-center mb-20 space-y-6"
-                >
+          initial={{ opacity: 0, y: 32, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 1.2,
+            ease: [0.16, 1, 0.3, 1]
+          }}
+          className="text-center mb-20 space-y-6">
+          
                     <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">
                         Technical Documentation
                     </h1>
@@ -37,6 +37,10 @@ export function DocsRoute() {
                         shadow-card hover:shadow-lg hover:-translate-y-[1px]
                         transition-ui
                     ">
+
+
+
+            
                         <div className="w-10 h-10 bg-neutral-50 rounded-lg flex items-center justify-center mb-6 border border-neutral-100">
                             <FileText className="w-5 h-5 text-neutral-700" />
                         </div>
@@ -56,6 +60,10 @@ export function DocsRoute() {
                         shadow-card hover:shadow-lg hover:-translate-y-[1px]
                         transition-ui
                     ">
+
+
+
+            
                         <div className="w-10 h-10 bg-neutral-50 rounded-lg flex items-center justify-center mb-6 border border-neutral-100">
                             <ExternalLink className="w-5 h-5 text-neutral-700" />
                         </div>
@@ -75,6 +83,10 @@ export function DocsRoute() {
                         shadow-card hover:shadow-lg hover:-translate-y-[1px]
                         transition-ui
                     ">
+
+
+
+            
                         <div className="w-10 h-10 bg-neutral-50 rounded-lg flex items-center justify-center mb-6 border border-neutral-100">
                             <FileText className="w-5 h-5 text-neutral-700" />
                         </div>
@@ -89,6 +101,6 @@ export function DocsRoute() {
                     </div>
                 </div>
             </div>
-        </section>
-    );
+        </section>);
+
 }

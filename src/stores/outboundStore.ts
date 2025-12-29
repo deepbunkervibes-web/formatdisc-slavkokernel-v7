@@ -1,6 +1,8 @@
+
 import { create } from 'zustand';
 
 import { IdeaProfile, Artifact, Investor, OutboundLog } from '../types/outbound';
+import { logger } from '../utils/logger';
 
 interface OutboundState {
     currentProfile: IdeaProfile | null;
@@ -19,7 +21,7 @@ interface OutboundState {
     fetchLogs: (ideaId: string) => Promise<void>;
 }
 
-export const useOutboundStore = create<OutboundState>((set, get) => ({
+export const useOutboundStore = create<OutboundState>((set) => ({
     currentProfile: null,
     artifacts: [],
     investors: [],
@@ -34,6 +36,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
             const data = await response.json();
             set({ currentProfile: data, isLoading: false });
         } catch (err) {
+            logger.error('Failed to fetch profile', err);
             set({ error: 'Failed to fetch profile', isLoading: false });
         }
     },
@@ -58,6 +61,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
                 isLoading: false
             }));
         } catch (err) {
+            logger.error('Upload failed', err);
             set({ error: 'Upload failed', isLoading: false });
         }
     },
@@ -78,6 +82,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
                 isLoading: false
             }));
         } catch (err) {
+            logger.error(`Failed to connect ${platform}`, err);
             set({ error: `Failed to connect ${platform}`, isLoading: false });
         }
     },
@@ -88,6 +93,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
             const data = await response.json();
             set({ investors: data });
         } catch (err) {
+            logger.error('Failed to fetch investors', err);
             set({ error: 'Failed to fetch investors' });
         }
     },
@@ -106,6 +112,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
                 isLoading: false
             }));
         } catch (err) {
+            logger.error('Outbound trigger failed', err);
             set({ error: 'Outbound trigger failed', isLoading: false });
         }
     },
@@ -116,6 +123,7 @@ export const useOutboundStore = create<OutboundState>((set, get) => ({
             const data = await response.json();
             set({ logs: data });
         } catch (err) {
+            logger.error('Failed to fetch logs', err);
             set({ error: 'Failed to fetch logs' });
         }
     }

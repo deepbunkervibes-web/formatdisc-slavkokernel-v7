@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import * as React from 'react';import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { LandingPage } from './routes/LandingPage';
@@ -18,14 +18,14 @@ import { Footer } from './components/ui/Footer';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
 
 // Lazy load heavy components
-const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then(module => ({ default: module.MvpStudio })));
+const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then((module) => ({ default: module.MvpStudio })));
 
 import { LanguageProvider } from './context/LanguageContext';
 import { KernelProvider } from './kernel/KernelProvider';
 
 function App() {
-    return (
-        <KernelProvider>
+  return (
+    <KernelProvider>
             <LanguageProvider>
                 <InvestorAuthProvider>
                     <BrowserRouter>
@@ -44,45 +44,45 @@ function App() {
                                     <Routes>
                                         <Route path="/" element={<LandingPage />} />
                                         <Route
-                                            path="/studio"
-                                            element={<LazyMvpStudio />}
-                                        />
+                      path="/studio"
+                      element={<LazyMvpStudio />} />
+                    
                                         <Route
-                                            path="/investors"
-                                            element={<InvestorsRoute />}
-                                        />
+                      path="/investors"
+                      element={<InvestorsRoute />} />
+                    
                                         <Route
-                                            path="/investors/login"
-                                            element={<InvestorLogin />}
-                                        />
+                      path="/investors/login"
+                      element={<InvestorLogin />} />
+                    
                                         <Route
-                                            path="/investors/portal"
-                                            element={<InvestorPortal />}
-                                        />
+                      path="/investors/portal"
+                      element={<InvestorPortal />} />
+                    
                                         <Route
-                                            path="/docs"
-                                            element={<DocsRoute />}
-                                        />
+                      path="/docs"
+                      element={<DocsRoute />} />
+                    
                                         <Route
-                                            path="/kernel"
-                                            element={<KernelRoute />}
-                                        />
+                      path="/kernel"
+                      element={<KernelRoute />} />
+                    
                                         <Route
-                                            path="/metrics"
-                                            element={<MetricsRoute />}
-                                        />
+                      path="/metrics"
+                      element={<MetricsRoute />} />
+                    
                                         <Route
-                                            path="/audit"
-                                            element={<AuditRoute />}
-                                        />
+                      path="/audit"
+                      element={<AuditRoute />} />
+                    
                                         <Route
-                                            path="/observability"
-                                            element={<ObservabilityRoute />}
-                                        />
+                      path="/observability"
+                      element={<ObservabilityRoute />} />
+                    
                                         <Route
-                                            path="/launchpad"
-                                            element={<LaunchpadRoute />}
-                                        />
+                      path="/launchpad"
+                      element={<LaunchpadRoute />} />
+                    
                                     </Routes>
                                 </Suspense>
                             </main>
@@ -92,8 +92,8 @@ function App() {
                     </BrowserRouter>
                 </InvestorAuthProvider>
             </LanguageProvider>
-        </KernelProvider>
-    );
+        </KernelProvider>);
+
 }
 
 export default App;

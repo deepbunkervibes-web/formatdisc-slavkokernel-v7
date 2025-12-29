@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import * as React from 'react';import { useEffect, useState, useMemo } from 'react';
 import { Activity, ShieldAlert, ShieldCheck, Zap, Server, BarChart3, Clock } from 'lucide-react';
 
 import { useKernel } from '../../../kernel/KernelProvider';
@@ -6,22 +6,22 @@ import { AuditVerifier, AuditVerification } from '../../../kernel/monitoring/Aud
 import { KernelHealth } from '../../../kernel/monitoring/HealthService';
 
 export const IntrospectionPanel = () => {
-    const { getHealth, audit } = useKernel();
-    const [health, setHealth] = useState<KernelHealth | null>(null);
-    const [verification, setVerification] = useState<AuditVerification | null>(null);
+  const { getHealth, audit } = useKernel();
+  const [health, setHealth] = useState<KernelHealth | null>(null);
+  const [verification, setVerification] = useState<AuditVerification | null>(null);
 
-    useEffect(() => {
-        const update = setInterval(() => {
-            setHealth(getHealth());
-            setVerification(AuditVerifier.verifyChain(audit));
-        }, 1000);
-        return () => clearInterval(update);
-    }, [getHealth, audit]);
+  useEffect(() => {
+    const update = setInterval(() => {
+      setHealth(getHealth());
+      setVerification(AuditVerifier.verifyChain(audit));
+    }, 1000);
+    return () => clearInterval(update);
+  }, [getHealth, audit]);
 
-    if (!health) return null;
+  if (!health) return null;
 
-    return (
-        <div className="bg-[#0A0A0A] border border-white/5 p-6 rounded-2xl shadow-2xl relative overflow-hidden group">
+  return (
+    <div className="bg-[#0A0A0A] border border-white/5 p-6 rounded-2xl shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
                 <BarChart3 size={120} />
             </div>
@@ -82,11 +82,11 @@ export const IntrospectionPanel = () => {
                     <div className={`p-5 rounded-xl border ${verification?.isValid ? 'border-emerald-500/20 bg-emerald-500/5' : 'border-red-500/20 bg-red-500/5'} transition-all`}>
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-xs font-bold text-white uppercase tracking-wider">Hash Integrity</span>
-                            {verification?.isValid ? (
-                                <ShieldCheck size={20} className="text-emerald-500" />
-                            ) : (
-                                <ShieldAlert size={20} className="text-red-500 animate-bounce" />
-                            )}
+                            {verification?.isValid ?
+              <ShieldCheck size={20} className="text-emerald-500" /> :
+
+              <ShieldAlert size={20} className="text-red-500 animate-bounce" />
+              }
                         </div>
 
                         <div className="space-y-3">
@@ -101,15 +101,15 @@ export const IntrospectionPanel = () => {
                                 </span>
                             </div>
                             <div className="mt-4">
-                                {verification?.violations.length === 0 ? (
-                                    <div className="text-[9px] text-emerald-500 italic uppercase">✓ All blocks hashed and sealed correctly.</div>
-                                ) : (
-                                    <div className="text-[9px] text-red-400 font-mono space-y-1">
-                                        {verification?.violations.slice(0, 2).map((v, i) => (
-                                            <div key={i}>ERR: {v}</div>
-                                        ))}
+                                {verification?.violations.length === 0 ?
+                <div className="text-[9px] text-emerald-500 italic uppercase">✓ All blocks hashed and sealed correctly.</div> :
+
+                <div className="text-[9px] text-red-400 font-mono space-y-1">
+                                        {verification?.violations.slice(0, 2).map((v, i) =>
+                  <div key={i}>ERR: {v}</div>
+                  )}
                                     </div>
-                                )}
+                }
                             </div>
                         </div>
                     </div>
@@ -121,6 +121,6 @@ export const IntrospectionPanel = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
+
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Download, RefreshCw, AlertTriangle, ArrowRight, Sparkles, FileText, BookOpen, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -38,8 +38,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-red-500/30 bg-red-500/5 p-8"
-      >
+        className="rounded-2xl border border-red-500/30 bg-red-500/5 p-8">
+
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
@@ -61,20 +61,20 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={onReset}
-              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-neutral-800 border border-neutral-700 text-sm text-white hover:bg-neutral-700 transition-colors"
-            >
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-neutral-800 border border-neutral-700 text-sm text-white hover:bg-neutral-700 transition-colors">
+
               <RefreshCw size={14} /> New Idea
             </button>
             <button
               onClick={onProceedAnyway}
-              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-amber-500 text-black text-sm font-semibold hover:bg-amber-400 transition-colors"
-            >
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-amber-500 text-black text-sm font-semibold hover:bg-amber-400 transition-colors">
+
               Override & Build <ArrowRight size={14} />
             </button>
           </div>
         </div>
-      </motion.div>
-    )
+      </motion.div>);
+
   }
 
   // SUCCESS STATE
@@ -82,8 +82,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-8"
-    >
+      className="space-y-8">
+
       {/* Success Header */}
       <div className="rounded-2xl border border-accent-cyan/30 bg-gradient-to-br from-accent-cyan/5 to-transparent p-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -106,8 +106,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
           </div>
           <button
             onClick={onReset}
-            className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-          >
+            className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+
             <RefreshCw size={14} /> Start New Simulation
           </button>
         </div>
@@ -118,8 +118,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
         <button
           onClick={() => handleDownload(mvpBlueprint!, 'mvp_blueprint.json')}
           disabled={!mvpBlueprint}
-          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-accent-cyan/50 transition-all text-left disabled:opacity-50"
-        >
+          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-accent-cyan/50 transition-all text-left disabled:opacity-50">
+
           <FileText className="w-8 h-8 text-accent-cyan mb-4 group-hover:scale-110 transition-transform" />
           <h4 className="text-white font-medium mb-1">MVP Blueprint</h4>
           <p className="text-neutral-500 text-xs mb-4">Architecture, flows, UI sections, tech stack.</p>
@@ -131,8 +131,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
         <button
           onClick={() => handleDownload(pitchDeck!, 'pitch_deck.json')}
           disabled={!pitchDeck}
-          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-accent-purple/50 transition-all text-left disabled:opacity-50"
-        >
+          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-accent-purple/50 transition-all text-left disabled:opacity-50">
+
           <BookOpen className="w-8 h-8 text-accent-purple mb-4 group-hover:scale-110 transition-transform" />
           <h4 className="text-white font-medium mb-1">Pitch Deck</h4>
           <p className="text-neutral-500 text-xs mb-4">5-slide investor presentation structure.</p>
@@ -144,8 +144,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
         <button
           onClick={() => handleDownload(investorSummary!, 'investor_summary.json')}
           disabled={!investorSummary}
-          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-white/30 transition-all text-left disabled:opacity-50"
-        >
+          className="group p-6 rounded-xl bg-neutral-900/50 border border-neutral-800 hover:border-white/30 transition-all text-left disabled:opacity-50">
+
           <Mail className="w-8 h-8 text-white mb-4 group-hover:scale-110 transition-transform" />
           <h4 className="text-white font-medium mb-1">Investor Summary</h4>
           <p className="text-neutral-500 text-xs mb-4">Cold email template, ask, use of funds.</p>
@@ -157,7 +157,7 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
 
       {/* What's Next Section */}
       <div className="rounded-xl border border-neutral-800 bg-neutral-900/30 p-6">
-        <h4 className="text-sm font-mono text-neutral-400 uppercase tracking-widest mb-4">&gt; What's Next?</h4>
+        <h4 className="text-sm font-mono text-neutral-400 uppercase tracking-widest mb-4">&gt; What&apos;s Next?</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           <div className="space-y-1">
             <span className="text-accent-cyan font-semibold">1. Review Artifacts</span>
@@ -173,8 +173,8 @@ export function ResultActions({ evaluation, mvpBlueprint, pitchDeck, investorSum
           </div>
         </div>
       </div>
-    </motion.div>
-  );
+    </motion.div>);
+
 }
 
 export default ResultActions;

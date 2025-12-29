@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { NeuralField } from './NeuralField';
 import { ThoughtStream } from './ThoughtStream';
@@ -9,35 +9,35 @@ import { PhaseTimeline } from './PhaseTimeline';
 
 // 5. Layout Constants (Enterprise-Grade)
 const HUD_LAYOUT = {
-    height: '600px',
-    decisionTree: {
-        width: '340px',
-        height: '400px'
-    }
+  height: '600px',
+  decisionTree: {
+    width: '340px',
+    height: '400px'
+  }
 } as const;
 
 interface KernelConsciousnessProps {
-    phase: string;
-    thoughts?: string[];
-    decisionTree?: TreeNode[];
-    confidence?: number;
-    quantumState?: 'SUPERPOSITION' | 'COLLAPSED' | 'DECOHERING';
+  phase: string;
+  thoughts?: string[];
+  decisionTree?: TreeNode[];
+  confidence?: number;
+  quantumState?: 'SUPERPOSITION' | 'COLLAPSED' | 'DECOHERING';
 }
 
 export const KernelConsciousnessDashboard: React.FC<KernelConsciousnessProps> = ({
-    phase,
-    thoughts = [],
-    decisionTree = [],
-    confidence = 0.85,
-    quantumState = 'SUPERPOSITION',
+  phase,
+  thoughts = [],
+  decisionTree = [],
+  confidence = 0.85,
+  quantumState = 'SUPERPOSITION'
 }) => {
-    return (
-        <div
-            className={`relative w-full rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/80`}
-            style={{ height: HUD_LAYOUT.height }}
-            role="region"
-            aria-label="Kernel Consciousness Dashboard"
-        >
+  return (
+    <div
+      className={`relative w-full rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-black/80`}
+      style={{ height: HUD_LAYOUT.height }}
+      role="region"
+      aria-label="Kernel Consciousness Dashboard">
+      
             {/* 1. Neural Hologram */}
             <div className="absolute inset-0 z-0">
                 <NeuralField phase={phase} confidence={confidence} />
@@ -55,9 +55,9 @@ export const KernelConsciousnessDashboard: React.FC<KernelConsciousnessProps> = 
 
             {/* 4. Decision Tree */}
             <div
-                className="absolute top-6 right-6 z-10"
-                style={{ width: HUD_LAYOUT.decisionTree.width, height: HUD_LAYOUT.decisionTree.height }}
-            >
+        className="absolute top-6 right-6 z-10"
+        style={{ width: HUD_LAYOUT.decisionTree.width, height: HUD_LAYOUT.decisionTree.height }}>
+        
                 <DecisionTreeHologram tree={decisionTree} />
             </div>
 
@@ -76,6 +76,6 @@ export const KernelConsciousnessDashboard: React.FC<KernelConsciousnessProps> = 
 
             {/* Scanlines */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-[2] bg-[length:100%_2px,3px_100%]" />
-        </div>
-    );
+        </div>);
+
 };

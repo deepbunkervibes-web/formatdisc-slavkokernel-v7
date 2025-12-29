@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface GlassCardProps {
 
 export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '' }) => {
   return (
-    <div 
+    <div
       className={`
         bg-white/60 
         backdrop-blur-xl 
@@ -15,9 +15,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '' }
         shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] 
         rounded-2xl 
         ${className}
-      `}
-    >
+      `}>
+
       {children}
-    </div>
-  );
+    </div>);
+
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { MvpBlueprint, PitchDeck } from '../../types';
 
@@ -16,17 +16,17 @@ interface TabButtonProps {
   disabled?: boolean;
 }
 
-const TabButton: React.FC<TabButtonProps> = ({ isActive, onClick, children, disabled }) => (
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-      isActive ? 'bg-accentBlue text-white' : 'text-slate-600 dark:text-secondaryText hover:bg-slate-200 dark:hover:bg-tertiaryBg'
-    } disabled:opacity-50 disabled:cursor-not-allowed`}
-  >
+const TabButton: React.FC<TabButtonProps> = ({ isActive, onClick, children, disabled }) =>
+<button
+  onClick={onClick}
+  disabled={disabled}
+  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+  isActive ? 'bg-accentBlue text-white' : 'text-slate-600 dark:text-secondaryText hover:bg-slate-200 dark:hover:bg-tertiaryBg'} disabled:opacity-50 disabled:cursor-not-allowed`
+  }>
+
     {children}
-  </button>
-);
+  </button>;
+
 
 export function Tabs({ activeTab, setActiveTab, mvpBlueprint, pitchDeck }: TabsProps) {
   return (
@@ -34,20 +34,20 @@ export function Tabs({ activeTab, setActiveTab, mvpBlueprint, pitchDeck }: TabsP
       <TabButton isActive={activeTab === 'council'} onClick={() => setActiveTab('council')}>
         Council Logs
       </TabButton>
-      <TabButton 
-        isActive={activeTab === 'mvp'} 
+      <TabButton
+        isActive={activeTab === 'mvp'}
         onClick={() => setActiveTab('mvp')}
-        disabled={!mvpBlueprint}
-      >
+        disabled={!mvpBlueprint}>
+
         MVP Preview
       </TabButton>
-      <TabButton 
-        isActive={activeTab === 'deck'} 
+      <TabButton
+        isActive={activeTab === 'deck'}
         onClick={() => setActiveTab('deck')}
-        disabled={!pitchDeck}
-      >
+        disabled={!pitchDeck}>
+
         Pitch Deck
       </TabButton>
-    </div>
-  );
+    </div>);
+
 }

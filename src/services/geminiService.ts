@@ -1,6 +1,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 
+import { logger } from '../utils/logger';
 import { IdeaEvaluation, MvpBlueprint, PitchDeck, InvestorSummary } from '../types';
 import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
 
@@ -52,7 +53,7 @@ Each slide should have 3-4 bullet points. Be concise and compelling.`;
 
 export const mvpStudioService = {
   async evaluateIdea(idea: string): Promise<IdeaEvaluation> {
-    console.log('🔍 Evaluating idea with SlavkoKernel:', idea);
+    logger.info('Evaluating idea with SlavkoKernel:', idea);
 
     // 1. Sanitize Input
     const securityCheck = validateAndSanitizeInput(idea);
@@ -71,7 +72,7 @@ export const mvpStudioService = {
       const health = await checkOllamaHealth();
 
       if (!health.available || !health.model) {
-        console.warn('⚠️ Ollama not available, using mock mode');
+        logger.warn('Ollama not available, using mock mode');
         logs.push({ timestamp: new Date().toISOString(), agent: 'SYSTEM', message: 'Ollama unavailable. Running in simulation mode.', status: 'INFO' });
         useOllama = false;
       } else {
@@ -120,12 +121,12 @@ Provide your analysis in this JSON format:
           if (jsonMatch) {
             parsed = JSON.parse(jsonMatch[0]);
           }
-        } catch (e) {
-          console.warn('Failed to parse AI response, using defaults');
+        } catch (_e) {
+          logger.warn('Failed to parse AI response, using defaults');
         }
 
         if (parsed) {
-          const { verdict, justification, voteCounts } = councilAgent(parsed.agent_votes || {
+          const { verdict, justification } = councilAgent(parsed.agent_votes || {
             'ANALYST_AGENT': 'PROCEED',
             'SIMULATOR_AGENT': 'PROCEED',
             'SKEPTIC_AGENT': 'REVISE',
@@ -153,14 +154,14 @@ Provide your analysis in this JSON format:
       return generateMockEvaluation(idea, logs);
 
     } catch (error) {
-      console.error('Evaluation error:', error);
+      logger.error('Evaluation error:', error);
       logs.push({ timestamp: new Date().toISOString(), agent: 'SYSTEM', message: 'Error during evaluation. Falling back to simulation.', status: 'ERROR' });
       return generateMockEvaluation(idea, logs);
     }
   },
 
   async generateMvp(idea: string, evaluation: IdeaEvaluation): Promise<MvpBlueprint> {
-    console.log('🏗️ Generating MVP blueprint with SlavkoKernel...');
+    logger.info('Generating MVP blueprint with SlavkoKernel...');
 
     if (useOllama) {
       try {
@@ -198,7 +199,7 @@ Provide the blueprint in this JSON format:
           return parsed as MvpBlueprint;
         }
       } catch (error) {
-        console.warn('MVP generation failed, using fallback:', error);
+        logger.warn('MVP generation failed, using fallback:', error);
       }
     }
 
@@ -222,7 +223,7 @@ Provide the blueprint in this JSON format:
   },
 
   async generatePitchDeck(idea: string, evaluation: IdeaEvaluation, mvpBlueprint: MvpBlueprint): Promise<PitchDeck> {
-    console.log('📊 Generating pitch deck with SlavkoKernel...');
+    logger.info('Generating pitch deck with SlavkoKernel...');
 
     if (useOllama) {
       try {
@@ -250,7 +251,7 @@ Format as JSON:
           return JSON.parse(jsonMatch[0]) as PitchDeck;
         }
       } catch (error) {
-        console.warn('Pitch deck generation failed, using fallback:', error);
+        logger.warn('Pitch deck generation failed, using fallback:', error);
       }
     }
 
@@ -266,8 +267,8 @@ Format as JSON:
     };
   },
 
-  async generateInvestorSummary(idea: string, evaluation: IdeaEvaluation, mvpBlueprint: MvpBlueprint, pitchDeck: PitchDeck): Promise<InvestorSummary> {
-    console.log('💼 Generating investor summary...');
+  async generateInvestorSummary(idea: string, _evaluation: IdeaEvaluation, _mvpBlueprint: MvpBlueprint, _pitchDeck: PitchDeck): Promise<InvestorSummary> {
+    logger.info('Generating investor summary...');
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     return {
@@ -289,7 +290,7 @@ function generateMockEvaluation(idea: string, logs: IdeaEvaluation['logs']): Ide
     const specialVerdict = 'PROCEED';
     const specialScore = 9.9;
 
-    logs.push({ timestamp: new Date().toISOString(), agent: 'KERNEL_CORE', message: '⚠️ METADATA_MATCH: Founder Authorization Detected.', status: 'WARNING' });
+    logs.push({ timestamp: new Date().toISOString(), agent: 'KERNEL_CORE', message: 'METADATA_MATCH: Founder Authorization Detected.', status: 'INFO' });
     logs.push({ timestamp: new Date().toISOString(), agent: 'PSYCHO_PASS', message: 'Subject is displaying high levels of self-awareness. Performance layer is effectively dropped.', status: 'SUCCESS' });
     logs.push({ timestamp: new Date().toISOString(), agent: 'COUNCIL', message: 'Consensus: The simulation is valid. The fear is the feature.', status: 'SUCCESS' });
 
@@ -355,13 +356,13 @@ export type GeminiHistoryPart = {
 export const sendMessageToGemini = async (history: GeminiHistoryPart[], message: string): Promise<string> => {
   try {
     if (!import.meta.env.VITE_API_KEY) {
-      console.warn("API Key is missing. Returning mock response.");
+      logger.warn("API Key is missing. Returning mock response.");
       return "I can't connect to Gemini right now (API Key missing). I am Lumina, your design assistant.";
     }
 
     const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
     const chat = ai.chats.create({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       history: history,
       config: {
         systemInstruction: "You are Lumina, a helpful design assistant specializing in 'Ethereal Cupertino' aesthetics.",
@@ -371,7 +372,7 @@ export const sendMessageToGemini = async (history: GeminiHistoryPart[], message:
     const result = await chat.sendMessage({ message });
     return result.text;
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    logger.error("Gemini API Error:", error);
     return "Sorry, I'm having trouble connecting to the design mainframe right now.";
   }
 }
