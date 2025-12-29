@@ -9,6 +9,9 @@ import { DocsRoute } from './routes/DocsRoute';
 import { KernelRoute } from './routes/KernelRoute';
 import { MetricsRoute } from './routes/MetricsRoute';
 import { AuditRoute } from './routes/AuditRoute';
+import { ObservabilityRoute } from './routes/ObservabilityRoute';
+import { InvestorsRoute } from './routes/InvestorsRoute';
+import { LaunchpadRoute } from './routes/LaunchpadRoute';
 import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
@@ -45,6 +48,10 @@ function App() {
                                         />
                                         <Route
                                             path="/investors"
+                                            element={<InvestorsRoute />}
+                                        />
+                                        <Route
+                                            path="/investors/login"
                                             element={<InvestorLogin />}
                                         />
                                         <Route
@@ -66,6 +73,14 @@ function App() {
                                         <Route
                                             path="/audit"
                                             element={<AuditRoute />}
+                                        />
+                                        <Route
+                                            path="/observability"
+                                            element={<ObservabilityRoute />}
+                                        />
+                                        <Route
+                                            path="/launchpad"
+                                            element={<LaunchpadRoute />}
                                         />
                                     </Routes>
                                 </Suspense>

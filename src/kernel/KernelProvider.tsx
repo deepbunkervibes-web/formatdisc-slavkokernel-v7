@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { HealthService, KernelHealth } from './monitoring/HealthService';
+import { useObsStore } from '@/stores/observabilityStore';
 
 type KernelState = 'init' | 'ready';
 
@@ -89,7 +90,7 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         const payload = `${Date.now()}::${actor}::${action}::${JSON.stringify(metadata || {})}`;
         const hash = generateHash(payload);
 
-        auditRef.current.push({
+        const auditEntry = {
             id: crypto.randomUUID(),
             ts: Date.now(),
             actor,
@@ -97,7 +98,27 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             hash,
             metadata,
             sessionId: currentSessionId || undefined
+        };
+
+        auditRef.current.push(auditEntry);
+
+        // Also pipe to Observability Store if severity is present or just as generic log
+        // Mapping kernel actions to observability findings
+        let severity: 'low' | 'medium' | 'high' | 'critical' = 'low';
+        if (action.includes('error')) severity = 'high';
+        if (action.includes('fail')) severity = 'medium';
+        if (action.includes('boot')) severity = 'critical';
+
+        useObsStore.getState().addFindings({
+            id: auditEntry.id,
+            service: actor,
+            severity,
+            message: `${action}`,
+            timestamp: new Date(auditEntry.ts).toISOString(),
+            confidence: metadata?.confidence || 100,
+            metadata: metadata
         });
+
         healthService.recordAuditEvent();
         setAuditVersion(v => v + 1);
     }, [healthService, currentSessionId]);

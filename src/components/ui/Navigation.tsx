@@ -16,6 +16,7 @@ export function Navigation() {
         { path: '/kernel', label: t.nav.kernel },
         { path: '/metrics', label: t.nav.metrics },
         { path: '/audit', label: t.nav.audit },
+        { path: '/launchpad', label: 'Launchpad' },
         { path: '/docs', label: t.nav.docs },
         { path: '/investors', label: t.nav.investors },
     ];

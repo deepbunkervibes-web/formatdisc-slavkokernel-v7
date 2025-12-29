@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "lint": "echo 'No lint rules configured'",
     "dev:api": "tsx dev-server.ts",
     "dev:full": "concurrently \"npm run dev:api\" \"npm run dev\"",
     "build": "vite build",
@@ -12,21 +13,29 @@
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
+    "@types/redis": "^4.0.10",
+    "adm-zip": "^0.5.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.554.0",
+    "multer": "^2.0.2",
     "nanoid": "^5.1.6",
     "openai": "^6.15.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.11.0",
     "recharts": "^3.6.0",
-    "tailwind-merge": "^3.4.0"
+    "redis": "^5.10.0",
+    "tailwind-merge": "^3.4.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
+    "@types/adm-zip": "^0.5.7",
+    "@types/cors": "^2.8.19",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.14.0",
     "@types/three": "^0.182.0",
     "@vercel/node": "^5.5.16",

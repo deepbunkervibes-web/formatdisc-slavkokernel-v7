@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { EvaluationView } from '../EvaluationView';
 import { Tabs } from '../ui/Tabs';
 import { GlassCard } from '../GlassCard';
-import { Terminal } from '../ui/Terminal';
+import { GlassCard } from '../GlassCard';
 import { MvpStudioState } from '../../types';
 import { ViewSkeleton, TerminalSkeleton } from './Skeletons';
 import { useLanguage } from '../../context/LanguageContext';
@@ -10,6 +10,7 @@ import { useLanguage } from '../../context/LanguageContext';
 // Lazy-loaded artifact components
 const MvpPreview = React.lazy(() => import('../MvpPreview').then(mod => ({ default: mod.MvpPreview })));
 const PitchDeckView = React.lazy(() => import('../PitchDeckView').then(mod => ({ default: mod.PitchDeckView })));
+import { KernelConsciousnessDashboard } from '../consciousness/KernelConsciousnessDashboard';
 
 interface SimulationWorkspaceProps {
     activeTab: 'council' | 'mvp' | 'deck';
@@ -50,10 +51,17 @@ export const SimulationWorkspace = React.memo(({ activeTab, setActiveTab, state 
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} mvpBlueprint={mvpBlueprint} pitchDeck={pitchDeck} />
                 <GlassCard className="min-h-[600px] max-h-[800px] p-0 overflow-hidden flex flex-col bg-[#0d1117] border-neutral-800">
                     <Suspense fallback={<TerminalSkeleton />}>
-                        {activeTab === 'council' && evaluation && (
-                            <Terminal
-                                logs={evaluation.logs}
-                                isProcessing={phase === 'EVALUATING' || phase === 'MVP_BUILDING'}
+                        {activeTab === 'council' && (
+                            <KernelConsciousnessDashboard
+                                phase={phase}
+                                thoughts={evaluation?.logs?.map(l => l.message) ?? []}
+                                confidence={evaluation?.score ? evaluation.score / 10 : 0.5}
+                                quantumState={
+                                    phase === 'RESULT' ? 'COLLAPSED' :
+                                        phase === 'EVALUATING' || phase === 'MVP_BUILDING' ? 'DECOHERING' :
+                                            'SUPERPOSITION'
+                                }
+                                decisionTree={[]} // Will map fully in next iteration
                             />
                         )}
                         {activeTab === 'mvp' && (

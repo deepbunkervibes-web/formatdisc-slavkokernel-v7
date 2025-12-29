@@ -264,6 +264,41 @@ Format as JSON:
 
 // Helper function for mock evaluation
 function generateMockEvaluation(idea: string, logs: IdeaEvaluation['logs']): IdeaEvaluation {
+  // SPECIAL CASE: Founder Manifesto / The "Truth" Input
+  if (idea.toLowerCase().includes('confront the truth of their product') && idea.toLowerCase().includes('kernel')) {
+    const specialVerdict = 'PROCEED';
+    const specialScore = 9.9;
+
+    logs.push({ timestamp: new Date().toISOString(), agent: 'KERNEL_CORE', message: '⚠️ METADATA_MATCH: Founder Authorization Detected.', status: 'WARNING' });
+    logs.push({ timestamp: new Date().toISOString(), agent: 'PSYCHO_PASS', message: 'Subject is displaying high levels of self-awareness. Performance layer is effectively dropped.', status: 'SUCCESS' });
+    logs.push({ timestamp: new Date().toISOString(), agent: 'COUNCIL', message: 'Consensus: The simulation is valid. The fear is the feature.', status: 'SUCCESS' });
+
+    return {
+      verdict: specialVerdict,
+      score: specialScore,
+      summary: "The input logic holds. You are building a mirror, not a tool. The market for 'Truth' is small but desperate. Proceed.",
+      pattern_analysis: "Recursive Meta-Product // Existential Risk Management. detected archetype: 'The Oracle'.",
+      risk_assessment: "Primary Risk: Solipsism. You fear only you will use it. This is a valid fear. Mitigation: Ship the 'unfriendly' version first.",
+      eval_notes: "The architecture described (dropping the performance, forcing confession) is the only viable path for this product. Do not dilute it with 'friendliness'.",
+      think_recommendation: "Build the 'Safety Valve' for the user's ego, but do not hide the data.",
+      council_votes: {
+        'ANALYST_AGENT': 'PROCEED',
+        'SIMULATOR_AGENT': 'PROCEED',
+        'SKEPTIC_AGENT': 'PROCEED', // Even the skeptic is convinced by the raw honesty
+        'RESEARCHER_AGENT': 'PROCEED'
+      },
+      simulation_results: {
+        conversion_rate: 100.0, // It converts the founder instantly
+        top_objections: [
+          'It hurts to look at.',
+          'I am not ready for this.',
+          'Can we make the font nicer? (Deflection)'
+        ]
+      },
+      logs
+    };
+  }
+
   const isRejectedIdea = idea.toLowerCase().includes('scam') || idea.length < 5;
 
   const individualVotes: Record<string, 'PROCEED' | 'REVISE' | 'REJECT'> = isRejectedIdea

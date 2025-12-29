@@ -5,6 +5,16 @@ import { dirname, join } from 'path';
 import executeHandler from './api/kernel/execute';
 import metricsHandler from './api/kernel/metrics';
 import auditHandler from './api/kernel/audit';
+import ingestHandler from './api/observability/ingest';
+import streamHandler from './api/observability/stream';
+import summaryHandler from './api/observability/summary';
+import profilesHandler from './api/outbound/profiles';
+import artifactsHandler from './api/outbound/artifacts';
+import investorsHandler from './api/outbound/investors';
+import sendHandler from './api/outbound/send';
+import githubIntegrationHandler from './api/outbound/integrations/github';
+import logsHandler from './api/outbound/logs';
+
 
 const app = express();
 const PORT = 3001;
@@ -32,6 +42,19 @@ const adapter = (handler: any) => async (req: any, res: any) => {
 app.all('/api/kernel/execute', adapter(executeHandler));
 app.all('/api/kernel/metrics', adapter(metricsHandler));
 app.all('/api/kernel/audit', adapter(auditHandler));
+
+// Observability Routes
+app.all('/api/observability/ingest', adapter(ingestHandler));
+app.all('/api/observability/summary', adapter(summaryHandler));
+app.get('/api/observability/stream', streamHandler);
+
+// Outbound Engine Routes
+app.all('/api/outbound/profiles', adapter(profilesHandler));
+app.all('/api/outbound/artifacts', adapter(artifactsHandler));
+app.all('/api/outbound/investors', adapter(investorsHandler));
+app.all('/api/outbound/send', adapter(sendHandler));
+app.all('/api/outbound/integrations/github', adapter(githubIntegrationHandler));
+app.all('/api/outbound/logs', adapter(logsHandler));
 
 app.listen(PORT, () => {
     console.log(`> Local API Server running at http://localhost:${PORT}`);

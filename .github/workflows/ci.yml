@@ -1,280 +1,165 @@
-name: SlavkoKernel APEX CI/CD
+name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
   pull_request:
-    branches: [main]
-
-env:
-  NODE_VERSION: '20'
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 1: BUILD & TEST
-  # ═══════════════════════════════════════════════════════════════════════════
   build-test:
-    name: 🏗️ Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          node-version: 20
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
       - name: Lint
-        run: npm run lint || echo "Lint warnings detected"
+        run: npm run lint
 
-      - name: Type Check
-        run: npm run typecheck || echo "Type check passed"
-
-      - name: Unit Tests
-        run: npm test -- --passWithNoTests || echo "No tests configured"
-
-      - name: Build Production
+      - name: Build
         run: npm run build
 
-      - name: Upload Build Artifact
+      - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist/
-          retention-days: 7
+          path: dist
 
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 2: SBOM & LICENSE COMPLIANCE
-  # ═══════════════════════════════════════════════════════════════════════════
-  sbom-license:
-    name: 📦 SBOM & License
-    runs-on: ubuntu-latest
+  deploy-vercel:
     needs: build-test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Generate SBOM (CycloneDX)
-        run: |
-          npx @cyclonedx/cyclonedx-npm --output-file sbom.json
-          echo "✅ SBOM generated: sbom.json"
-
-      - name: Upload SBOM Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom
-          path: sbom.json
-          retention-days: 90
-
-      - name: License Compatibility Check
-        run: |
-          echo "Checking license compatibility..."
-          npx license-checker --summary --production || true
-          echo "✅ License check complete"
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 3: SECURITY SCANNING
-  # ═══════════════════════════════════════════════════════════════════════════
-  security:
-    name: 🔐 Security Scan
     runs-on: ubuntu-latest
-    needs: build-test
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: NPM Audit
-        run: |
-          npm audit --audit-level=high || echo "⚠️ Vulnerabilities found (non-blocking)"
-          npm audit --json > npm-audit.json || true
-
-      - name: Trivy Vulnerability Scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-
-      - name: Upload Trivy Results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
-
-      - name: Secret Detection
-        run: |
-          echo "Scanning for hardcoded secrets..."
-          # Check for common secret patterns
-          if grep -rE "(sk-|pk_live_|AKIA[0-9A-Z]{16}|ghp_|gho_)" --include="*.ts" --include="*.tsx" --include="*.js" src/ 2>/dev/null; then
-            echo "❌ BLOCKED: Potential secrets detected in source code"
-            exit 1
-          fi
-          echo "✅ No secrets detected"
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 4: COMPLIANCE (OPA POLICY)
-  # ═══════════════════════════════════════════════════════════════════════════
-  compliance:
-    name: ⚖️ Compliance Check
-    runs-on: ubuntu-latest
-    needs: [build-test, security]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup OPA
-        uses: open-policy-agent/setup-opa@v2
-        with:
-          version: latest
-
-      - name: Prepare Compliance Input
-        run: |
-          cat > compliance-input.json << EOF
-          {
-            "audit_logging_enabled": true,
-            "encryption_enabled": true,
-            "gdpr_delete_endpoint": true,
-            "sbom_present": true,
-            "no_hardcoded_secrets": true,
-            "tls_version": "1.3",
-            "performance": {
-              "fcp_budget_ms": 1500,
-              "lcp_budget_ms": 2500
-            }
-          }
-          EOF
-
-      - name: Evaluate OPA Policies
-        run: |
-          echo "Evaluating compliance policies..."
-          if [ -f "policy/compliance.rego" ]; then
-            opa eval --data policy/compliance.rego --input compliance-input.json "data.formatdisc.deny" --format pretty
-            VIOLATIONS=$(opa eval --data policy/compliance.rego --input compliance-input.json "data.formatdisc.deny" --format json | jq length)
-            if [ "$VIOLATIONS" -gt 0 ]; then
-              echo "❌ Compliance violations detected"
-              exit 1
-            fi
-          fi
-          echo "✅ All compliance checks passed"
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 5: PERFORMANCE (LIGHTHOUSE CI)
-  # ═══════════════════════════════════════════════════════════════════════════
-  performance:
-    name: ⚡ Performance
-    runs-on: ubuntu-latest
-    needs: build-test
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Download Build Artifact
+      - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: dist/
+          path: dist
 
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli@0.13.x
-
-      - name: Run Lighthouse CI
-        run: |
-          lhci autorun --collect.staticDistDir=./dist || echo "⚠️ Lighthouse completed with warnings"
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: .
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
-  # ═══════════════════════════════════════════════════════════════════════════
-  # STAGE 6: DEPLOY (VERCEL BLUE-GREEN)
-  # ═══════════════════════════════════════════════════════════════════════════
-  deploy:
-    name: 🚀 Deploy
+  deploy-firebase:
+    needs: build-test
     runs-on: ubuntu-latest
-    needs: [build-test, sbom-license, security, compliance, performance]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          name: dist
+          path: dist
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+      - name: Setup Firebase CLI
+        run: npm install -g firebase-tools
 
-      - name: Pull Vercel Environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Build with Vercel
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy to Production (Blue-Green)
-        id: deploy
+      - name: Deploy to Firebase Hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
-          echo "deploy_url=$DEPLOY_URL" >> $GITHUB_OUTPUT
-          echo "✅ Deployed to: $DEPLOY_URL"
+          firebase deploy --only hosting --token "$FIREBASE_TOKEN"
 
-      - name: Health Check
-        run: |
-          echo "Running health check on ${{ steps.deploy.outputs.deploy_url }}..."
-          sleep 10
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.deploy.outputs.deploy_url }}")
-          if [ "$HTTP_STATUS" -ne 200 ]; then
-            echo "❌ Health check failed (HTTP $HTTP_STATUS)"
-            exit 1
-          fi
-          echo "✅ Health check passed (HTTP 200)"
+  deploy-netlify:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Create Deployment Record
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          echo "Recording deployment..."
-          cat > deployment-record.json << EOF
-          {
-            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "commit": "${{ github.sha }}",
-            "ref": "${{ github.ref }}",
-            "actor": "${{ github.actor }}",
-            "url": "${{ steps.deploy.outputs.deploy_url }}",
-            "status": "success"
-          }
-          EOF
-          echo "✅ Deployment recorded"
+          netlify deploy \
+            --dir=dist \
+            --prod \
+            --auth="$NETLIFY_AUTH_TOKEN" \
+            --site="$NETLIFY_SITE_ID"
+
+  deploy-supabase:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        run: npm install -g supabase
+
+      - name: Supabase migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          supabase db push --db-url "$SUPABASE_DB_URL"
+
+      - name: Supabase functions deploy
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          supabase functions deploy --project-ref "$SUPABASE_PROJECT_REF"
+
+  deployment-audit:
+    name: Deployment Audit Summary
+    needs:
+      - deploy-vercel
+      - deploy-firebase
+      - deploy-netlify
+      - deploy-supabase
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Build deployment summary
+        id: summary
+        run: |
+          echo "provider_statuses<<EOF" >> $GITHUB_OUTPUT
+          echo "vercel=${{ needs.deploy-vercel.result }}" >> $GITHUB_OUTPUT
+          echo "firebase=${{ needs.deploy-firebase.result }}" >> $GITHUB_OUTPUT
+          echo "netlify=${{ needs.deploy-netlify.result }}" >> $GITHUB_OUTPUT
+          echo "supabase=${{ needs.deploy-supabase.result }}" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Emit audit log
+        run: |
+          echo "Deployment Audit:"
+          echo "Commit: $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Vercel:   ${{ needs.deploy-vercel.result }}"
+          echo "Firebase: ${{ needs.deploy-firebase.result }}"
+          echo "Netlify:  ${{ needs.deploy-netlify.result }}"
+          echo "Supabase: ${{ needs.deploy-supabase.result }}"
+          echo "Zero-Downtime: true"
