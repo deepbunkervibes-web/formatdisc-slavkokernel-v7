@@ -1,0 +1,12 @@
+{
+  "build_time": "2025-12-29T11:31:40.602Z",
+  "source_commit": "e3ac1e2",
+  "artifact": "index-0f1510291955.html",
+  "sha256": "0f1510291955d9639ff37f701e4a2ecb1bb47fbd1680e96d9187ac6aad97e6f9",
+  "page": "index.html",
+  "files_included": [
+    "hero",
+    "metrics",
+    "pipeline"
+  ]
+}

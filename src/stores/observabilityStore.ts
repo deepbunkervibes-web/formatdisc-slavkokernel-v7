@@ -1,6 +1,5 @@
 import { create } from 'zustand';
-
-import type { AuditFinding } from '@/types/observability';
+import type { AuditFinding } from '../types/observability';
 
 interface ObsState {
     findings: AuditFinding[];

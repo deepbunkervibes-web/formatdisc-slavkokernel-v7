@@ -1,0 +1,4 @@
+/* FULL CSS (NON-CRITICAL) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

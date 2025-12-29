@@ -1,0 +1,22 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-12-29T11:32:48.991Z",
+    "tools": [
+      {
+        "vendor": "slavko-static",
+        "name": "sbom-generator",
+        "version": "1.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "slavko-static-enterprise",
+      "version": "1.0.0",
+      "description": ""
+    }
+  },
+  "components": []
+}

@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { useMemo } from 'react';
+import { useObsStore } from '../../stores/observabilityStore';
+import { Severity } from '../../types/observability';
 
-import { useObsStore } from '@/stores/observabilityStore';
-
-const severityWeight = { low: 1, medium: 3, high: 6, critical: 10 } as const;
+const severityWeight: Record<Severity, number> = { low: 1, medium: 3, high: 6, critical: 10 };
 
 export function ServiceHealthHeatmap() {
     const findings = useObsStore((s) => s.findings);
@@ -32,6 +32,7 @@ export function ServiceHealthHeatmap() {
         <div className="bg-gray-900/60 backdrop-blur rounded-2xl p-6 border border-gray-800">
             <h3 className="text-lg font-bold text-white mb-6">SERVICE HEALTH MATRIX</h3>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                {scores.length === 0 && <div className="text-gray-500 col-span-4 text-center py-4">NO SIGNAL DATA</div>}
                 {scores.map(([service, { score }], i) => (
                     <motion.div
                         key={service}

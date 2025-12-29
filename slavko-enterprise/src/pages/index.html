@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="hr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Enterprise SaaS — Delivered in 48h</title>
+    <style>
+        /* CRITICAL CSS INLINE (≤6KB) */
+        :root {
+            --g: #00ff44;
+            --bg: #000;
+            --muted: #9ca3af
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #fff;
+            font-family: Inter, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 28px
+        }
+
+        .h1 {
+            font-weight: 800;
+            font-size: 28px;
+            line-height: 1.05
+        }
+
+        .p {
+            margin-top: 12px;
+            color: var(--muted)
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        .btn-primary {
+            background: var(--g);
+            color: #000
+        }
+
+        .metrics {
+            margin-top: 14px;
+            color: var(--g);
+            font-weight: 700;
+            font-size: 14px
+        }
+    </style>
+    <link rel="preload" href="/assets/index.css" as="style">
+    <link rel="preload" href="/assets/loader.js" as="script">
+</head>
+
+<body>
+    <main class="container">
+        <!-- INJECT HERO -->
+        <!-- include components/hero.html -->
+
+        <!-- INJECT METRICS -->
+        <!-- include components/metrics.html -->
+
+        <!-- INJECT PIPELINE -->
+        <!-- include components/pipeline.html -->
+    </main>
+    <script defer>
+        /* MICRO LOADER (3KB MAX) */
+        (() => {
+            document.addEventListener('click', e => {
+                const t = e.target;
+                if (t.matches('[data-smooth]')) {
+                    e.preventDefault();
+                    fetch(t.href).then(r => r.text()).then(h => {
+                        document.querySelector('#content').innerHTML = h;
+                        history.pushState(null, '', t.href);
+                    });
+                }
+            });
+            console.log('Static Enterprise v1.0');
+        })();
+    </script>
+</body>
+
+</html>
