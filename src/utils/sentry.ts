@@ -1,7 +1,10 @@
 import * as Sentry from '@sentry/react';
 
 export const initSentry = () => {
+  if (typeof window === 'undefined') return;
+
   const dsn = import.meta.env.VITE_SENTRY_DSN;
+  // ... (rest of function)
 
   if (!dsn) {
     if (import.meta.env.DEV) {

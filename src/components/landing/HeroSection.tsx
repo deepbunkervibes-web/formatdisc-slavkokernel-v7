@@ -1,126 +1,107 @@
-import * as React from 'react'; import { useRef, useMemo } from 'react';
-import { ArrowRight, Zap } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-
+import * as React from 'react';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
-
-// Modular children
-import { HeroBackgroundOrbs } from './hero/HeroBackgroundOrbs';
-import { HeroValuePillars } from './hero/HeroValuePillars';
-
-const gravitySink = {
-  hidden: { opacity: 0, y: -60, scale: 1.1 },
-  visible: {
-    opacity: 1, y: 0, scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 20, mass: 2 }
-  }
-};
-
-const elasticSnap = {
-  hidden: { opacity: 0, scaleX: 0.3, scaleY: 1.2 },
-  visible: {
-    opacity: 1, scaleX: 1, scaleY: 1,
-    transition: { type: "spring", stiffness: 500, damping: 15, velocity: 2 }
-  }
-};
+import { StatusBadge } from '../ui/StatusBadge';
 
 export function HeroSection() {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const layer2Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [0, 2, 0]);
-
-
-  const pillars = useMemo(() => [
-    { title: t.hero.pillars.deterministic.title, desc: t.hero.pillars.deterministic.desc, color: "text-accent-purple", icon: "◆" },
-    { title: t.hero.pillars.audit.title, desc: t.hero.pillars.audit.desc, color: "text-accent-pink", icon: "◇" },
-    { title: t.hero.pillars.mvp.title, desc: t.hero.pillars.mvp.desc, color: "text-accent-cyan", icon: "○" }],
-    [t]);
 
   return (
-    <section ref={containerRef} className="relative h-[200vh] bg-background overflow-hidden">
-      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-        <HeroBackgroundOrbs />
+    <section className="relative min-h-screen bg-surface-primary flex items-center justify-center overflow-hidden border-b border-border-subtle">
+      {/* Background Matrix/Grid Effect - Subtle, authoritative */}
+      <div className="absolute inset-0 scanline-overlay opacity-30" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl px-6">
-          <motion.div
-            style={{ rotateX, y: layer2Y }}
-            initial="hidden" animate="visible" variants={gravitySink}
-            className="mx-auto max-w-4xl text-center space-y-10 perspective-1000">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
 
-            <motion.div variants={elasticSnap}>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-foreground">
-                <motion.span
-                  className="inline-block bg-gradient-to-r from-neutral-900 via-accent-purple to-accent-pink dark:from-white/10 dark:via-accent-purple dark:to-accent-pink bg-clip-text text-transparent bg-[length:200%_auto]"
-                  animate={{ backgroundPosition: ['0% center', '100% center', '0% center'] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}>
+        {/* Status Header - Declarative, not promotional */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center justify-center mb-16 space-y-4"
+        >
+          <div className="flex items-center space-x-6">
+            <StatusBadge status="EU AI ACT COMPLIANT" variant="verified" animate />
+            <span className="text-text-muted text-[10px]">|</span>
+            <StatusBadge status="SYSTEM OPERATIONAL" variant="active" />
+          </div>
+        </motion.div>
 
-                  {t.hero.titlePrefix}
-                </motion.span>
-                {" "}{t.hero.titleSuffix}
-                <span className="block text-neutral-400 text-lg sm:text-xl md:text-2xl mt-4 font-normal">
-                  {t.hero.subtitle}
-                </span>
-              </h1>
-            </motion.div>
+        {/* Monolithic Heading - White, Cold, Massive */}
+        <div className="text-center mb-20 space-y-8">
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="font-brand text-5xl md:text-7xl lg:text-9xl tracking-widest text-text-primary"
+          >
+            SLAVKOKERNEL<span className="text-2xl lg:text-4xl align-top opacity-30">™</span>
+          </motion.h1>
 
-            <motion.p
-              className="text-base sm:text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-3xl mx-auto px-4 sm:px-0"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}>
-
-              {t.hero.description}
-            </motion.p>
-
-            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 pt-4 px-4 sm:px-0">
-              <motion.a
-                href="https://ollama.com/mladen-gertner/slavkokernel-v7"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-medium text-white bg-gradient-to-r from-accent-purple to-accent-pink px-4 py-2 rounded-full relative overflow-hidden group shadow-lg"
-                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-
-                <Zap className="w-3 h-3" />
-                {t.hero.badge}
-              </motion.a>
-              <motion.span className="text-xs sm:text-sm font-medium text-muted-foreground bg-neutral-100 dark:bg-neutral-800 px-4 py-2 rounded-full">
-                {t.hero.quote}
-              </motion.span>
-            </div>
-
-            <HeroValuePillars pillars={pillars} />
-
-            <motion.div
-              initial={{ opacity: 0, y: 40, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.8, type: "spring", stiffness: 200, damping: 20 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-10">
-
-              <motion.a
-                href="https://simulate.formatdisc.hr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-neutral-900 dark:bg-white text-white dark:text-black px-8 py-4 font-medium relative overflow-hidden"
-                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-
-                <span className="relative z-10">{t.hero.ctaStudio}</span>
-                <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-              </motion.a>
-
-              <motion.a
-                href="/kernel"
-                className="inline-flex items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-800 px-8 py-4 text-foreground font-medium hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
-                whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-
-                {t.hero.ctaKernel}
-              </motion.a>
-            </motion.div>
-          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="font-mono text-sm md:text-base text-text-muted uppercase tracking-[0.3em]"
+          >
+            Deterministic AI Governance OS <span className="text-white/10 px-2">//</span> v12.1
+          </motion.h2>
         </div>
-      </div>
-    </section>);
 
+        {/* Declarative States - No CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-12 font-mono text-xs tracking-widest text-text-secondary"
+        >
+          <div className="flex flex-col items-center gap-2 group cursor-default">
+            <span className="text-text-muted text-[10px]">ACCESS STATUS</span>
+            <span className="border-b border-transparent group-hover:border-text-muted transition-colors">
+              RESTRICTED [INVITE ONLY]
+            </span>
+          </div>
+
+          <div className="hidden sm:block w-px h-8 bg-white/5" />
+
+          <div className="flex flex-col items-center gap-2 group cursor-pointer hover:text-text-primary transition-colors">
+            <span className="text-text-muted text-[10px]">DOCUMENTATION</span>
+            <a href="/docs" className="flex items-center gap-2 border-b border-transparent group-hover:border-white/20 transition-all">
+              AVAILABLE
+              <span className="text-[10px] opacity-50">↗</span>
+            </a>
+          </div>
+
+          <div className="hidden sm:block w-px h-8 bg-white/5" />
+
+          <div className="flex flex-col items-center gap-2 group cursor-pointer hover:text-text-primary transition-colors">
+            <span className="text-text-muted text-[10px]">INVESTOR DATA</span>
+            <a href="/investors" className="flex items-center gap-2 border-b border-transparent group-hover:border-white/20 transition-all">
+              AUTHORIZED
+              <span className="text-[10px] opacity-50">↗</span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* System Footer Metrics - Passive Telemetry */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-12 left-0 right-0 flex justify-center space-x-16 opacity-40 hover:opacity-100 transition-opacity duration-500"
+        >
+          <div className="text-center">
+            <div className="text-[9px] font-mono text-text-muted tracking-wider mb-1">GLOBAL DECISIONS</div>
+            <div className="text-[10px] font-mono text-signal-active">1,024,892_</div>
+          </div>
+          <div className="text-center">
+            <div className="text-[9px] font-mono text-text-muted tracking-wider mb-1">UPTIME</div>
+            <div className="text-[10px] font-mono text-signal-verified">99.999%</div>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
 }

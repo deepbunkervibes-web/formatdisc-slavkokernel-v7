@@ -1,22 +1,6 @@
-import * as React from 'react';import { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
-
-import { HealthService, KernelHealth } from './monitoring/HealthService';
-
-import { useObsStore } from '@/stores/observabilityStore';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
 type KernelState = 'init' | 'ready';
-
-export interface AuditMetadata {
-  model?: string;
-  route?: 'creative' | 'technical' | 'analytics';
-  latency?: number;
-  prompt?: string;
-  response?: string;
-  confidence?: number;
-  tokenUsage?: {prompt: number;completion: number;};
-  fallback?: boolean;
-  [key: string]: unknown;
-}
 
 export interface AuditEntry {
   id: string;
@@ -24,57 +8,69 @@ export interface AuditEntry {
   actor: string;
   action: string;
   hash: string;
-  sessionId?: string;
-  metadata?: AuditMetadata;
 }
 
 interface KernelContextType {
   state: KernelState;
-  audit: AuditEntry[];
-  currentSessionId: string | null;
-  startNewSession: () => string;
-  emit: (actor: string, action: string, metadata?: AuditMetadata) => void;
-  resetAudit: () => void;
-  getHealth: () => KernelHealth;
-  recordLatency: (latency: number, success: boolean) => void;
-}
-
-interface KernelTickContextType {
   tick: number;
+  audit: AuditEntry[];
+  emit: (actor: string, action: string) => void;
+  resetAudit: () => void;
 }
 
 const KernelContext = createContext<KernelContextType | null>(null);
-const KernelTickContext = createContext<KernelTickContextType | null>(null);
 
-const generateHash = (payload: string): string => {
-  let hash = 0;
-  for (let i = 0; i < payload.length; i++) {
-    const char = payload.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash;
+// ✅ SAFE UUID (Mladen's Patch) - Works in embedded sandboxes & non-secure contexts
+const safeUUID = () => {
+  try {
+    if (typeof globalThis.crypto?.randomUUID === "function") {
+      return globalThis.crypto.randomUUID();
+    }
+  } catch (_) { }
+
+  // Fully safe fallback for older/sandboxed environments
+  const hex = [...Array(256).keys()].map(i => (i).toString(16).padStart(2, "0"));
+  // Try to use getRandomValues if available, otherwise Math.random
+  let r: Uint8Array;
+  try {
+    r = globalThis.crypto?.getRandomValues?.(new Uint8Array(16)) ?? new Uint8Array(16).map(() => Math.floor(Math.random() * 256));
+  } catch (_) {
+    r = new Uint8Array(16).map(() => Math.floor(Math.random() * 256));
   }
-  return Math.abs(hash).toString(16).padStart(64, '0');
+
+  r[6] = (r[6] & 0x0f) | 0x40;
+  r[8] = (r[8] & 0x3f) | 0x80;
+  return [...r].map((b, i) => hex[b] + ([4, 6, 8, 10].includes(i) ? "-" : "")).join("");
 };
 
-export const KernelProvider: React.FC<{children: React.ReactNode;}> = ({ children }) => {
+// ✅ SAFE HASH (Mladen's Patch) - Avoids bitwise overflows in sandboxes
+const generateHash = (payload: string): string => {
+  if (!payload) return "0".repeat(64);
+
+  let hash = 0n;
+  for (let i = 0; i < payload.length; i++) {
+    hash = (hash * 31n + BigInt(payload.charCodeAt(i))) % (2n ** 256n);
+  }
+
+  return hash.toString(16).padStart(64, "0");
+};
+
+export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<KernelState>('init');
   const [tick, setTick] = useState(0);
-  const [currentSessionId, setCurrentSessionId] = useState<string | null>(crypto.randomUUID());
   const [audit, setAudit] = useState<AuditEntry[]>([]);
-
-  const healthService = useMemo(() => new HealthService(), []);
 
   useEffect(() => {
     const boot = setTimeout(() => {
       setState('ready');
-      const entry: AuditEntry = {
-        id: crypto.randomUUID(),
+      const bootEntry: AuditEntry = {
+        id: safeUUID(),
         ts: Date.now(),
         actor: 'kernel',
         action: 'boot:complete',
         hash: generateHash(`${Date.now()}::kernel::boot:complete`)
       };
-      setAudit((prev) => [...prev, entry]);
+      setAudit(prev => [...prev, bootEntry]);
     }, 420);
 
     return () => clearTimeout(boot);
@@ -82,97 +78,50 @@ export const KernelProvider: React.FC<{children: React.ReactNode;}> = ({ childre
 
   useEffect(() => {
     if (state === 'ready') {
-      const loop = setInterval(() => {
-        setTick((t) => t + 1);
-        healthService.recordTick();
+      const interval = setInterval(() => {
+        setTick(t => t + 1);
       }, 16);
-      return () => clearInterval(loop);
+      return () => clearInterval(interval);
     }
-  }, [state, healthService]);
+  }, [state]);
 
-  const emit = useCallback((actor: string, action: string, metadata?: AuditMetadata) => {
-    const payload = `${Date.now()}::${actor}::${action}::${JSON.stringify(metadata || {})}`;
+  const emit = useCallback((actor: string, action: string) => {
+    const ts = Date.now();
+    const payload = `${ts}::${actor}::${action}`;
     const hash = generateHash(payload);
 
-    const auditEntry: AuditEntry = {
-      id: crypto.randomUUID(),
-      ts: Date.now(),
+    const entry: AuditEntry = {
+      id: safeUUID(),
+      ts,
       actor,
       action,
-      hash,
-      metadata,
-      sessionId: currentSessionId || undefined
+      hash
     };
 
-    setAudit((prev) => [...prev, auditEntry]);
-
-    let severity: 'low' | 'medium' | 'high' | 'critical' = 'low';
-    if (action.includes('error')) severity = 'high';
-    if (action.includes('fail')) severity = 'medium';
-    if (action.includes('boot')) severity = 'critical';
-
-    useObsStore.getState().addFindings({
-      id: auditEntry.id,
-      service: actor,
-      severity,
-      message: `${action}`,
-      timestamp: new Date(auditEntry.ts).toISOString(),
-      confidence: metadata?.confidence ?? 100,
-      metadata: metadata
-    });
-
-    healthService.recordAuditEvent();
-  }, [healthService, currentSessionId]);
-
-  const startNewSession = useCallback(() => {
-    const newSessionId = crypto.randomUUID();
-    setCurrentSessionId(newSessionId);
-    emit('kernel', 'session:start', { sessionId: newSessionId });
-    return newSessionId;
-  }, [emit]);
-
-  const recordLatency = useCallback((latency: number, success: boolean) => {
-    healthService.recordProviderCall(latency, success);
-  }, [healthService]);
-
-  const getHealth = useCallback(() => {
-    return healthService.getHealth();
-  }, [healthService]);
+    setAudit(prev => [...prev, entry]);
+  }, []);
 
   const resetAudit = useCallback(() => {
     setAudit([]);
   }, []);
 
-  const contextValue = useMemo(() => ({
+  const value = useMemo(() => ({
     state,
+    tick,
     audit,
-    currentSessionId,
-    startNewSession,
     emit,
-    resetAudit,
-    getHealth,
-    recordLatency
-  }), [state, audit, currentSessionId, startNewSession, emit, resetAudit, getHealth, recordLatency]);
-
-  const tickValue = useMemo(() => ({ tick }), [tick]);
+    resetAudit
+  }), [state, tick, audit, emit, resetAudit]);
 
   return (
-    <KernelContext.Provider value={contextValue}>
-            <KernelTickContext.Provider value={tickValue}>
-                {children}
-            </KernelTickContext.Provider>
-        </KernelContext.Provider>);
-
+    <KernelContext.Provider value={value}>
+      {children}
+    </KernelContext.Provider>
+  );
 };
 
 export const useKernel = () => {
   const ctx = useContext(KernelContext);
-  if (!ctx) throw new Error('Kernel not mounted');
-  return ctx;
-};
-
-export const useKernelTick = () => {
-  const ctx = useContext(KernelTickContext);
   if (!ctx) throw new Error('Kernel not mounted');
   return ctx;
 };

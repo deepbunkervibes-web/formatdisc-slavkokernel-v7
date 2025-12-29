@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Cpu, Lock, ShieldCheck } from 'lucide-react';
 
-import { KernelProvider } from '../kernel/KernelProvider';
+
+
 import { KernelStatus } from '../components/kernel/KernelStatus';
 import { AuditTrail } from '../components/kernel/AuditTrail';
 import { DeploymentControls } from '../components/kernel/DeploymentControls';
@@ -11,8 +12,8 @@ import { Navigation } from '../components/ui/Navigation';
 import { Footer } from '../components/ui/Footer';
 
 export function KernelRoute() {
-  return (
-    <div className="min-h-screen bg-[#020202] text-white flex flex-col">
+    return (
+        <div className="min-h-screen bg-[#020202] text-white flex flex-col">
             <Navigation />
 
             <main className="flex-1 pt-32 pb-24 container mx-auto px-4 md:px-8">

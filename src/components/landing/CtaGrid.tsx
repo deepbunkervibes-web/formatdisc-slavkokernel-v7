@@ -1,4 +1,5 @@
-import * as React from 'react'; import { useMemo } from 'react';
+import * as React from 'react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, Shield, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,24 +11,24 @@ export const CtaGrid = React.memo(() => {
 
   const tiles = useMemo(() => [
     {
-      title: t.ctaGrid.tiles.studio.title,
-      desc: t.ctaGrid.tiles.studio.desc,
+      title: t('ctaGrid.tiles.studio.title'),
+      desc: t('ctaGrid.tiles.studio.desc'),
       icon: Terminal,
       link: "https://simulate.formatdisc.hr",
       primary: true,
       external: true
     },
     {
-      title: t.ctaGrid.tiles.docs.title,
-      desc: t.ctaGrid.tiles.docs.desc,
+      title: t('ctaGrid.tiles.docs.title'),
+      desc: t('ctaGrid.tiles.docs.desc'),
       icon: Shield,
       link: "/docs",
       primary: false,
       external: false
     },
     {
-      title: t.ctaGrid.tiles.demo.title,
-      desc: t.ctaGrid.tiles.demo.desc,
+      title: t('ctaGrid.tiles.demo.title'),
+      desc: t('ctaGrid.tiles.demo.desc'),
       icon: Rocket,
       link: "https://cal.com/mladengertner",
       external: true,
@@ -36,18 +37,7 @@ export const CtaGrid = React.memo(() => {
     [t]);
 
   return (
-    <section className="py-32 bg-neutral-950 text-white relative overflow-hidden">
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0.3 }}>
-
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-cyan/10 blur-3xl"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} />
-
-      </motion.div>
-
+    <section className="py-32 bg-background relative overflow-hidden text-foreground">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           className="text-center mb-20"
@@ -59,12 +49,12 @@ export const CtaGrid = React.memo(() => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-accent-cyan font-mono text-xs mb-4 tracking-[0.3em] uppercase">
+            className="text-accent font-mono text-xs mb-4 tracking-[0.3em] uppercase">
 
-            {t.ctaGrid.label}
+            {t('ctaGrid.label')}
           </motion.p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-            {t.ctaGrid.title}
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            {t('ctaGrid.title')}
           </h2>
         </motion.div>
 
@@ -87,24 +77,24 @@ export const CtaGrid = React.memo(() => {
                 <Component
                   {...linkProps as any}
                   className={`
-                                        group block p-10 rounded-2xl transition-all duration-300 border h-full
-                                        ${tile.primary ?
-                      'bg-white text-neutral-900 border-white hover:shadow-[0_0_60px_rgba(255,255,255,0.3)]' :
-                      'bg-neutral-900/50 text-white border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900'}
-                                    `}>
+                    group block p-10 rounded-2xl transition-all duration-300 border h-full
+                    ${tile.primary ?
+                      'bg-foreground text-background border-foreground hover:shadow-xl' :
+                      'bg-card text-card-foreground border-border hover:border-foreground/50 hover:bg-muted/50'}
+                  `}>
 
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 400 }}>
 
-                    <Icon className={`w-10 h-10 mb-6 ${tile.primary ? 'text-neutral-900' : 'text-accent-cyan'}`} />
+                    <Icon className={`w-10 h-10 mb-6 ${tile.primary ? 'text-background' : 'text-accent'}`} />
                   </motion.div>
                   <h3 className="text-xl font-semibold mb-3">{tile.title}</h3>
-                  <p className={`text-sm font-light mb-8 leading-relaxed ${tile.primary ? 'text-neutral-500' : 'text-neutral-400'}`}>
+                  <p className={`text-sm font-light mb-8 leading-relaxed ${tile.primary ? 'text-background/80' : 'text-muted-foreground'}`}>
                     {tile.desc}
                   </p>
                   <div className="flex items-center text-sm font-medium">
-                    <span>{t.ctaGrid.cta}</span>
+                    <span>{t('ctaGrid.cta')}</span>
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </Component>

@@ -1,292 +1,193 @@
-# **MVP Simulation Studio**  
+# MVP Simulation Studio — MASTER README (Enterprise Canonical)
 
-![CI Status](https://github.com/mladengertner/mvp-simulation-tool1/actions/workflows/ci.yml/badge.svg)
-
-### *Powered by SlavkoKernel™ V7*  
-
-**For every founder who learned the truth too late — or refuses to repeat that mistake.**
-
-> *“Startups don’t die from lack of hustle.  
-> They die from lack of honest feedback — at the only moment when it could still change the outcome.”*
+> **Canonical Source of Truth**  
+> Enterprise governance, security, determinism, and CI/CD guarantees are defined **here**.  
+> For a simplified product overview, see **README.product.md**.
 
 ---
 
-# 1. **Prolog: Kako Zapravo Izgleda Propast**
+## 1) Purpose & Positioning (Enterprise Truth)
 
-Ne počne s eksplozijom.  
-Počne s tišinom.
+**MVP Simulation Studio**, powered by **SlavkoKernel™ V7**, is a **deterministic, enterprise‑grade AI orchestration system** for early‑stage startup evaluation.
 
-Jedan kompromis.  
-Pa drugi.  
-Pa treći.
+**Non‑negotiables**
 
-Najprije ti kažu:  
-**“Samo napravi MVP, tržište će ti reći.”**
+- Deterministic outputs: same input + seed ⇒ same verdict & artifacts.
+- Audit‑ready: SHA‑256 hashed decisions, append‑only logs, reproducible sessions.
+- Zero‑trust security: **server/edge‑only inference**, no client secrets.
+- CI‑enforced governance: lint, tests, coverage, signed releases.
 
-Onda:  
-**“Super izgleda, još malo dotjeraj pitch.”**
-
-Na kraju:  
-**“Nažalost, prerano za nas. Drži nas u toku.”**
-
-A između tih rečenica — život ti iscuri kroz prste:
-
-- 9 mjeseci rada  
-- 3 rebranda  
-- 2 promjene ICP-a  
-- 0 ljudi koji su ti u lice rekli:  
-  **“Ovo neće raditi. I evo, konkretno, zašto.”**
-
-Svi su bili ljubazni.  
-Nitko nije bio koristan.
-
-I onda shvatiš:  
-**Nisu ti propali featurei — propala ti je kalibracija.**
-
-To je trenutak kad priča stvarno počinje.
+This is **not** a demo or motivational tool.
 
 ---
 
-# 2. **Trenutak Puknuća: Dan Kad Prestaneš Lagati Sebi**
+## 2) Executive Summary (Ultra‑Condensed)
 
-Postoji dan koji se ne zaboravlja.
-
-Dan kad prvi put ozbiljno izračunaš:
-
-- koliko si vremena spiskao na ideje koje je netko mogao srušiti u 40 minuta  
-- koliko je “dobronamjerne podrške” zapravo bilo izbjegavanje neugode  
-- koliko si puta i sam znao da nešto smrdi — ali ti je bilo lakše nastaviti nego priznati
-
-I tada se otvaraju samo dvije opcije:
-
-**Opcija A:**  
-“Takav je svijet. Idemo dalje.”
-
-**Opcija B:**  
-“Dobro. Ako mi već nitko neće reći istinu — napravit ću sustav koji hoće.  
-Bez milosti. Za mene. Za druge.”
-
-SlavkoKernel™ v7 rođen je iz **Opcije B**.  
-Ne kao produkt.  
-Nego kao **obrambeni mehanizam protiv samozavaravanja**.
+- Deterministic council: **Skeptic, Analyst, Simulator, Researcher** → consensus.
+- Verdicts: **PROCEED / REVISE / REJECT** with structured artifacts.
+- Tech: **React 19 + Vite**, TypeScript (strict), Tailwind.
+- Ops: CI gates, Sentry, PostHog, performance tracing.
+- Security: zero‑trust agents, fail‑fast, explicit state boundaries.
+- Ownership: **FORMATDISC** — enterprise discipline.
 
 ---
 
-# 3. **Zavjet: Što Ovaj Sustav Obećava (I Što Nikad Neće)**
+## 3) System Model & Verdicts
 
-Ovo nije još jedan “AI co-pilot” koji ti piše motivacijske slogane.  
-Ne pokušava biti simpatičan.
+### Council (Fixed Roles)
 
-SlavkoKernel™ ima jedan, brutalno jasan mandat:
+- **Skeptic:** distribution, monetization, defensibility failure modes.
+- **Analyst:** product vs. agency, TAM integrity.
+- **Simulator:** 30+ persona scenario rollouts.
+- **Researcher:** historical parallels and empirical signals.
 
-### **Štititi vrijeme founderâ od loših ideja, loše izvedbe i lažnih ohrabrenja.**
+### Verdicts
 
-U praksi to znači:
+| Verdict | Meaning | Artifacts |
+|---|---|---|
+| **PROCEED** | Structurally coherent | MVP blueprint, 5‑slide pitch, investor summary |
+| **REVISE** | Insight valid, execution flawed | Prioritized experiments, corrective plan |
+| **REJECT** | Structurally unviable | Reject report, outcome scenarios, alternatives |
 
-- Ne štedi ti ego. Štedi ti godine.  
-- Ne traži da vjeruješ u njega. Traži da doneseš istinu.  
-- Ne tapša te po ramenu.  
-- Govori jezikom odbijenih term sheetova i mrtvih landing pageva.
-
-**Zavjet je jednostavan:**  
-**Nikad te neće lagati — čak ni kad te svi ostali uvjeravaju da “još ima šanse”.**
-
----
-
-# 4. **Što Je MVP Simulation Studio**
-
-### **Formalno:**  
-
-Web-based alat koji orkestrira skup samostalnih AI-agenta (Council) za ocjenjivanje i oblikovanje startupa u najranijoj fazi.
-
-### **Praktično:**  
-
-Tvoj privatni, nemilosrdno iskren investment committee koji radi 24/7 —  
-bez politike, bez uljepšavanja, bez straha da ćeš se uvrijediti.
-
-### **Tvoj Zadatak**
-
-Donesi sirovu ideju:
-
-- što gradiš  
-- za koga  
-- zašto baš sada  
-
-Odgovori na nekoliko neugodnih pitanja:
-
-- što si već pokušao  
-- gdje si već dobio “lijepo zapakirane odbijenice”  
-- što te najviše plaši u vezi ideje  
-
-### **Zadatak SlavkoKernela**
-
-- razbiti ideju na sastavne dijelove  
-- testira je protiv tržišne realnosti  
-- simulirati reakcije ljudi koji ti to nikad ne bi rekli u lice  
-- i na kraju: **izdati presudu**
+All verdicts are deterministic and hash‑recorded.
 
 ---
 
-# 5. **Kako Radi (Iza Kulisa)**
+## 4) Determinism & Auditability Guarantees
 
-Kada klikneš **Initialize Simulation**, ne šalješ prompt.  
-Podižeš **Vijeće** — skup specijaliziranih agenata.
-
-## 5.1. Council: Tko Sjedi Za Stolom
-
-### **The Skeptic**  
-
-Traži razlog zbog kojeg ćeš za 12 mjeseci gasiti firmu.  
-Napada distribuciju, akviziciju, monetizaciju, defenzibilnost.
-
-### **The Analyst**  
-
-Procjenjuje:  
-“Je li ovo uopće ideja ili samo feature / agencijski servis / hobi prerušeni u business?”
-
-### **The Simulator**  
-
-Vrti preko 30 personi (korisnik, investitor, partner, hejter, konkurent) i pita:  
-“Kako ova ideja puca u stvarnom životu?”
-
-### **The Researcher**  
-
-Ne radi Google umjesto tebe.  
-Provjerava:  
-
-- postoje li već isti modeli koji su propali  
-- postoje li empirijski signali da ovo ima šanse  
-
-Zajedno donose: **Consensus.**
+- Fixed orchestration graph per release.
+- Reproducible sessions (seeded).
+- Append‑only `decisions.log` with SHA‑256.
+- CI‑signed releases; Sentry release mapping.
+- Structured reasoning objects (no opaque “AI magic”).
 
 ---
 
-# 6. **Presuda: REJECT, REVISE ili PROCEED**
+## 5) Architecture Overview
 
-Ovdje nema “možda”.
+### Presentation Plane
 
----
+- **React 19, Vite, TypeScript (strict)**.
+- Presentation‑only — no execution logic, no secrets.
 
-## ✅ **PROCEED**  
+### Execution Plane
 
-“Ovo ima zdrave osnove. Vrijedi uložiti vrijeme i novac.”
+- **Server/Edge only** (recommended: **Vercel Edge Functions** or **Cloudflare Workers**).
+- Custom orchestrator controls lifecycle and provider adapters.
 
-Dobivaš:
+### Observability
 
-- **MVP Blueprint**  
-- **5-slide Pitch Frame**  
-- **Investor-Ready Summary**
-
----
-
-## ♻️ **REVISE**  
-
-“Klica je dobra. Izvedba te vodi u zid.”
-
-Dobivaš:
-
-- što promijeniti (ICP, distribucija, pricing, positioning)  
-- koje pretpostavke prvo testirati  
-- kako izgleda verzija ideje koja je smislena za tržište  
+- **PostHog** (event schema enforced).
+- **Sentry** (errors, releases, traces).
+- CI‑enforced lint/type/coverage gates.
 
 ---
 
-## ⛔ **REJECT**  
+## 6) Security & Operational Controls (Non‑Negotiable)
 
-“Ovo ne prolazi. Ne zato što si ti loš founder — nego zato što je struktura ideje trula.”
-
-Dobivaš:
-
-- razloge zašto  
-- scenarije ishoda ako svejedno ustraješ  
-- prijedlog novih smjerova  
-
-Nije kraj sna.  
-To je najraniji mogući trenutak buđenja.
+- Zero‑trust between agents; isolated runtimes.
+- Fail‑fast with circuit breakers.
+- **No client‑side secrets**; provider keys are server‑only.
+- Input sanitization & prompt isolation.
+- Rate limiting & quotas.
+- SAST/DAST for production branches.
 
 ---
 
-# 7. **Zašto Se Zove “Slavko”**
+## 7) Local Development (Canonical)
 
-Jer je sve nastalo iz jedne lekcije:
-
-> **“Ako te volim, neću te štititi od istine.”**
-
-Slavko era bio čovjek koji je tu rečenicu živio.  
-Bez small talka.  
-Bez “bit će bolje”.  
-Bez iluzija.
-
-Kad je trebalo imenovati kernel koji će uvijek stajati na strani istine —  
-odgovor je bio očit.
-
-**SlavkoKernel™ znači:**
-
-- nema patetike, samo realnost  
-- nema flatera, samo poštovanje kroz iskrenost  
-- nema skrivanja iza “AI magije”, samo jasnoća procesa  
-
-To je posveta čovjeku.  
-I obaveza prema svakom founderu koji pokreće simulaciju.
-
----
-
-# 8. **Tehnički Sloj (Za One Koji Žele Vidjeti Šavove)**
-
-**Frontend:** React 19, TypeScript, Vite  
-**UI:** Tailwind CSS (Ethereal Cupertino, optimiziran za čitljivost)
-
-**Kernel Orchestration:**  
-
-- custom `geminiService.ts`  
-- simulacija Gemini 2.5 latencije i tokova  
-- orkestracija višestrukih agenata unutar jedne sesije  
-
-**Observability & Audit:**  
-
-- Performance API wrapper  
-- PostHog (behavior eventi)  
-- Sentry (greške)  
-- SHA-256 hashed decision logovi  
-
-Tehnologija služi zavjetu:  
-**svaka odluka mora biti obrazloživa i ponovljiva.**
-
----
-
-# 9. **Kako Pokrenuti Prvi Sudar S Realnošću**
+> **Canonical dev port:** **5173** (Vite default).  
+> If overridden, update **all** docs and CI examples accordingly.
 
 ```bash
 git clone https://github.com/mladengertner/mvp-simulation-tool1
 cd mvp-simulation-tool1
-npm install
+npm ci
 npm run dev
+# http://localhost:5173
 ```
 
-Otvori: `http://localhost:5173`  
-Klikni **Initialize Simulation**.  
-Donesi ideju kakva zaista jest — ne kakvom bi je htio vidjeti na stageu.
+---
+
+## 8) Environment & Secrets (Production)
+
+**Server/Edge only**
+
+- `GEMINI_API_KEY`
+- `SENTRY_DSN`
+- `POSTHOG_KEY`
+- `ADMIN_SECRET`
+- `NODE_ENV=production`
+
+**Policy:** Never inject provider keys into client bundles.
 
 ---
 
-# 10. **Tko Stoji Iza Ovoga (I Zašto)**
+## 9) CI/CD Gates (Mandatory)
 
-Built by **Mladen Gertner (FORMATDISC)**.  
-3000+ sati proučavanja AI orkestracije, agentnih sustava i failure patterna.
-
-Odrastao na ljudima koji su vjerovali da je istina najveći oblik poštovanja.
-
-Ovaj repo nije samo kod.  
-Ovo je način da u alat ugradim ono što sam morao naučiti na teži način:
-
-- nitko ti neće spasiti godine života umjesto tebe  
-- empatija se ne mjeri nježnim lažima  
-- najbolji prijatelj je onaj koji prvi kaže:  
-  **“Ako ovako nastaviš, zabijat ćeš se u zid. Idemo naći drugi put.”**
-
-SlavkoKernel™ v7 je pokušaj da tu vrstu prijatelja dobije svaki founder koji je spreman na istinu.
+1. `npm run lint` (`--max-warnings 0` or documented, timeboxed tolerance)
+2. `npm run test` (unit + integration)
+3. `npm run test:e2e` (Playwright)
+4. `npm run build` (no warnings)
+5. Coverage ≥ **70%**
+6. SAST/DAST clean
+7. Signed release + `CHANGELOG.md`
+8. Canary deploy + rollback plan
 
 ---
 
-**Built by FORMATDISC.**
-*1,500+ hours of orchestration research. 0% Bullshit.*
+## 10) Health & Artifacts
+
+### `/api/health`
+
+```json
+{
+  "status": "ok",
+  "version": "v7.0",
+  "lastConsensusHash": "sha256:<hex>",
+  "aiProviderReachable": true,
+  "timestamp": "ISO-8601"
+}
+```
+
+### Artifacts
+
+- `session-{id}.decision.json`
+- `session-{id}.blueprint.pdf`
+- `session-{id}.revise-plan.md`
+- `session-{id}.reject-report.md`
+- `decisions.log` (append‑only)
+
+---
+
+## 11) Governance & Compliance
+
+- Semantic versioning.
+- ADRs required for design changes.
+- Append‑only deployment log.
+- Incident response and rollback runbooks.
+
+---
+
+## 12) Product Surface (Marketing Pointer)
+
+> **Product overview, features, and quick start for users** live in  
+> **README.product.md** (non‑canonical, user‑facing).
+
+---
+
+## 13) Ownership & Signature
+
+**Owner:** FORMATDISC — Mladen Gertner  
+**Contact:** <core@formatdisc.hr> | <security@formatdisc.hr>
+
+**Status:** ✔ **CERTIFIED — ENTERPRISE‑GRADE**
+
+---
+
+### Closing Contract
+
+This README is the **canonical enterprise contract**.  
+Deploy with discipline—or accept the operational risk.
+
+**FORMATDISC — Enterprise standards. Zero bullshit.**

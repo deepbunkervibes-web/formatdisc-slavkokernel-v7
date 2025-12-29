@@ -1,0 +1,211 @@
+[
+    {
+        "category": "Medicina I Zdravstvo",
+        "ideas": [
+            {
+                "title": "CRISPR genetsko uređivanje",
+                "description": "Omogućava precizno \"rezanje i lijepljenje\" DNK, otvarajući vrata liječenju nasljednih bolesti i potencijalno eliminaciji genetskih poremećaja."
+            },
+            {
+                "title": "mRNA vakcine",
+                "description": "Revolucionarna tehnologija koja uči tijelo da samo proizvodi antigene, omogućavajući brz razvoj vakcina protiv novih bolesti."
+            },
+            {
+                "title": "Personalizirana medicina bazirana na genomu",
+                "description": "Liječenje prilagođeno individualnom genetskom profilu pacijenta, drastično povećavajući efikasnost terapija."
+            },
+            {
+                "title": "Organi uzgojeni iz matičnih ćelija",
+                "description": "Eliminacija lista čekanja za transplantacije stvaranjem organa iz vlastitih ćelija pacijenta."
+            },
+            {
+                "title": "Nanobotovi za ciljanu dostavu lijekova",
+                "description": "Mikroskopski roboti koji dostavljaju lijekove direktno na bolesno tkivo, minimizirajući nuspojave."
+            },
+            {
+                "title": "Umjetna inteligencija za dijagnostiku",
+                "description": "AI sistemi koji mogu otkriti bolesti ranije i preciznije od ljudskih ljekara, spašavajući milione života."
+            },
+            {
+                "title": "Biohacking i DIY biologija",
+                "description": "Demokratizacija biotehnologije omogućava inovacije izvan tradicionalnih laboratorija."
+            },
+            {
+                "title": "Telomerna terapija za usporavanje starenja",
+                "description": "Produžavanje telomera moglo bi usporiti biološko starenje i produžiti zdrav životni vijek."
+            },
+            {
+                "title": "Mozak-kompjuter interfejsi za medicinu",
+                "description": "Omogućavaju paraliziranim osobama da kontrolišu proteze ili kompjutere direktno mislima."
+            },
+            {
+                "title": "3D printanje tkiva i organa",
+                "description": "Kreiranje kompleksnih bioloških struktura sloj po sloj, revolucionirajući regenerativnu medicinu."
+            }
+        ]
+    },
+    {
+        "category": "Energija I Okoliš",
+        "ideas": [
+            {
+                "title": "Fuzijska energija",
+                "description": "Čista, gotovo neograničena energija koja oponaša procese u Suncu, bez radioaktivnog otpada."
+            },
+            {
+                "title": "Perovskitne solarne ćelije",
+                "description": "Jeftinije i efikasnije od silicijumskih, mogu se printati na fleksibilne površine."
+            },
+            {
+                "title": "Umjetna fotosinteza",
+                "description": "Direktna konverzija CO2 i sunčeve svjetlosti u gorivo, oponašajući prirodu."
+            },
+            {
+                "title": "Bakterije koje jedu plastiku",
+                "description": "Genetski modifikovani mikroorganizmi koji razgrađuju plastični otpad u bezopasne supstance."
+            },
+            {
+                "title": "Vertikalne farme u gradovima",
+                "description": "Uzgoj hrane u kontrolisanim uslovima unutar zgrada, smanjujući transport i potrošnju vode za 95%."
+            },
+            {
+                "title": "Ocean Cleanup tehnologije",
+                "description": "Sistemi za uklanjanje plastike iz okeana koji koriste prirodne struje."
+            },
+            {
+                "title": "Karbonsko hvatanje i skladištenje",
+                "description": "Tehnologije koje izvlače CO2 iz atmosfere i pretvaraju ga u korisne proizvode."
+            },
+            {
+                "title": "Kvantne baterije",
+                "description": "Koriste kvantnu mehaniku za skladištenje energije sa potencijalno beskrajnim životnim vijekom."
+            },
+            {
+                "title": "Geoinženjering za klimatsku kontrolu",
+                "description": "Planetarne intervencije poput refleksije sunčeve svjetlosti za hlađenje Zemlje."
+            },
+            {
+                "title": "Biogorivo iz algi",
+                "description": "Alge proizvode ulje 100x brže od tradicionalnih usjeva, bez konkurencije sa hranom."
+            }
+        ]
+    },
+    {
+        "category": "Umjetna Inteligencija I Računarstvo",
+        "ideas": [
+            {
+                "title": "Kvantno računarstvo",
+                "description": "Računari koji koriste kvantne bite mogu riješiti probleme za koje bi klasičnim računarima trebale hiljade godina."
+            },
+            {
+                "title": "Opšta umjetna inteligencija (AGI)",
+                "description": "AI koji može razumjeti, učiti i primjenjivati znanje u bilo kojoj domeni kao čovjek."
+            },
+            {
+                "title": "Neuralne mreže koje objašnjavaju svoje odluke",
+                "description": "\"Transparentna AI\" koja omogućava razumijevanje kako sistemi donose odluke."
+            },
+            {
+                "title": "Kvantna kriptografija",
+                "description": "Apsolutno sigurna komunikacija bazirana na zakonima fizike, ne matematike."
+            },
+            {
+                "title": "Edge computing",
+                "description": "Obrada podataka na samom uređaju umjesto u cloudu, omogućavajući privatnost i brzinu."
+            },
+            {
+                "title": "Autonomni AI naučnici",
+                "description": "Sistemi koji samostalno formulišu hipoteze, dizajniraju eksperimente i otkrivaju nova znanja."
+            },
+            {
+                "title": "Holografski interfejsi",
+                "description": "3D interakcija sa digitalnim sadržajem bez potrebe za ekranima ili naočalama."
+            },
+            {
+                "title": "DNA skladištenje podataka",
+                "description": "Jedan gram DNK može pohraniti 215 petabajta podataka hiljadama godina."
+            },
+            {
+                "title": "Swarm inteligencija",
+                "description": "Kolektivno ponašanje decentralizovanih sistema koji rješavaju kompleksne probleme."
+            },
+            {
+                "title": "Neuromorfni čipovi",
+                "description": "Računari dizajnirani da oponašaju ljudski mozak, drastično efikasniji za AI zadatke."
+            }
+        ]
+    },
+    {
+        "category": "Transport I Mobilnost",
+        "ideas": [
+            {
+                "title": "Autonomna vozila",
+                "description": "Samovozeći automobili koji eliminišu ljudsku grešku, smanjujući saobraćajne nesreće za 90%."
+            },
+            {
+                "title": "Hyperloop",
+                "description": "Transport brzinom do 1200 km/h kroz vakuumske tunele, revolucionirajući međugradski saobraćaj."
+            },
+            {
+                "title": "Električni avioni",
+                "description": "Avijacija bez emisija koja bi mogla transformisati kratke i srednje letove."
+            },
+            {
+                "title": "Leteći automobili (eVTOL)",
+                "description": "Električna vertikalna polijetanja omogućavaju urbanu zračnu mobilnost."
+            },
+            {
+                "title": "Maglev vozovi",
+                "description": "Magnetna levitacija omogućava brzine preko 600 km/h bez trenja."
+            },
+            {
+                "title": "Pametni gradovi sa integriranim transportom",
+                "description": "AI koordinira sve vidove transporta za maksimalnu efikasnost."
+            },
+            {
+                "title": "Električni brodovi na baterije",
+                "description": "Dekarbonizacija pomorskog transporta koji trenutno proizvodi 3% globalnih emisija."
+            },
+            {
+                "title": "Biciklistička infrastruktura kao prioritet",
+                "description": "Gradovi dizajnirani oko bicikala umjesto automobila transformišu urbani život."
+            },
+            {
+                "title": "Hyperloop za teret",
+                "description": "Brza, jeftina dostava robe koja eliminiše potrebu za velikim zalihama."
+            },
+            {
+                "title": "Personalni jetpackovi",
+                "description": "Individualna letjelica za kratke udaljenosti, oslobađajući ljude od saobraćajnih gužvi."
+            }
+        ]
+    },
+    {
+        "category": "Društvo I Ekonomija",
+        "ideas": [
+            {
+                "title": "Univerzalni osnovni dohodak (UBI)",
+                "description": "Garantovani prihod za sve građane, redefinišući odnos između rada i vrijednosti."
+            },
+            {
+                "title": "Decentralizovane autonomne organizacije (DAO)",
+                "description": "Kompanije bez hijerarhije koje funkcionišu putem pametnih ugovora."
+            },
+            {
+                "title": "Blockchain za transparentnost vlade",
+                "description": "Nepromjenjivi zapisi svih vladinih transakcija dostupni javnosti."
+            },
+            {
+                "title": "Tokenizacija imovine",
+                "description": "Frakcijsko vlasništvo nad nekretninama, umjetnošću ili bilo čim putem digitalnih tokena."
+            },
+            {
+                "title": "Cirkularna ekonomija",
+                "description": "Sistem gdje je otpad dizajniran da bude resurs, eliminišući koncept \"bacanja\"."
+            },
+            {
+                "title": "Vremenska banka",
+                "description": "Razmjena usluga bazirana na vremenu, ne novcu, stvarajući paralelnu ekonomiju."
+            }
+        ]
+    }
+]

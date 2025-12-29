@@ -19,6 +19,7 @@ const importProblem = () => import('../components/landing/ProblemSolutionCompari
 const importFounder = () => import('../components/landing/FounderStorySection').then((mod) => ({ default: mod.FounderStorySection }));
 const importMetrics = () => import('../components/landing/MetricsSection').then((mod) => ({ default: mod.MetricsSection }));
 const importCta = () => import('../components/landing/CtaGrid').then((mod) => ({ default: mod.CtaGrid }));
+const importPricing = () => import('../components/landing/PricingSection').then((mod) => ({ default: mod.PricingSection }));
 
 const HeroSection = React.lazy(importHero);
 const ValuePropositionSection = React.lazy(importValue);
@@ -30,6 +31,7 @@ const ProblemSolutionComparison = React.lazy(importProblem);
 const FounderStorySection = React.lazy(importFounder);
 const MetricsSection = React.lazy(importMetrics);
 const CtaGrid = React.lazy(importCta);
+const PricingSection = React.lazy(importPricing);
 
 // ---------- FALLBACK WRAPPER ----------
 const SectionWrapper = ({ children, height, prefetchFn }: { children: React.ReactNode; height: string; prefetchFn?: () => Promise<any>; }) => {
@@ -48,8 +50,8 @@ export function LandingPage() {
     const { t } = useLanguage();
 
     const metaData = useMemo(() => ({
-        title: t.meta?.landingTitle || 'FormatDisc — Od ideje do MVP-a u 48 sata',
-        description: t.meta?.landingDesc || 'FormatDisc pomaže timovima i osnivačima da u kratkom roku izgrade i isporuče audit-pripremni MVP.',
+        title: t('meta.landingTitle'),
+        description: t('meta.landingDesc'),
         keywords: 'AI governance, 48h MVP, deterministic AI, SlavkoKernel',
         canonical: 'https://formatdisc.hr/'
     }), [t]);
@@ -115,6 +117,12 @@ export function LandingPage() {
             </MotionLanding>
 
             <MotionLanding order={10}>
+                <SectionWrapper height="h-[600px]" prefetchFn={importPricing}>
+                    <PricingSection />
+                </SectionWrapper>
+            </MotionLanding>
+
+            <MotionLanding order={11}>
                 <SectionWrapper height="h-[600px]" prefetchFn={importCta}>
                     <CtaGrid />
                 </SectionWrapper>

@@ -9,15 +9,11 @@ import {
     Upload,
     CheckCircle2,
     AlertCircle,
-    ArrowRight,
     Search,
-    Mail,
     Lock
-} from
-    'lucide-react';
+} from 'lucide-react';
 
 import { useOutboundStore } from '../stores/outboundStore';
-import { useKernel } from '../kernel/KernelProvider';
 
 export function LaunchpadRoute() {
     const {

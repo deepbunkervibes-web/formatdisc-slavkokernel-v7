@@ -1,48 +1,52 @@
 import * as React from 'react';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 
-import { MotionPresence } from './components/motion/MotionPresence';
-import { LandingPage } from './routes/LandingPage';
-import { InvestorLogin } from './routes/InvestorLogin';
-import { InvestorPortal } from './routes/InvestorPortal';
 import { InvestorAuthProvider } from './context/InvestorAuthContext';
-import { DocsRoute } from './routes/DocsRoute';
-import { KernelRoute } from './routes/KernelRoute';
-import { MetricsRoute } from './routes/MetricsRoute';
-import { AuditRoute } from './routes/AuditRoute';
-import { ObservabilityRoute } from './routes/ObservabilityRoute';
-import { InvestorsRoute } from './routes/InvestorsRoute';
-import { LaunchpadRoute } from './routes/LaunchpadRoute';
 import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
-
 import { LanguageProvider } from './context/LanguageContext';
 import { KernelProvider } from './kernel/KernelProvider';
+import { MotionPresence } from './components/motion/MotionPresence';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
+
+// Lazy loading all routes for optimal performance and error isolation
+const LandingPage = lazy(() => import('./routes/LandingPage').then(m => ({ default: m.LandingPage })));
+const InvestorsRoute = lazy(() => import('./routes/InvestorsRoute').then(m => ({ default: m.InvestorsRoute })));
+const InvestorLogin = lazy(() => import('./routes/InvestorLogin').then(m => ({ default: m.InvestorLogin })));
+const InvestorPortal = lazy(() => import('./routes/InvestorPortal').then(m => ({ default: m.InvestorPortal })));
+const DocsRoute = lazy(() => import('./routes/DocsRoute').then(m => ({ default: m.DocsRoute })));
+const KernelRoute = lazy(() => import('./routes/KernelRoute').then(m => ({ default: m.KernelRoute })));
+const MetricsRoute = lazy(() => import('./routes/MetricsRoute').then(m => ({ default: m.MetricsRoute })));
+const AuditRoute = lazy(() => import('./routes/AuditRoute').then(m => ({ default: m.AuditRoute })));
+const ObservabilityRoute = lazy(() => import('./routes/ObservabilityRoute').then(m => ({ default: m.ObservabilityRoute })));
+const LaunchpadRoute = lazy(() => import('./routes/LaunchpadRoute').then(m => ({ default: m.LaunchpadRoute })));
+const KernelDashboard = lazy(() => import('./routes/KernelDashboard').then(m => ({ default: m.KernelDashboard })));
 
 function AnimatedRoutes() {
     const location = useLocation();
 
     return (
-        <Suspense fallback={<LoadingSpinner />}>
-            <MotionPresence routeKey={location.pathname}>
-                <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<LandingPage />} />
-                    {/* Studio moved to https://simulate.formatdisc.hr */}
-                    <Route path="/investors" element={<InvestorsRoute />} />
-                    <Route path="/investors/login" element={<InvestorLogin />} />
-                    <Route path="/investors/portal" element={<InvestorPortal />} />
-                    <Route path="/docs" element={<DocsRoute />} />
-                    <Route path="/kernel" element={<KernelRoute />} />
-                    <Route path="/metrics" element={<MetricsRoute />} />
-                    <Route path="/audit" element={<AuditRoute />} />
-                    <Route path="/observability" element={<ObservabilityRoute />} />
-                    <Route path="/launchpad" element={<LaunchpadRoute />} />
-                </Routes>
-            </MotionPresence>
-        </Suspense>
+        <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+                <MotionPresence routeKey={location.pathname}>
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/investors" element={<InvestorsRoute />} />
+                        <Route path="/investors/login" element={<InvestorLogin />} />
+                        <Route path="/investors/portal" element={<InvestorPortal />} />
+                        <Route path="/docs" element={<DocsRoute />} />
+                        <Route path="/kernel" element={<KernelRoute />} />
+                        <Route path="/metrics" element={<MetricsRoute />} />
+                        <Route path="/audit" element={<AuditRoute />} />
+                        <Route path="/observability" element={<ObservabilityRoute />} />
+                        <Route path="/launchpad" element={<LaunchpadRoute />} />
+                        <Route path="/kernel-dashboard" element={<KernelDashboard />} />
+                    </Routes>
+                </MotionPresence>
+            </Suspense>
+        </ErrorBoundary>
     );
 }
 
@@ -52,21 +56,12 @@ function App() {
             <LanguageProvider>
                 <InvestorAuthProvider>
                     <BrowserRouter>
-                        <div className="min-h-screen bg-background text-foreground antialiased selection:bg-accent-purple/20 selection:text-accent-purple relative">
-                            {/* Ambient light wash - subtle perceptual depth */}
-                            <div className="pointer-events-none fixed inset-0 -z-10">
-                                <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-3xl"></div>
-                                <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent-cyan/10 rounded-full blur-3xl"></div>
-                            </div>
-
+                        <div className="min-h-screen bg-background text-foreground antialiased">
                             <Navigation />
-
                             <main className="flex-1">
                                 <AnimatedRoutes />
                             </main>
-
                             <Footer />
-                            <SpeedInsights />
                         </div>
                     </BrowserRouter>
                 </InvestorAuthProvider>

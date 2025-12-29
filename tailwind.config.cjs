@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -9,44 +10,21 @@ module.exports = {
             colors: {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',
-                accent: {
-                    purple: '#7928CA',
-                    pink: '#FF0080',
-                    cyan: '#0070F3',
-                    DEFAULT: '#7f5af0',
-                },
                 muted: 'var(--muted)',
-                card: 'var(--card)',
-                cardBorder: 'var(--card-border)',
-                border: '#e5e7eb',
+                'muted-foreground': 'var(--muted-foreground)',
+                border: 'var(--border)',
+                accent: 'var(--accent)',
+                'accent-foreground': 'var(--accent-foreground)',
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 mono: ['JetBrains Mono', 'monospace'],
             },
-            boxShadow: {
-                'glow': '0 0 50px -12px rgba(121, 40, 202, 0.3)',
-                'glow-subtle': '0 0 30px -10px rgba(255, 0, 128, 0.2)',
-                'card': '0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06)',
-                'fd_card': '0 10px 30px -10px rgba(0,0,0,0.3)',
-            },
-            transitionDuration: {
-                fd_fast: '150ms',
-                fd_medium: '250ms',
-                fd_slow: '400ms',
-            },
-            transitionTimingFunction: {
-                fd_standard: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            },
             animation: {
                 'gradient-x': 'gradient-x 15s ease infinite',
                 'float': 'float 6s ease-in-out infinite',
                 'fade-in': 'fadeIn 0.5s ease-in-out',
-                'blob': 'blob 10s infinite',
                 'fd-fade-in-up': 'fd-fade-in-up var(--motion-medium) forwards',
-                'fd-fade-in-down': 'fd-fade-in-down var(--motion-medium) forwards',
-                'fd-fade-in': 'fd-fade-in var(--motion-medium) forwards',
-                'fd-scale-in': 'fd-scale-in var(--motion-medium) forwards',
             },
             keyframes: {
                 'gradient-x': {
@@ -67,43 +45,12 @@ module.exports = {
                     from: { opacity: 0, transform: 'translateY(10px)' },
                     to: { opacity: 1, transform: 'translateY(0)' }
                 },
-                blob: {
-                    '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                    '33%': { transform: 'translate(30px, -50px) scale(1.2)' },
-                    '66%': { transform: 'translate(-20px, 20px) scale(0.8)' },
-                    '100%': { transform: 'translate(0px, 0px) scale(1)' }
-                },
                 'fd-fade-in-up': {
                     '0%': { opacity: '0', transform: 'translateY(4px)' },
                     '100%': { opacity: '1', transform: 'translateY(0)' },
                 },
-                'fd-fade-in-down': {
-                    '0%': { opacity: '0', transform: 'translateY(-4px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
-                },
-                'fd-fade-in': {
-                    '0%': { opacity: '0' },
-                    '100%': { opacity: '1' },
-                },
-                'fd-scale-in': {
-                    '0%': { opacity: '0', transform: 'scale(0.98)' },
-                    '100%': { opacity: '1', transform: 'scale(1)' },
-                },
             }
         },
     },
-    darkMode: 'class',
-    safelist: [
-        'dark',
-        'bg-background',
-        'text-foreground',
-        'bg-accent-purple',
-        'bg-accent-cyan',
-        'selection:bg-accent-purple/20',
-        'selection:text-accent-purple',
-        'text-accent',
-        'bg-accent',
-        'border-border',
-        'bg-muted',
-    ],
+    plugins: [],
 }

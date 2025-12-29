@@ -32,7 +32,6 @@ export function InvestorAuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const checkSession = async () => {
       // Avoid flash of loading state if already loaded (unlikely on mount, but good practice)
-      setIsLoading(true);
       try {
         const res = await fetch(`${API_Auth_URL}/me`, {
           method: 'GET',
@@ -50,7 +49,6 @@ export function InvestorAuthProvider({ children }: { children: ReactNode }) {
         } else {
           setUser(null);
         }
-        setUser(null);
       } catch (error) {
         logger.error('Session check failed', error);
         setUser(null);

@@ -3,120 +3,182 @@ export type Language = 'hr' | 'en';
 export const translations = {
     hr: {
         meta: {
-            landingTitle: 'FormatDisc — Od ideje do MVP-a u 48 sata',
-            landingDesc: 'FormatDisc pomaže timovima i osnivačima da u kratkom roku izgrade i isporuče audit-pripremni MVP.',
+            landingTitle: 'FormatDisc — Audit-pripremni MVP u 48 sati',
+            landingDesc: 'FormatDisc isporučuje deterministički softver. Nema "pomaganja", samo isporuka.',
         },
         nav: {
-            home: 'Početna',
+            home: 'Sustav online',
             studio: 'Studio',
             kernel: 'Kernel',
             metrics: 'Metrika',
             audit: 'Revizija',
             docs: 'Dokumentacija',
             investors: 'Investitori',
-            bookCall: 'Rezerviraj Poziv',
+            bookCall: 'Zakaži konzultacije (Naplativo)',
         },
         hero: {
-            titlePrefix: 'Brži i jasniji put',
-            titleSuffix: 'od ideje do proizvoda',
-            subtitle: 'FormatDisc pomaže timovima i osnivačima da u kratkom roku izgrade i validiraju funkcionalne prototipove — bez nejasnoća.',
-            description: 'Izgradite, testirajte i isporučite audit-pripremni MVP u 48 sati, uz determinističku arhitekturu i potpunu usklađenost.',
-            badge: 'SlavkoKernel™ v7 na Ollami',
-            quote: '"FormatDisc radi ono što bi inače radio tim od pet ljudi — u 48 sati."',
-            ctaStudio: 'Pokreni MVP Studio',
+            titlePrefix: 'Direktna isporuka',
+            titleSuffix: 'bez šuma u kanalu',
+            subtitle: 'FormatDisc ne "pomaže timovima". FormatDisc zamjenjuje timove. Deterministički, brzo i uz jasnu naplatu.',
+            description: 'Izgradnja, testiranje i isporuka audit-pripremnog MVP-a u 48 sati. Arhitektura nije demokracija.',
+            badge: 'SlavkoKernel™ v7 Inicijaliziran',
+            quote: '"Ne plaćate za vrijeme. Plaćate za desetljeća iskustva komprimiranog u 48 sati."',
+            ctaStudio: 'Pokreni Studio',
             ctaKernel: 'Istraži Kernel',
             builder: 'Izradio Mladen Gertner — Arhitekt Sustava',
             pillars: {
-                deterministic: { title: 'Deterministički', desc: 'Bez halucinacija, bez nagađanja.' },
-                audit: { title: 'Spreman za Reviziju', desc: 'Usklađen s EU AI Act-om.' },
-                mvp: { title: '48-Satni MVP', desc: 'Od koncepta do produkcije.' }
+                deterministic: { title: 'Deterministički', desc: 'Bez halucinacija.' },
+                audit: { title: 'Revizija', desc: 'Spremno za regulatore.' },
+                mvp: { title: 'Isporuka', desc: '48 sati. Fiksno.' }
             }
         },
         valueProp: {
-            label: 'Proces',
-            title: 'Od ideje do funkcionalnog MVP-a u 48 sati',
-            description: 'Ono što obično malom timu treba tjednima, FormatDisc isporučuje u dva dana – strukturirano, dokumentirano i spremno za isporuku.',
+            label: 'Protokol',
+            title: 'Isporuka MVP-a u 48 sati. Fiksno.',
+            description: 'Mali timovi troše tjedne na sastanke. FormatDisc eliminira taj trošak. Vi definirate problem, sustav isporučuje rješenje.',
             cards: {
                 idea: {
-                    title: 'Ideja',
-                    desc: 'Počinjete s jednostavnim konceptom – npr. "Želim aplikaciju koja šalje automatske podsjetnike korisnicima."',
-                    bullet: 'Bez specifikacija, bez arhitekture, bez tehničkih odluka.'
+                    title: 'Specifikacija',
+                    desc: 'Donesite problem, a ne "ideju". Preciznost štedi novac.',
+                    bullet: 'Bez brainstorming sesija.'
                 },
                 system: {
-                    title: 'Sustav',
-                    desc: 'FormatDisc dizajnira cijeli sustav – backend, API, model podataka, UI izgled i dokumentaciju.',
-                    bullet: 'Sve generirano kao koherentan paket spreman za produkciju.'
+                    title: 'Egzekucija',
+                    desc: 'FormatDisc generira sustav. Backend, API, dokumentacija.',
+                    bullet: 'Automatizirana isporuka.'
                 },
                 result: {
-                    title: 'Rezultat',
-                    desc: 'Dobivate live preview, čist kod, API endpointove i dokumentaciju spremnu za investitore – sve u 48 sati.',
-                    bullet: 'Spremno za isporuku, provjerljivo i usklađeno.'
+                    title: 'Transakcija',
+                    desc: 'Dobivate kod, API i dokumentaciju. Plaćate za rezultat.',
+                    bullet: 'Audibilno i finalno.'
                 }
             }
         },
         timeline: {
-            title: 'Razvojni Put',
-            description: 'Od početnog dizajna protokola do AI upravljanja na razini poduzeća.'
+            title: 'Protokol Isporuke',
+            description: 'Od uplate do gotovog proizvoda.'
         },
         archVis: {
-            title: 'Arhitektura Sustava',
-            description: 'Deterministički engine koji pokreće provjerljivu umjetnu inteligenciju.',
-            module: 'Modul Vizualizacije / Offline'
+            title: 'Arhitektura',
+            description: 'Engine koji ne zahtijeva nadzor.',
+            module: 'Modul Vizualizacije'
         },
         compliance: {
-            title: 'Doživite Upravljanje',
-            description: 'Pogledajte kako FormatDisc pretvara bilo koju ideju u proces spreman za regulatore.',
-            artifacts: 'Compliance Artefakti',
-            openStudio: 'Otvori Puni Studio',
+            title: 'Upravljanje i Naplata',
+            description: 'Svaki korak je zabilježen. Svaka inferencija je naplativa.',
+            artifacts: 'Artefakti',
+            openStudio: 'Otvori Studio',
             items: {
-                audit: 'Nepromjenjiva Revizija',
-                proof: 'Deterministički Dokaz',
-                assessment: 'EU AI Act Procjena'
+                audit: 'Revizija',
+                proof: 'Dokaz Rada',
+                assessment: 'Procjena'
             }
         },
-        tryItNow: {
-            title: 'Isprobajte odmah – bez trenja',
-            description: 'Zamislite to kao GitHub Copilot — ali za cijeli proizvod, ne samo za kod. Unesite ideju da biste odmah vidjeli arhitekturu koju FormatDisc dizajnira.',
-            placeholder: 'Opišite svoju ideju proizvoda u jednoj rečenici...',
-            cta: 'Generiraj Pregled',
-            loading: 'Generiranje...',
+        try: {
+            title: 'Definirajte Zahtjev',
+            subtitle: 'Unesite parametre sustava. Budite precizni. Vrijeme je resurs.',
+            placeholder: 'Specifikacija sustava: Ulazni podaci, Očekivani izlaz, Ograničenja...',
+            cta: 'Iniciraj Procjenu',
+            loading: 'Obrada...',
+            feedback: 'Podaci su validirani.',
+            hint: 'Napomena: Nejasni zahtjevi se odbacuju.',
+            steps: {
+                idea: { title: 'Input', desc: 'Ulazni vektori.' },
+                audience: { title: 'Tržište', desc: 'Tko plaća?' },
+                competition: { title: 'Rizik', desc: 'Analiza prijetnji.' },
+                risk: { title: 'Legal', desc: 'Usklađenost.' }
+            }
+        },
+        pricing: {
+            title: 'Cjenik Usluga',
+            subtitle: 'Jasna vrijednost za jasnu cijenu.',
+            cta: 'Kupi',
+            rationale: {
+                title: '2900 € nije MVP. 2900 € je odluka.',
+                description: 'Ova cijena ne pokriva sate rada. Pokriva činjenicu da ne improviziramo. U 48 sati dobivaš sustav koji ima arhitekturu, granice, dokumentaciju i koji se može predati drugom timu.',
+                listNot: ['Nije savjetovanje', 'Nije iterativni proces', 'Nije "radimo dok ne budeš zadovoljan"', 'Nije timska suradnja', 'Nije besplatni softver'],
+                listIs: ['Deterministička arhitektura', 'Zaključan scope', 'Audit-ready kod', 'Dokumentiran sustav', 'Predaja bez ovisnosti o autoru'],
+                cta: 'Ako ovo ima smisla, nastavi.'
+            },
+            plans: [
+                {
+                    id: 'free',
+                    name: 'Procjena',
+                    price: '0 €',
+                    description: 'Automatizirana procjena izvedivosti.',
+                    highlight: false,
+                    features: [
+                        { label: '1 simulacija', included: true },
+                        { label: 'Osnovni output', included: true },
+                        { label: 'Bez konzultacija', included: true },
+                        { label: 'PDF ponuda', included: true },
+                        { label: 'Analiza', included: true }
+                    ]
+                },
+                {
+                    id: 'pro',
+                    name: 'MVP Paket',
+                    price: '2900 €',
+                    description: 'Kompletna izvedba.',
+                    highlight: true,
+                    features: [
+                        { label: 'Neograničene iteracije', included: true },
+                        { label: 'Full Stack kod', included: true },
+                        { label: 'Deployment', included: true },
+                        { label: '30 min primopredaja', included: true }
+                    ]
+                },
+                {
+                    id: 'team',
+                    name: 'Enterprise',
+                    price: 'Custom',
+                    description: 'Za korporativne sustave.',
+                    highlight: false,
+                    features: [
+                        { label: 'Sve iz MVP paketa', included: true },
+                        { label: 'SLA ugovor', included: true },
+                        { label: 'API integracija', included: true },
+                        { label: 'R1 Račun', included: true }
+                    ]
+                }
+            ]
         },
         problemSolution: {
             problem: {
                 title: 'Problem',
-                desc: 'Black-box AI, regulatorna neusklađenost i nekontrolirane halucinacije u produkcijskim okruženjima.'
+                desc: 'Timovi su spori i skupi. Sastanci ne proizvode kod.'
             },
             solution: {
                 title: 'Rješenje',
-                desc: 'Deterministički tijekovi rada, nepromjenjivi tragovi revizije i automatizirana provjera usklađenosti za svaku inferenciju.'
+                desc: 'Deterministička isporuka. Plaćate rezultat, ne sate.'
             }
         },
         founder: {
-            title: 'Temelj',
-            description: 'FormatDisc je rođen iz jednostavne spoznaje: budućnost AI-a nije samo u inteligenciji, već u integritetu. Gradimo infrastrukturu koja AI sustave čini provjerljivima, ponovljivima i sigurnima za korporativnu primjenu.',
-            role: 'Osnivač i Arhitekt Sustava'
+            title: 'Arhitekt',
+            description: 'FormatDisc nije agencija. To je sustav za isporuku softvera visoke vjernosti. Ja nisam vaš "tech co-founder". Ja sam arhitekt kojeg unajmite da se posao obavi kako treba.',
+            role: 'Mladen Gertner'
         },
         metrics: {
-            velocity: { label: 'Brzina Implementacije', value: '48h' },
-            audit: { label: 'Slijedivost Revizije', value: '100%' },
-            compliance: { label: 'Usklađenost', value: 'EU AI Act' },
-            integrity: { label: 'Integritet Sustava', value: 'Deterministički' }
+            velocity: { label: 'Isporuka', value: '48h' },
+            audit: { label: 'Preciznost', value: '100%' },
+            compliance: { label: 'Standard', value: 'EU AI Act' },
+            integrity: { label: 'Arhitektura', value: 'Solid' }
         },
         ctaGrid: {
-            label: 'Sljedeći Koraci',
-            title: 'Spremni za implementaciju?',
+            label: 'Akcija',
+            title: 'Spremni za narudžbu?',
             tiles: {
-                studio: { title: 'Pokreni Studio', desc: 'Započnite izgradnju svog MVP-a odmah.' },
-                docs: { title: 'Pročitaj Dokumentaciju', desc: 'Razumijete protokol i slojeve upravljanja.' },
-                demo: { title: 'Rezerviraj Demo', desc: 'Za inženjerske timove i direktore tehnologije.' }
+                studio: { title: 'Pokreni Studio', desc: 'Samostalna konfiguracija.' },
+                docs: { title: 'Pročitaj Uvjete', desc: 'Tehnička dokumentacija.' },
+                demo: { title: 'Zakaži Poziv', desc: 'Konzultacije se naplaćuju.' }
             },
-            cta: 'Započni'
+            cta: 'Dalje'
         },
         footer: {
-            slogan: 'Arhitektura za sljedeću generaciju osnivača.',
+            slogan: 'Nema besplatnog softvera.',
             rights: 'Sva prava pridržana.',
             privacy: 'Privatnost',
-            terms: 'Uvjeti',
+            terms: 'Uvjeti Poslovanja',
             contact: 'Kontakt'
         }
     },
@@ -126,21 +188,21 @@ export const translations = {
             landingDesc: 'FormatDisc helps teams and founders build and ship audit-ready MVPs in record time.',
         },
         nav: {
-            home: 'Home',
+            home: 'System Online',
             studio: 'Studio',
             kernel: 'Kernel',
             metrics: 'Metrics',
             audit: 'Audit',
             docs: 'Docs',
             investors: 'Investors',
-            bookCall: 'Book a Call',
+            bookCall: 'Explain to Regulator',
         },
         hero: {
             titlePrefix: 'Faster and clearer path',
             titleSuffix: 'from idea to product',
             subtitle: 'FormatDisc helps teams and founders build and validate functional prototypes in record time — without ambiguity.',
             description: 'Build, test, and ship an audit-ready MVP in 48 hours, with deterministic architecture and full compliance.',
-            badge: 'SlavkoKernel™ v7 on Ollama',
+            badge: 'SlavkoKernel™ v7 Initialized',
             quote: '"FormatDisc does what a team of five would normally do — in 48 hours."',
             ctaStudio: 'Launch MVP Studio',
             ctaKernel: 'Explore Kernel',
@@ -193,17 +255,72 @@ export const translations = {
                 assessment: 'EU AI Act Assessment'
             }
         },
-        tryItNow: {
-            title: 'Try it now – zero friction',
-            description: 'Think of it as GitHub Copilot — but for the entire product, not just code. Enter an idea to see the architecture FormatDisc designs instantly.',
-            placeholder: 'Describe your product idea in one sentence...',
-            cta: 'Generate Preview',
-            loading: 'Generating...',
+        try: {
+            title: 'Input Channel · Founder Disclosure',
+            subtitle: 'Enter your idea exactly as you would communicate it to a trusted colleague. No persuasion. No marketing. Only factual intent.',
+            placeholder: 'Type here... be specific. The Simulation performs best with detailed inputs.',
+            cta: 'Initialize Simulation',
+            loading: 'Processing...',
+            feedback: 'The result is not personal. The data is.',
+            hint: 'Insight: Include what you already know does not work.',
+            steps: {
+                idea: { title: 'Your Truth', desc: 'What are you building? No pitch.' },
+                audience: { title: 'Who Pays?', desc: 'True target audience. Not "everyone".' },
+                competition: { title: 'Adversaries', desc: 'Who is taking money while you sleep?' },
+                risk: { title: 'Fears', desc: 'What stops you? Legal or technical?' }
+            }
+        },
+        pricing: {
+            title: 'Transparent Pricing',
+            subtitle: 'Free for your first evaluation. Pay only if it delivers value.',
+            cta: 'Select',
+            plans: [
+                {
+                    id: 'free',
+                    name: 'Free',
+                    price: '0 €',
+                    description: 'For your initial assessment.',
+                    highlight: false,
+                    features: [
+                        { label: '1 simulation per day', included: true },
+                        { label: 'Basic report', included: true },
+                        { label: 'No registration required', included: true },
+                        { label: 'PDF export', included: true },
+                        { label: 'Risk analysis', included: true }
+                    ]
+                },
+                {
+                    id: 'pro',
+                    name: 'Pro',
+                    price: '29 €',
+                    description: 'For committed founders.',
+                    highlight: false,
+                    features: [
+                        { label: 'Unlimited simulations', included: true },
+                        { label: 'In‑depth report + recommendations', included: true },
+                        { label: 'PDF & Notion export', included: true },
+                        { label: 'Priority support', included: true }
+                    ]
+                },
+                {
+                    id: 'team',
+                    name: 'Team',
+                    price: 'Custom',
+                    description: 'For accelerators and venture funds.',
+                    highlight: false,
+                    features: [
+                        { label: 'Everything in Pro', included: true },
+                        { label: 'Team sharing & comments', included: true },
+                        { label: 'API access', included: true },
+                        { label: 'Tax‑deductible', included: true }
+                    ]
+                }
+            ]
         },
         problemSolution: {
             problem: {
                 title: 'The Problem',
-                desc: 'Black-box AI, regulatory non-compliance, and uncontrollable hallucinations in production environments.'
+                desc: 'Black‑box AI systems, regulatory misalignment, and uncontrolled hallucinations in production environments.'
             },
             solution: {
                 title: 'The Solution',
@@ -212,27 +329,27 @@ export const translations = {
         },
         founder: {
             title: 'The Foundation',
-            description: 'FormatDisc was born from a simple realization: the future of AI isn\'t just about intelligence, it\'s about integrity. We build the infrastructure that makes AI systems auditable, reproducible, and safe for enterprise deployment.',
-            role: 'Founder & System Architect'
+            description: 'FormatDisc was created from a simple insight: the future of AI is not defined solely by intelligence, but by integrity. We build infrastructure that makes AI systems verifiable, reproducible, and safe for enterprise deployment.',
+            role: 'Founder & Systems Architect'
         },
         metrics: {
-            velocity: { label: 'Deployment Velocity', value: '48h' },
+            velocity: { label: 'Implementation Speed', value: '48h' },
             audit: { label: 'Audit Traceability', value: '100%' },
-            compliance: { label: 'Compliance Mapping', value: 'EU AI Act' },
+            compliance: { label: 'Compliance', value: 'EU AI Act' },
             integrity: { label: 'System Integrity', value: 'Deterministic' }
         },
         ctaGrid: {
             label: 'Next Steps',
-            title: 'Ready to Deploy?',
+            title: 'Ready for implementation?',
             tiles: {
-                studio: { title: 'Launch Studio', desc: 'Start building your deterministic MVP now.' },
+                studio: { title: 'Launch Studio', desc: 'Begin building your MVP immediately.' },
                 docs: { title: 'Read the Docs', desc: 'Understand the protocol and governance layers.' },
-                demo: { title: 'Book a Demo', desc: 'For enterprise engineering teams and CTOs.' }
+                demo: { title: 'Book a Demo', desc: 'For engineering teams and technology leaders.' }
             },
             cta: 'Get Started'
         },
         footer: {
-            slogan: 'Architecture for the next generation of founders.',
+            slogan: 'Deterministic AI governance for the EU AI Act era.',
             rights: 'All rights reserved.',
             privacy: 'Privacy',
             terms: 'Terms',

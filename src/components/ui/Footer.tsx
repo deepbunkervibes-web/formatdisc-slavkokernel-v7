@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 
 export function Footer() {
+    const { t } = useLanguage();
+
     const links = {
         Product: [
-            { label: 'Studio', href: 'https://simulate.formatdisc.hr', external: true },
-            { label: 'Kernel', href: '/kernel' },
-            { label: 'Documentation', href: '/docs' }],
+            { label: t('nav.studio'), href: 'https://simulate.formatdisc.hr', external: true },
+            { label: t('nav.kernel'), href: '/kernel' },
+            { label: t('nav.docs'), href: '/docs' }],
 
         Resources: [
             { label: 'SlavkoKernel on Ollama', href: 'https://ollama.com/mladen-gertner/slavkokernel-v7', external: true },
@@ -14,13 +17,12 @@ export function Footer() {
             { label: 'Architecture Decisions', href: '/docs#adr', external: false }],
 
         Company: [
-            { label: 'Investors', href: '/investors' },
-            { label: 'Contact', href: 'mailto:mladen@formatdisc.hr', external: true }]
-
+            { label: t('nav.investors'), href: '/investors' },
+            { label: t('footer.contact'), href: 'mailto:mladen@formatdisc.hr', external: true }]
     };
 
     return (
-        <footer className="border-t border-border bg-secondary/30">
+        <footer className="border-t border-border bg-muted/20">
             <div className="max-w-7xl mx-auto px-6 py-16">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
                     {/* Brand */}
@@ -35,7 +37,7 @@ export function Footer() {
                             </div>
                         </Link>
                         <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-6">
-                            Deterministic AI governance for the EU AI Act era. Making enterprise AI transparent, reproducible, and regulator-ready.
+                            {t('footer.slogan')}
                         </p>
 
                         {/* Contact Info */}
@@ -86,7 +88,7 @@ export function Footer() {
                 {/* Bottom */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 mt-12 border-t border-border">
                     <div className="text-center md:text-left">
-                        <p className="text-sm text-muted-foreground">© 2025 FormatDisc. All rights reserved.</p>
+                        <p className="text-sm text-muted-foreground">© 2025 FormatDisc. {t('footer.rights')}</p>
                         <p className="text-xs text-muted-foreground/60 mt-1">
                             FORMATDISC, vl. Mladen Gertner · OIB: 18915075854 · Zagreb, Croatia
                         </p>

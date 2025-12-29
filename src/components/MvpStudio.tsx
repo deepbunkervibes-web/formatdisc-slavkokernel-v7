@@ -1,4 +1,4 @@
-import * as React from 'react';import { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
+import * as React from 'react'; import { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
 
 import { MvpStudioState, IdeaEvaluation } from '../types';
 import { mvpStudioService } from '../services/geminiService';
@@ -20,7 +20,24 @@ import { SimulationWorkspace } from './studio/SimulationWorkspace';
 // Lazy-loaded high-weight components
 const ResultActions = React.lazy(() => import('./ResultActions').then((mod) => ({ default: mod.ResultActions })));
 
-export function MvpStudio() {
+/** Props for MvpStudio component - supports embedded compliance demo mode */
+interface MvpStudioProps {
+  /** When true, enables compliance mode with additional audit features */
+  complianceMode?: boolean;
+  /** When true, shows lineage trace in output display */
+  showLineageTrace?: boolean;
+  /** When true, shows determinism proof artifacts */
+  showDeterminismProof?: boolean;
+  /** When true, renders in compact mode for embedded use */
+  compactMode?: boolean;
+}
+
+export function MvpStudio({
+  complianceMode: _complianceMode = false,
+  showLineageTrace: _showLineageTrace = false,
+  showDeterminismProof: _showDeterminismProof = false,
+  compactMode = false,
+}: MvpStudioProps = {}) {
   const [state, setState] = useState<MvpStudioState>({
     phase: 'IDEA_INPUT',
     idea: '',
@@ -60,11 +77,11 @@ export function MvpStudio() {
 
   const progressValue = useMemo(() => {
     switch (state.phase) {
-      case 'IDEA_INPUT':return 10;
-      case 'EVALUATING':return 40;
-      case 'MVP_BUILDING':return 75;
-      case 'RESULT':return 100;
-      default:return 0;
+      case 'IDEA_INPUT': return 10;
+      case 'EVALUATING': return 40;
+      case 'MVP_BUILDING': return 75;
+      case 'RESULT': return 100;
+      default: return 0;
     }
   }, [state.phase]);
 
@@ -198,50 +215,50 @@ export function MvpStudio() {
 
 
       {!hasBooted ?
-      <CinematicBoot
-        onComplete={handleBootComplete}
-        onPhaseChange={handlePhaseChange} /> :
+        <CinematicBoot
+          onComplete={handleBootComplete}
+          onPhaseChange={handlePhaseChange} /> :
 
 
-      <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-24 pb-20">
+        <div className="min-h-screen flex items-center justify-center w-full relative z-10 pt-24 pb-20">
           <div className="max-w-7xl mx-auto px-4 w-full">
             {state.phase === 'IDEA_INPUT' ?
-          <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} ollamaStatus={ollamaStatus} /> :
+              <IdeaInput initialIdea={state.idea} onSubmit={handleSubmitIdea} error={state.error} isLoading={isLoading} ollamaStatus={ollamaStatus} /> :
 
-          <div className="space-y-6">
+              <div className="space-y-6">
                 <PhaseHeader
-              phase={state.phase}
-              progress={progressValue}
-              evaluation={state.evaluation}
-              ollamaStatus={ollamaStatus} />
+                  phase={state.phase}
+                  progress={progressValue}
+                  evaluation={state.evaluation}
+                  ollamaStatus={ollamaStatus} />
 
 
                 <SimulationWorkspace
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-              state={state} />
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                  state={state} />
 
 
                 {state.phase === 'RESULT' &&
-            <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
+                  <Suspense fallback={<div className="h-20 animate-pulse bg-neutral-800/20 rounded-xl" />}>
                     <ResultActions
-                evaluation={state.evaluation}
-                mvpBlueprint={state.mvpBlueprint}
-                pitchDeck={state.pitchDeck}
-                investorSummary={state.investorSummary}
-                onReset={handleReset}
-                onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)} />
+                      evaluation={state.evaluation}
+                      mvpBlueprint={state.mvpBlueprint}
+                      pitchDeck={state.pitchDeck}
+                      investorSummary={state.investorSummary}
+                      onReset={handleReset}
+                      onProceedAnyway={() => handleGenerateMvp(state.idea, state.evaluation!)} />
 
                   </Suspense>
-            }
+                }
 
                 {state.error &&
-            <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
+                  <div className="rounded-lg bg-red-100 dark:bg-accentRed/20 border border-red-300 dark:border-accentRed p-4 text-sm text-red-700 dark:text-accentRed">
                     <strong>Error:</strong> {state.error}
                   </div>
-            }
+                }
               </div>
-          }
+            }
           </div>
         </div>
       }
