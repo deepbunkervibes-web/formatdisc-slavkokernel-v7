@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import { MotionPresence } from './components/motion/MotionPresence';
 import { LandingPage } from './routes/LandingPage';
-// import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
 import { InvestorLogin } from './routes/InvestorLogin';
 import { InvestorPortal } from './routes/InvestorPortal';
 import { InvestorAuthProvider } from './context/InvestorAuthContext';
@@ -18,9 +18,6 @@ import { LaunchpadRoute } from './routes/LaunchpadRoute';
 import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
 import { LoadingSpinner } from './components/ui/LoadingSpinner';
-
-// Lazy load heavy components
-// const LazyMvpStudio = React.lazy(() => import('./components/MvpStudio').then((module) => ({ default: module.MvpStudio })));
 
 import { LanguageProvider } from './context/LanguageContext';
 import { KernelProvider } from './kernel/KernelProvider';
@@ -69,6 +66,7 @@ function App() {
                             </main>
 
                             <Footer />
+                            <SpeedInsights />
                         </div>
                     </BrowserRouter>
                 </InvestorAuthProvider>
