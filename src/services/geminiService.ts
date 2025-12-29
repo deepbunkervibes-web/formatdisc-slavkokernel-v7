@@ -2,9 +2,9 @@
 import { GoogleGenAI } from "@google/genai";
 
 import { IdeaEvaluation, MvpBlueprint, PitchDeck, InvestorSummary } from '../types';
+import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
 
 import { generateWithOllama, checkOllamaHealth } from './ollamaService';
-import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
 
 // Flag to track if we should use Ollama or fallback to mocks
 let useOllama = true;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MAX_IDEA_LENGTH } from '../utils/inputSanitizer';
 import { ArrowRight, Loader2, Shield, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { MAX_IDEA_LENGTH } from '../utils/inputSanitizer';
 import { useToast } from '../hooks/use-toast';
 import { trackEvent } from '../utils/posthog';
 

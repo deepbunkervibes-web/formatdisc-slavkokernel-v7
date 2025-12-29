@@ -1,49 +1,41 @@
-// In a real application, you would import the posthog-js library.
-// For this environment, we'll use mock functions.
+import posthog from 'posthog-js';
 
-interface PostHog {
-  init: (apiKey: string, options: object) => void;
-  capture: (event: string, properties?: object) => void;
-  identify: (userId: string, properties?: object) => void;
-  debug: () => void;
-}
+export const initPostHog = () => {
+  const key = import.meta.env.VITE_POSTHOG_KEY;
+  const host = import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com';
 
-// Mock PostHog object
-const posthogMock: PostHog = {
-  init: (apiKey, options) => {
-    console.log("PostHog.init called with key:", apiKey, "and options:", options);
-  },
-  capture: (event, properties) => {
-    console.log(`PostHog captured event: '${event}' with properties:`, properties);
-  },
-  identify: (userId, properties) => {
-    console.log(`PostHog identified user: '${userId}' with properties:`, properties);
-  },
-  debug: () => {
-    console.log("PostHog debug mode enabled.");
+  if (!key) {
+    if (import.meta.env.DEV) {
+      console.warn('PostHog Key not found. Analytics disabled in DEV.');
+    }
+    return;
+  }
+
+  try {
+    posthog.init(key, {
+      api_host: host,
+      autocapture: true, // Automatically capture clicks, etc.
+      capture_pageview: true,
+      persistence: 'localStorage+cookie',
+    });
+    console.log('PostHog initialized.');
+  } catch (e) {
+    console.error('PostHog initialization failed:', e);
   }
 };
 
-export function initPostHog() {
-  const posthogKey = import.meta.env.VITE_POSTHOG_KEY;
-  if (posthogKey) {
-    posthogMock.init(posthogKey, {
-      api_host: 'https://app.posthog.com',
-      loaded: (ph) => {
-        // In dev mode, you might enable debug mode
-        // if (process.env.NODE_ENV === 'development') ph.debug();
-      },
-    });
-    console.log("PostHog initialized for product analytics.");
+export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
+  if (import.meta.env.VITE_POSTHOG_KEY) {
+    posthog.capture(eventName, properties);
   } else {
-    console.log("PostHog key not found, skipping initialization.");
+    console.log(`[PostHog Mock] Track: ${eventName}`, properties);
   }
-}
+};
 
-export function trackEvent(event: string, properties?: Record<string, any>) {
-  posthogMock.capture(event, properties);
-}
-
-export function identifyUser(userId: string, properties?: Record<string, any>) {
-  posthogMock.identify(userId, properties);
-}
+export const identifyUser = (userId: string, properties?: Record<string, any>) => {
+  if (import.meta.env.VITE_POSTHOG_KEY) {
+    posthog.identify(userId, properties);
+  } else {
+    console.log(`[PostHog Mock] Identify: ${userId}`, properties);
+  }
+};

@@ -1,43 +1,31 @@
-// In a real application, you would import the Sentry SDK.
-// For this environment, we'll use mock functions.
+import * as Sentry from '@sentry/react';
 
-interface Sentry {
-  init: (options: object) => void;
-  captureException: (error: Error, context?: object) => void;
-}
+export const initSentry = () => {
+  const dsn = import.meta.env.VITE_SENTRY_DSN;
 
-// Mock Sentry object
-const SentryMock: Sentry = {
-  init: (options) => {
-    console.log("Sentry.init called with:", options);
-  },
-  captureException: (error, context) => {
-    console.error("Sentry.captureException called for:", error, "with context:", context);
+  if (!dsn) {
+    if (import.meta.env.DEV) {
+      console.warn('Sentry DSN not found. Skipping initialization in DEV.');
+    }
+    return;
   }
+
+  Sentry.init({
+    dsn,
+    integrations: [],
+    tracesSampleRate: 1.0, // Capture 100% of transactions for now
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
+    environment: import.meta.env.MODE,
+  });
+
+  console.log('Sentry initialized.');
 };
 
-export function initSentry() {
-  const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
-  if (sentryDsn) {
-    SentryMock.init({
-      dsn: sentryDsn,
-      // In a real app, you would include integrations, sample rates, etc.
-      // For example:
-      // integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
-      // tracesSampleRate: 1.0,
-      // replaysSessionSampleRate: 0.1,
-      // replaysOnErrorSampleRate: 1.0,
-    });
-    console.log("Sentry initialized for production monitoring.");
+export const captureException = (error: Error, context?: Record<string, any>) => {
+  if (import.meta.env.VITE_SENTRY_DSN) {
+    Sentry.captureException(error, { extra: context });
   } else {
-    console.log("Sentry DSN not found, skipping initialization.");
+    console.error('Captured Exception (Sentry Mock):', error, context);
   }
-}
-
-export function captureException(error: Error, context?: Record<string, any>) {
-  SentryMock.captureException(error, {
-    contexts: {
-      mvpStudio: context,
-    },
-  });
-}
+};
