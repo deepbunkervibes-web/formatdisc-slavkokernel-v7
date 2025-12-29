@@ -1,8 +1,15 @@
 import React from 'react';
-import './globals.css';
 import ReactDOM from 'react-dom/client';
+
 import App from './App';
-import { ErrorBoundary } from './components/ui/ErrorBoundary';
+import './globals.css';
+import { initSentry } from './utils/sentry';
+import { initPostHog } from './utils/posthog';
+import { ErrorBoundary } from './components/ErrorBoundary';
+
+// Initialize monitoring
+initSentry();
+initPostHog();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

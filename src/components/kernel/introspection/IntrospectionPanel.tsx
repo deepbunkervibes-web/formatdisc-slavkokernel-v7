@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { Activity, ShieldAlert, ShieldCheck, Zap, Server, BarChart3, Clock } from 'lucide-react';
+
 import { useKernel } from '../../../kernel/KernelProvider';
 import { AuditVerifier, AuditVerification } from '../../../kernel/monitoring/AuditVerifier';
 import { KernelHealth } from '../../../kernel/monitoring/HealthService';
-import { Activity, ShieldAlert, ShieldCheck, Zap, Server, BarChart3, Clock } from 'lucide-react';
 
 export const IntrospectionPanel = () => {
     const { getHealth, audit } = useKernel();

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 export const ProblemSolutionComparison = React.memo(() => {

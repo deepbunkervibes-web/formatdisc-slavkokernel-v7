@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { useObsStore } from '@/stores/observabilityStore';
 import { useMemo } from 'react';
+
+import { useObsStore } from '@/stores/observabilityStore';
 
 export function AnomalyTimeline() {
     const findings = useObsStore((s) => s.findings);

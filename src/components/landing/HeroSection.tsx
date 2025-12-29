@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { ArrowRight, Zap } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 // Modular children

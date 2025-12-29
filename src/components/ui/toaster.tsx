@@ -1,6 +1,7 @@
 import React from 'react';
-import { useToast } from '../../hooks/use-toast';
 import { X } from 'lucide-react';
+
+import { useToast } from '../../hooks/use-toast';
 
 export function Toaster() {
   const { toasts, dismiss } = useToast();

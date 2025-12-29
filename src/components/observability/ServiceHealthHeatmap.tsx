@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useMemo } from 'react';
+
 import { useObsStore } from '@/stores/observabilityStore';
 
 const severityWeight = { low: 1, medium: 3, high: 6, critical: 10 } as const;

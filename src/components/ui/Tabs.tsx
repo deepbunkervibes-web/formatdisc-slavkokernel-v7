@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { MvpBlueprint, PitchDeck } from '../../types';
 
 interface TabsProps {

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { IdeaProfile, Artifact, Investor, OutboundLog } from '../types/outbound';
 
 interface OutboundState {

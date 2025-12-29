@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, Send } from 'lucide-react';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 export const TryItNowSection = React.memo(() => {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useInvestorAuth } from '../context/InvestorAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Download, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
+
+import { useInvestorAuth } from '../context/InvestorAuthContext';
 import { OrchestrationWall } from '../components/investors/OrchestrationWall';
 import { LineageMap } from '../components/investors/LineageMap';
-import { Download, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
 import { Navigation } from '../components/ui/Navigation';
 
 export function InvestorPortal() {

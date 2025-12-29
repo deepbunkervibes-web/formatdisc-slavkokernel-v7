@@ -2,48 +2,84 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 interface InvestorAuthContextType {
     isAuthenticated: boolean;
-    login: (email: string) => boolean;
-    logout: () => void;
+    login: (email: string) => Promise<{ success: boolean; error?: string }>;
+    logout: () => Promise<void>;
+    isLoading: boolean;
 }
 
 const InvestorAuthContext = createContext<InvestorAuthContextType | undefined>(undefined);
 
-const WHITELISTED_EMAILS = [
-    'jc@filrougecapital.com',
-    'mladen@formatdisc.hr',
-    'demo@investor.com' // Temporary for testing
-];
+const API_URL = 'http://localhost:3001/api/auth';
 
 export function InvestorAuthProvider({ children }: { children: ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Check local storage for existing session
-        const session = localStorage.getItem('formatdisc_investor_session');
-        if (session === 'true') {
-            setIsAuthenticated(true);
-        }
+        // Check session on mount
+        const checkSession = async () => {
+            try {
+                const res = await fetch(`${API_URL}/me`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    // Important: credentials 'include' sends cookies
+                    credentials: 'include'
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success) {
+                        setIsAuthenticated(true);
+                    }
+                }
+            } catch (error) {
+                console.error('Session check failed:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        checkSession();
     }, []);
 
-    const login = (email: string): boolean => {
-        // Simple client-side whitelist check for MVP.
-        // In production, this should be server-side verification.
-        const normalizedEmail = email.toLowerCase().trim();
-        if (WHITELISTED_EMAILS.includes(normalizedEmail)) {
-            setIsAuthenticated(true);
-            localStorage.setItem('formatdisc_investor_session', 'true');
-            return true;
+    const login = async (email: string): Promise<{ success: boolean; error?: string }> => {
+        try {
+            const res = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ email })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setIsAuthenticated(true);
+                return { success: true };
+            } else {
+                return { success: false, error: data.error || 'Login failed' };
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            return { success: false, error: 'Network error during login' };
         }
-        return false;
     };
 
-    const logout = () => {
-        setIsAuthenticated(false);
-        localStorage.removeItem('formatdisc_investor_session');
+    const logout = async () => {
+        try {
+            await fetch(`${API_URL}/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            setIsAuthenticated(false);
+        }
     };
 
     return (
-        <InvestorAuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <InvestorAuthContext.Provider value={{ isAuthenticated, login, logout, isLoading }}>
             {children}
         </InvestorAuthContext.Provider>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { NeuralField } from './NeuralField';
 import { ThoughtStream } from './ThoughtStream';
 import { ConfidenceGauge } from './ConfidenceGauge';

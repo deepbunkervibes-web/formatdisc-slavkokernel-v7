@@ -1,8 +1,10 @@
 import React from 'react';
-import { MvpBlueprint, PitchDeck, InvestorSummary, IdeaEvaluation } from '../types';
 import { Download, RefreshCw, AlertTriangle, ArrowRight, Sparkles, FileText, BookOpen, Mail } from 'lucide-react';
-import { trackEvent } from '../utils/posthog';
 import { motion } from 'framer-motion';
+
+import { MvpBlueprint, PitchDeck, InvestorSummary, IdeaEvaluation } from '../types';
+import { trackEvent } from '../utils/posthog';
+
 
 interface ResultActionsProps {
   evaluation: IdeaEvaluation | null;

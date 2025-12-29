@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, Shield, Rocket } from 'lucide-react';
 import { motion } from 'framer-motion';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 export const CtaGrid = React.memo(() => {

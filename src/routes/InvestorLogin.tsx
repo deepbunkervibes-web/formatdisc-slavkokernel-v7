@@ -1,44 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useInvestorAuth } from '../context/InvestorAuthContext';
 import { ShieldCheck, ArrowRight, Lock } from 'lucide-react';
 
+import { useInvestorAuth } from '../context/InvestorAuthContext';
+
 export function InvestorLogin() {
-    const [email, setEmail] = useState('');
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const { login } = useInvestorAuth();
-    const navigate = useNavigate();
-
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setError(null);
-
-        // Simulate network delay for "security" feel
-        setTimeout(() => {
-            const success = login(email);
-            if (success) {
-                navigate('/investors/portal');
-            } else {
-                setError('Access denied. This email is not authorized for the Investor Portal.');
-                setIsLoading(false);
-            }
-        }, 800);
-    };
-
-    return (
-        <div className="min-h-screen bg-neutral-950 flex items-center justify-center p-6 font-sans">
-            <div className="max-w-md w-full">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-neutral-900 border border-neutral-800 p-8 rounded-2xl shadow-2xl relative overflow-hidden"
-                >
-                    {/* Ambient glow */}
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-accent-cyan opacity-50" />
+    animate = {{ opacity: 1, y: 0 }
+}
+transition = {{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+className = "bg-neutral-900 border border-neutral-800 p-8 rounded-2xl shadow-2xl relative overflow-hidden"
+    >
+    {/* Ambient glow */ }
+    < div className = "absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-accent-cyan opacity-50" />
 
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
@@ -104,8 +78,8 @@ export function InvestorLogin() {
                             Powered by SlavkoKernel™ v7 Security
                         </p>
                     </div>
-                </motion.div>
-            </div>
-        </div>
+                </motion.div >
+            </div >
+        </div >
     );
 }

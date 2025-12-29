@@ -1,6 +1,7 @@
 import React, { Suspense, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, CheckCircle } from 'lucide-react';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 const MvpStudio = React.lazy(() => import('../MvpStudio').then(module => ({ default: module.MvpStudio })));

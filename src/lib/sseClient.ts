@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useObsStore } from '@/stores/observabilityStore';
 
 export function useObservabilitySSE(url = '/api/observability/stream') {

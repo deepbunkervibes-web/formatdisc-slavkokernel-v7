@@ -1,4 +1,5 @@
 import React, { Suspense, useMemo } from 'react';
+
 import { useMeta } from '../utils/metaManager';
 import { useLanguage } from '../context/LanguageContext';
 import { ErrorBoundary } from '../components/ui/ErrorBoundary';

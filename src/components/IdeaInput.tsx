@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Loader2, Shield, Info } from 'lucide-react';
-import { DemoMode } from './ui/DemoMode';
-import { useToast } from '../hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+
+import { useToast } from '../hooks/use-toast';
 import { trackEvent } from '../utils/posthog';
+
+import { DemoMode } from './ui/DemoMode';
 import { Tooltip } from './ui/Tooltip';
 
 interface IdeaInputProps {

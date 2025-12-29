@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+
 import { Progress } from '../ui/progress';
 import { StatusBar } from '../ui/StatusBar';
 import { MvpStudioState, IdeaEvaluation } from '../../types';

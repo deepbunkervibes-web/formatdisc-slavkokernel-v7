@@ -1,16 +1,17 @@
 import React, { useState, useCallback, useEffect, useMemo, Suspense } from 'react';
+
 import { MvpStudioState, IdeaEvaluation } from '../types';
 import { mvpStudioService } from '../services/geminiService';
-import { IdeaInput } from './IdeaInput';
-import { CinematicBoot } from './studio/CinematicBoot';
-import { QuantumCanvas } from './studio/QuantumCanvas';
 import { useKernel } from '../kernel/KernelProvider';
 import { KernelBootPhase } from '../constants/kernelVisuals';
-
-import { Toaster } from './ui/toaster';
 import { useToast } from '../hooks/use-toast';
 import { markPerformance, measurePerformancePoint } from '../utils/performance';
 import { trackEvent } from '../utils/posthog';
+
+import { Toaster } from './ui/toaster';
+import { QuantumCanvas } from './studio/QuantumCanvas';
+import { CinematicBoot } from './studio/CinematicBoot';
+import { IdeaInput } from './IdeaInput';
 
 // Modular components
 import { PhaseHeader } from './studio/PhaseHeader';

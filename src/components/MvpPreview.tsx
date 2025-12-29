@@ -1,6 +1,7 @@
 import React from 'react';
-import { MvpBlueprint } from '../types';
 import { Loader2 } from 'lucide-react';
+
+import { MvpBlueprint } from '../types';
 
 interface MvpPreviewProps {
   blueprint: MvpBlueprint | null;

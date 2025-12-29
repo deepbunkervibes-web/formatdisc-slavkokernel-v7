@@ -3,9 +3,10 @@ import {
     Search, Filter, Download, RefreshCw, Eye, Calendar,
     Loader2, Clock, CheckCircle, XCircle, Shield
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
 import { Navigation } from '@/components/ui/Navigation';
 import { Footer } from '@/components/ui/Footer';
-import { motion, AnimatePresence } from 'framer-motion';
 
 // Types (Mirrored from API)
 interface AuditLog {

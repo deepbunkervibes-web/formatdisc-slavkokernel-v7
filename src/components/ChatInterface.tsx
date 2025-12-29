@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Sparkles, User, Bot, Loader2 } from 'lucide-react';
-import { GlassCard } from './GlassCard';
+
 import { Message, Sender } from '../types';
 // FIX: Import GeminiHistoryPart to explicitly type the history array.
 import { sendMessageToGemini, GeminiHistoryPart } from '../services/geminiService';
+
+import { GlassCard } from './GlassCard';
 
 interface ChatInterfaceProps {}
 

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 export const MetricsSection = React.memo(() => {

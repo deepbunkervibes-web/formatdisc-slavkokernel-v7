@@ -1,16 +1,17 @@
 import React, { Suspense } from 'react';
+
 import { EvaluationView } from '../EvaluationView';
 import { Tabs } from '../ui/Tabs';
 import { GlassCard } from '../GlassCard';
-import { GlassCard } from '../GlassCard';
 import { MvpStudioState } from '../../types';
-import { ViewSkeleton, TerminalSkeleton } from './Skeletons';
 import { useLanguage } from '../../context/LanguageContext';
 
 // Lazy-loaded artifact components
 const MvpPreview = React.lazy(() => import('../MvpPreview').then(mod => ({ default: mod.MvpPreview })));
 const PitchDeckView = React.lazy(() => import('../PitchDeckView').then(mod => ({ default: mod.PitchDeckView })));
 import { KernelConsciousnessDashboard } from '../consciousness/KernelConsciousnessDashboard';
+
+import { ViewSkeleton, TerminalSkeleton } from './Skeletons';
 
 interface SimulationWorkspaceProps {
     activeTab: 'council' | 'mvp' | 'deck';

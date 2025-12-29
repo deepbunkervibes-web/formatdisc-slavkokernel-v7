@@ -1,6 +1,7 @@
 import React from 'react';
-import { MvpStudioPhase, IdeaEvaluation } from '../../types';
 import { Check, Loader, X, AlertCircle } from 'lucide-react';
+
+import { MvpStudioPhase, IdeaEvaluation } from '../../types';
 
 interface StatusBarProps {
   phase: MvpStudioPhase;

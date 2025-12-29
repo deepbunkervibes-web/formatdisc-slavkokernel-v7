@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { LandingPage } from './routes/LandingPage';
 // import { MvpStudio } from './components/MvpStudio'; // Lazy loaded below
 import { InvestorLogin } from './routes/InvestorLogin';

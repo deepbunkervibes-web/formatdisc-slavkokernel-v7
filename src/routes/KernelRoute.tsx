@@ -1,11 +1,12 @@
 import React from 'react';
+import { Cpu, Lock, ShieldCheck } from 'lucide-react';
+
 import { KernelProvider } from '../kernel/KernelProvider';
 import { KernelStatus } from '../components/kernel/KernelStatus';
 import { AuditTrail } from '../components/kernel/AuditTrail';
 import { DeploymentControls } from '../components/kernel/DeploymentControls';
 import { Terminal } from '../components/kernel/Terminal';
 import { IntrospectionPanel } from '../components/kernel/introspection/IntrospectionPanel';
-import { Cpu, Lock, ShieldCheck } from 'lucide-react';
 import { Navigation } from '../components/ui/Navigation';
 import { Footer } from '../components/ui/Footer';
 

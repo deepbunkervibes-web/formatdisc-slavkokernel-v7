@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { IdeaEvaluation, MvpStudioPhase } from '../types';
 import { CheckCircle2, XCircle, AlertCircle, Loader, MessageCircleQuestion, TrendingUp } from 'lucide-react';
+
+import { IdeaEvaluation, MvpStudioPhase } from '../types';
+
 import { GlassCard } from './GlassCard';
 
 interface EvaluationViewProps {

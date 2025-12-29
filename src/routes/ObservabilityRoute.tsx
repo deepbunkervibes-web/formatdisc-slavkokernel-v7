@@ -1,10 +1,11 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
 import { useObservabilitySSE } from '@/lib/sseClient';
 import { ServiceHealthHeatmap } from '@/components/observability/ServiceHealthHeatmap';
 import { AnomalyTimeline } from '@/components/observability/AnomalyTimeline';
 import { CorrelationGraph } from '@/components/observability/CorrelationGraph';
 import { LiveAlertsTicker } from '@/components/observability/LiveAlertsTicker';
-import { motion } from 'framer-motion';
 
 export function ObservabilityRoute() {
     // Connect to SSE stream

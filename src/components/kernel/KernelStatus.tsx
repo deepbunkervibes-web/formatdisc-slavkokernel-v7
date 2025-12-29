@@ -1,6 +1,7 @@
 import React from 'react';
-import { useKernel } from '../../kernel/KernelProvider';
 import { Cpu, Zap, Shield, Clock } from 'lucide-react';
+
+import { useKernel } from '../../kernel/KernelProvider';
 
 export const KernelStatus = () => {
     const { state, tick } = useKernel();

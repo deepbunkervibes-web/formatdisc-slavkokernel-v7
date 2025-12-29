@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useKernel, AuditEntry } from '../../kernel/KernelProvider';
 import { CheckCircle, Hash, Clock, User, AlignLeft, Activity, Info, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+import { useKernel, AuditEntry } from '../../kernel/KernelProvider';
 
 export const AuditTrail = () => {
     const { audit, resetAudit } = useKernel();

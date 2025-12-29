@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Terminal as TerminalIcon, Cpu, Hash, ArrowRight } from 'lucide-react';
+
 import { useKernel } from '../../kernel/KernelProvider';
 import { useKernelMotion } from '../../motion/useKernelMotion';
-import { Terminal as TerminalIcon, Cpu, Hash, ArrowRight } from 'lucide-react';
 
 export const Terminal = () => {
     const { tick, state, emit } = useKernel();
@@ -34,7 +35,7 @@ export const Terminal = () => {
 
         emit('user', `cli:exec:${trimmed}`);
 
-        let newLines = [`> ${trimmed}`];
+        const newLines = [`> ${trimmed}`];
 
         const lower = trimmed.toLowerCase();
         if (lower === 'status' || lower === 'check') {

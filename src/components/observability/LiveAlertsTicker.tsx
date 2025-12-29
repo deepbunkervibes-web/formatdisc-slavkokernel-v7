@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useObsStore } from '@/stores/observabilityStore';
 import { AlertTriangle, Terminal } from 'lucide-react';
+
+import { useObsStore } from '@/stores/observabilityStore';
 
 export function LiveAlertsTicker() {
     const findings = useObsStore((s) => s.findings);

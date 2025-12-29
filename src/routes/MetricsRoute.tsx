@@ -7,9 +7,10 @@ import {
     Activity, Users, Clock, AlertTriangle, CheckCircle, TrendingUp,
     RefreshCw, Loader2, Zap, Server
 } from 'lucide-react';
+import { motion } from 'framer-motion';
+
 import { Navigation } from '@/components/ui/Navigation';
 import { Footer } from '@/components/ui/Footer';
-import { motion } from 'framer-motion';
 
 // Types
 interface MetricsData {

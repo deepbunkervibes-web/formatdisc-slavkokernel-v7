@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+
 import { useKernel } from "../../kernel/KernelProvider";
 import { KernelBootPhase, kernelPhaseVisuals, PhaseVisuals } from "../../constants/kernelVisuals";
 import { IdeaEvaluation } from "../../types";
@@ -22,7 +23,7 @@ export const QuantumCanvas: React.FC<QuantumCanvasProps> = ({
 
     // Fine-tuned visuals based on phase and verdict
     const visuals = useMemo(() => {
-        let base = kernelPhaseVisuals[phase] || kernelPhaseVisuals.READY;
+        const base = kernelPhaseVisuals[phase] || kernelPhaseVisuals.READY;
 
         // Override for result verdicts
         if (phase === 'RESULT' && verdict) {

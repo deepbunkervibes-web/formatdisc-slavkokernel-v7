@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Lightbulb, Layers, Rocket } from 'lucide-react';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 const getCards = (t: any) => [

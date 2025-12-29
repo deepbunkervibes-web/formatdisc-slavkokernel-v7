@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, Video, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { useLanguage } from '../../context/LanguageContext';
 
 export function Navigation() {

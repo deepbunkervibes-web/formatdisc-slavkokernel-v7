@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+
 import { EvaluationLog } from '../../types';
 
 interface TerminalProps {
