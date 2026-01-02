@@ -32,9 +32,15 @@ export type ProtocolSpec = {
   };
 };
 
+export type KernelAction = 
+  | 'execute'
+  | 'vote'
+  | 'generate-ui'
+  | 'audit-read';
+
 export type KernelTask = {
   agent: string;
-  action: string;
+  action: KernelAction;
   mode: 'deterministic' | 'probabilistic' | 'reasoning';
   payload: any;
   budget?: 'local' | 'cloud';

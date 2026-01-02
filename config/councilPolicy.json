@@ -5,6 +5,11 @@
       "maxTokens": 4096,
       "requiresReasoningApproval": true
     },
+    "frontend-generator": {
+      "allowedPersonas": ["ARCHITECT"],
+      "maxTokens": 16384,
+      "requiresReasoningApproval": false
+    },
     "llama2": {
       "allowedPersonas": ["ARCHITECT", "OPERATOR"],
       "maxTokens": 2048,
