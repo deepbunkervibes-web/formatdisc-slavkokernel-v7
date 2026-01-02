@@ -7,6 +7,7 @@ import { NeuralBus } from '../../kernel/neuralBus'; // Corrected path
 // Institutional Component
 import { CouncilVotePanel } from '../../components/ui/CouncilVotePanel';
 import { LiveRuntimeRenderer } from '../../components/ui/LiveRuntimeRenderer';
+import { ReplicationPanel } from '../../components/ui/ReplicationPanel';
 
 const NeuralActivityLog = () => {
   const [logs, setLogs] = useState<any[]>([]);
@@ -114,6 +115,9 @@ export default function FusionConsole() {
         {/* Right: Live Preview & Stats */}
         <div className="space-y-8">
           
+          {/* SRO Replication Chamber (Phase 10) */}
+          <ReplicationPanel />
+
           {/* Neural Bus Monitor (MCL) */}
           <div className="bg-zinc-900/20 p-4 border border-green-900/30 rounded">
              <h2 className="text-sm font-bold text-white uppercase mb-4 flex items-center gap-2">

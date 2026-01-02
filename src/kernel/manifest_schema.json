@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A-NAOS Manifest",
+  "type": "object",
+  "properties": {
+    "root": { "type": "string" },
+    "epoch": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "operatorId": { "type": "string" },
+    "parent": { "type": ["string", "null"] },
+    "note": { "type": "string" },
+    "signature": { "type": "string" },
+    "signatureAlgorithm": { "type": "string" },
+    "merkleTree": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "chunkCount": { "type": "integer", "minimum": 0 },
+    "totalSize": { "type": "integer", "minimum": 0 },
+    "policyTags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "policyWeights": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    }
+  },
+  "required": ["root", "epoch", "timestamp", "operatorId", "parent", "signature", "signatureAlgorithm", "merkleTree", "chunkCount", "totalSize"]
+}

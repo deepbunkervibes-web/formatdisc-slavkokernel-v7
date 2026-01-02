@@ -38,6 +38,9 @@ export interface AgentCitizen {
   enabled: boolean;               // residency status – alive?
   createdAt: string;              // ISO‑8601 timestamp
   updatedAt: string;              // ISO‑8601 timestamp
+  forkOf?: string;                // Parent citizenshipId
+  isChild?: boolean;              // True if synthetic descendant
+  birthEpoch?: number;            // Epoch of creation
 }
 
 /* ----------  Registry ------------------------------------------------ */

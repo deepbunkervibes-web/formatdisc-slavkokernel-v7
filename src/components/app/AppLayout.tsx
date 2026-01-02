@@ -17,6 +17,7 @@ import { useSovereignTelemetry } from '../../fusion/telemetryHooks';
 import { useSovereignLayout } from './useSovereignLayout';
 import { usePersonaAutoGenerator } from '../../hooks/usePersonaAutoGenerator';
 import { Toaster } from '../ui/toaster';
+import { CursorHologram } from '../ui/CursorHologram';
 
 // Inner component to consume contexts safely
 const LayoutContent = ({ sovereignMode }: { sovereignMode: any }) => {
@@ -27,6 +28,7 @@ const LayoutContent = ({ sovereignMode }: { sovereignMode: any }) => {
 
   return (
     <div className={`min-h-screen bg-black text-foreground antialiased ${hideShellUI ? 'sovereign-view' : ''}`}>
+        <CursorHologram />
         
         {/* GLOBAL AUTO-GEN INDICATOR */}
         {isRegenerating && (

@@ -1,0 +1,13 @@
+{
+  "root": "root_1_task_001",
+  "epoch": 1,
+  "timestamp": "2026-01-02T20:59:47.369Z",
+  "operatorId": "test_op",
+  "parent": "0xdeadbeef",
+  "signature": "sig",
+  "signatureAlgorithm": "RSASSA",
+  "merkleTree": [],
+  "chunkCount": 0,
+  "totalSize": 0,
+  "note": "Executed at 0"
+}

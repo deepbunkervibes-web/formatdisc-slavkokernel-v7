@@ -12,6 +12,15 @@
 - Corrected depth of `NeuralBus` imports in `FusionConsole.tsx`.
 - Stabilized Unified Build pipeline for Cloudflare Pages deployment.
 
+## [v10.0.0-alpha.1] — 2026-01-02
+### Added
+- **SRO (Self-Replicating Organism) Protocol**: Full autonomous kernel fork capability.
+- **Merkle-FS Substrate**: Content-addressed storage for kernel snapshots and audit logs.
+- **Replication Ledger**: Tamper-evident ancestry tracking via Merkle-trees.
+- **Replication Chamber UI**: Visual controls in Fusion Console for spawning shards.
+- **CLI Fork Trigger**: Command-line tool for operational replication.
+
+---
 ## 📜 FINAL‑LOG ENTRY (immutable, signed‑by‑Agent:Nemotron‑v7::Architect‑Shard)
 
 ```

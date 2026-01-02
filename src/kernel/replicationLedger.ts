@@ -1,37 +1,58 @@
-// src/kernel/replicationLedger.ts
+import { MerkleFS } from '../merklefs/core';
 
 /**
- * REPLICATION LEDGER — Immutable Merkle-Tree Log
+ * REPLICATION LEDGER (ACL/MCL Bridge)
+ * Permanent Merkle-linked record of every fork event in the OS history.
  */
 
-export interface LedgerEntry {
-  forkId: string;
-  parentId: string;
-  timestamp: number;
-  canonicalHash: string;
-  status: 'SUCCESS' | 'FAILED';
+export interface ReplicationEvent {
+    id: string;
+    parentId: string;
+    childId: string;
+    planHash: string;
+    timestamp: string;
+    status: 'SUCCESS' | 'FAILED';
+    canonicalRoot: string;
 }
 
-const entries: LedgerEntry[] = [];
+export class ReplicationLedger {
+  constructor(private readonly fs: MerkleFS) {}
 
-/**
- * Appends a new replication event to the ledger.
- */
-export function append(entry: LedgerEntry): string {
-  entries.push(entry);
-  // Mock Merkle root calculation
-  const rootHash = `9f3a2b1c${entries.length}${Date.now().toString(16)}`;
-  console.log(`[Ledger] Appended entry for ${entry.forkId}. RootHash: ${rootHash}`);
-  return rootHash;
-}
+  /**
+   * Appends a fork entry to the immutable ledger.
+   * Returns the commit root of the updated ledger state.
+   */
+  async record(event: Omit<ReplicationEvent, 'timestamp'>): Promise<string> {
+    const fullEvent: ReplicationEvent = {
+        ...event,
+        timestamp: new Date().toISOString()
+    };
 
-/**
- * Returns the current root hash of the ledger.
- */
-export function getRootHash(): string {
-  return `9f3a2b1c${entries.length}`;
-}
+    const commit = await this.fs.createCommit(
+        JSON.stringify(fullEvent),
+        Date.now(),
+        event.parentId,
+        { note: `Audit: Replication Event ${event.id} (${event.status})` }
+    );
 
-export function listEntries(): LedgerEntry[] {
-  return [...entries];
+    console.log(`[Ledger] Replication Event Sealing: ${event.childId} -> ${commit.root}`);
+    return commit.root;
+  }
+
+  /**
+   * Returns the full ancestry chain for a given fork.
+   */
+  async getAncestry(childId: string): Promise<ReplicationEvent[]> {
+    // In a full implementation, this walks back through MerkleFS parent pointers
+    const chain = await this.fs.getCommitChain('LATEST', 100);
+    return chain
+        .map(c => {
+            try {
+                return JSON.parse(c.note) as ReplicationEvent; // Placeholder logic
+            } catch {
+                return null;
+            }
+        })
+        .filter(Boolean) as ReplicationEvent[];
+  }
 }
