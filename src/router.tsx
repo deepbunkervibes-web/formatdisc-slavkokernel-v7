@@ -4,6 +4,7 @@ import App from './App';
 import { DomainGateway } from './routes/DomainGateway';
 
 const LandingPage = React.lazy(() => import('./routes/LandingPage').then(module => ({ default: module.LandingPage })));
+const ZagrebFintechHub = React.lazy(() => import('./routes/content/zagreb-fintech-hub-2025'));
 const OrchestrationHub = React.lazy(() => import('./routes/OrchestrationHub'));
 const ManualOrchestration = React.lazy(() => import('./routes/ManualOrchestration'));
 const AutomatedOrchestration = React.lazy(() => import('./routes/AutomatedOrchestration'));
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DomainGateway />,
+      },
+      {
+        path: 'fintech-hub',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ZagrebFintechHub />
+          </Suspense>
+        ),
       },
       {
         path: 'manifesto',
