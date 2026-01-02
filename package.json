@@ -6,9 +6,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:unified": "node scripts/unified-build.js",
-    "deploy:simulator": "cd slavko-enterprise && npm run build",
-    "start": "next start",
-    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "clean": "rm -rf dist .vite",
     "preview": "vite preview"
   },
   "dependencies": {

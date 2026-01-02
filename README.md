@@ -65,4 +65,37 @@ npm run build:unified
 - **Zero-Trust Access Control**
 
 ---
+
+## 📐 V7 Enterprise Architecture (Canonical Spec)
+
+**Kernel** – `slavkokernel-v7:latest` (3.8 GB, 4 K context) – Ollama-ready, Llama2-based, deterministic multi-agent core.  
+**Fusion** – Redis cluster (pub/sub + queue) – provides low-latency coordination across the council.  
+**Protocol** – RFC-1 deterministic message format – guarantees identical inputs ⇒ identical outputs (SHA-256 reproducibility).  
+
+### Core Guarantees
+
+| Guarantee | Artefact | How it’s enforced |
+|----------|----------|-------------------|
+| **Determinism** | `session-{id}.decision.json` | Fixed orchestration graph + seed ⇒ reproducible SHA-256 hash |
+| **Auditability** | `decisions.log` (append-only) | Each entry = `{timestamp, sessionId, sha256(decision)}` |
+| **Zero-Trust** | TLS 1.3, RBAC, JWT | All external traffic terminates at the edge with strict cipher suites |
+| **Scalable Observability** | Prometheus metrics, Grafana dashboards | Auto-instrumented agents expose `sovok_agent_duration_seconds`, `council_quorum_failed`, … |
+| **CI/CD Gates** | Lint / Type-check / Coverage ≥ 70 % / SBOM / Vulnerability scan | Enforced on `main` via GitHub Actions; release blocked on any failure |
+
+> **All configuration lives in the `config/` folder** – a single source of truth for environment variables, Docker compose, and the `pipeline` YAML manifest.
+
+---
+
+### Quick-Start (One-liner)
+
+```bash
+git clone https://github.com/mladengertner/SlavkoKernel-v7.git
+cd SlavkoKernel-v7 && docker-compose up -d   # production stack
+```
+
+*Development*: `npm run dev` (Vite → port 5173) – **canonical port** now locked to **5173**.  
+
+**Health check**: `curl -s http://localhost:8000/health`
+
+---
 © 2026 FormatDisc. Built for Sovereignty.
