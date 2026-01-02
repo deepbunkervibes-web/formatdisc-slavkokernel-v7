@@ -48,14 +48,14 @@ export const InstitutionalBriefing = () => {
 
         {/* Mid Col: Architecture */}
         <div className="space-y-8 lg:col-span-2">
-           <h2 className="text-xl font-bold uppercase tracking-widest border-b border-white/10 pb-4">Core Architecture</h2>
+           <h2 className="text-xl font-bold uppercase tracking-widest border-b border-white/10 pb-4">Core Architecture v7</h2>
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { title: 'SlavkoKernel', desc: 'Sovereign Runtime & State Manager with cryptographic audit capability.' },
-                { title: 'SlavkoFusion', desc: 'Neural Event Bus routing signals between Kernel, UI, and Agents.' },
-                { title: 'SlavkoProtocol', desc: 'RFC-1 Standard for zero-drift inter-module communication.' },
-                { title: 'PersonaEngine', desc: 'Deterministic Identity containers for autonomous agents.' }
+                { title: 'SlavkoKernel v7', desc: 'Managed Llama2:7b Runtime with council voting mechanisms and deterministic output enforcement.' },
+                { title: 'Cryptographic Audit', desc: 'SHA-256 signed manifest logs for every agent decision. Tamper-evident and compliance-ready.' },
+                { title: 'SlavkoProtocol', desc: 'RFC-1 Standard for zero-drift inter-module communication. JSON/Markdown dual-layer output.' },
+                { title: 'Ollama Native', desc: 'Vendor-agnostic infrastructure. Local, portable, and sovereign. Zero data leakage.' }
               ].map(item => (
                 <div key={item.title} className="p-6 border border-white/5 bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors rounded-xl">
                    <h3 className="font-mono text-terminal-green mb-2">{item.title}</h3>
