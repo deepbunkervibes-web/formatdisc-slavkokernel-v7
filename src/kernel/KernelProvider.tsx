@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { createSlavkoMessage } from '../protocol/slavkoProtocol';
+import { dispatchFusionEvent } from '../fusion/fusionEngine';
 
 import { HealthService, KernelHealth } from './monitoring/HealthService';
 
@@ -82,6 +84,10 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       };
       setAudit(prev => [...prev, bootEntry]);
       healthService.recordAuditEvent();
+      
+      // FUSION: Signal Boot Completion
+      const msg = createSlavkoMessage('KERNEL', 'BOOT_COMPLETE', { sessionId: bootEntry.id });
+      dispatchFusionEvent('KERNEL', msg);
     }, 420);
 
     return () => clearTimeout(boot);
@@ -92,6 +98,12 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       const interval = setInterval(() => {
         setTick(t => t + 1);
         healthService.recordTick();
+        
+        // FUSION: Heartbeat (Throttle to ~1s)
+        if (Date.now() % 1000 < 20) {
+           const msg = createSlavkoMessage('KERNEL', 'HEARTBEAT', { tick: Date.now() });
+           dispatchFusionEvent('KERNEL', msg);
+        }
       }, 16);
       return () => clearInterval(interval);
     }
@@ -112,6 +124,10 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     setAudit(prev => [...prev, entry]);
     healthService.recordAuditEvent();
+    
+    // FUSION: Broadcast Kernel Event
+    const msg = createSlavkoMessage('KERNEL', action.toUpperCase(), { actor, hash });
+    dispatchFusionEvent('KERNEL', msg);
   }, []);
 
   const resetAudit = useCallback(() => {

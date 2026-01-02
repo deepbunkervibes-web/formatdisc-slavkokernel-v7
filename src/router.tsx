@@ -10,6 +10,8 @@ const ManifestoPage = React.lazy(() => import('./routes/ManifestoPage'));
 const DocsRoute = React.lazy(() => import('./routes/DocsRoute').then(module => ({ default: module.DocsRoute })));
 const AuditRoute = React.lazy(() => import('./routes/AuditRoute').then(module => ({ default: module.AuditRoute })));
 const InvestorsRoute = React.lazy(() => import('./routes/InvestorsRoute').then(module => ({ default: module.InvestorsRoute })));
+const FusionConsole = React.lazy(() => import('./routes/fusion/FusionConsole'));
+const ProtocolDocs = React.lazy(() => import('./routes/protocol/ProtocolDocs'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-black">
@@ -59,6 +61,22 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <InvestorsRoute />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'fusion',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <FusionConsole />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'protocol',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ProtocolDocs />
           </Suspense>
         ),
       },

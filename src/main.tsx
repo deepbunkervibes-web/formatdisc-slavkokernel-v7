@@ -7,10 +7,12 @@ import './globals.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initSentry } from './utils/sentry';
 import { initPostHog } from './utils/posthog';
+import { initFusionRegistry } from './fusion/fusionRegistry';
 
-// Initialize monitoring
+// Initialize monitoring & fusion
 initSentry();
 initPostHog();
+initFusionRegistry();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

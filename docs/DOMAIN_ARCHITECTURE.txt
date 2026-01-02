@@ -1,0 +1,34 @@
+
+                  SLAVKOSHELL OS — MULTI-DOMAIN SOVEREIGNTY
+================================================================================
+
+      [USER / AUDITOR]
+             |
+             +---------------------------+---------------------------+
+             |                           |                           |
+             v                           v                           v
+  [shell.formatdisc.hr]       [fusion.formatdisc.hr]      [protocol.formatdisc.hr]
+  (Root Cockpit)              (Neurons & Audit)           (Law & Specs)
+             |                           |                           |
+             |                           |                           |
+             v                           v                           v
++-------------------------+ +-------------------------+ +-------------------------+
+|  MvpStudio (React)      | |  Fusion Console (UI)    | |  Protocol Docs (MDX)    |
+|  ChatInterface          | |  Event Inspector        | |  Schema Viewer          |
+|  KernelTerminal         | |  Real-time Heatmap      | |  Validation Rules       |
++-------------------------+ +-------------------------+ +-------------------------+
+             |                           |                           |
+             +-------------+-------------+                       |
+                           |                                     |
+                           v                                     |
+                  [SLAVKO FUSION LAYER] <------------------------+
+                  (Message Bus & Convergence)
+                           |
+                           v
+                  [SLAVKO KERNEL V1.0]
+                  (Sovereign Runtime)
+
+================================================================================
+      [INFRASTRUCTURE]: Cloudflare Pages (Unified Build)
+      [ROUTING]: Domain-based Content Negotiation
+================================================================================
