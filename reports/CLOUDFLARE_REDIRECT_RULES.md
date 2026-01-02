@@ -1,50 +1,65 @@
 
-# 🔀 Cloudflare Redirect Rules (Canonical WWW)
+# ⚡ Cloudflare Pages: Hardened Canonical Redirect Strategy
 
-**Objective**: Ensure all traffic consolidates to the canonical root domain `https://formatdisc.hr` (or vice-versa).
-**Current Policy**: **Canonical Root** (`formatdisc.hr`).
-
----
-
-## 1. Bulk Redirect Rule (Recommended)
-This is the modern, most performant method in Cloudflare.
-
-1.  Go to **Rules > Redirect Rules**.
-2.  Click **Create Rule**.
-3.  **Name**: `Canonical WWW to Root`
-4.  **When incoming requests match**:
-    *   **Field**: `Hostname`
-    *   **Operator**: `equals`
-    *   **Value**: `www.formatdisc.hr`
-5.  **Then**:
-    *   **Type**: `Dynamic`
-    *   **Expression**: `concat("https://formatdisc.hr", http.request.uri.path)`
-    *   **Status Code**: `301`
-    *   **Preserve Query String**: checked.
+**Status:** VERIFIED & HARDENED
+**Date:** 2026-01-02
+**Canonical Domain:** `https://formatdisc.hr`
 
 ---
 
-## 2. Page Rule (Classic)
-If you prefer the legacy Page Rules interface:
+## 🔒 HARDENED CANONICAL RULE (FINAL FORM)
 
-1.  Go to **Rules > Page Rules**.
-2.  Click **Create Page Rule**.
-3.  **URL Pattern**: `www.formatdisc.hr/*`
-4.  **Setting**: `Forwarding URL`
-5.  **Status Code**: `301 - Permanent Redirect`
-6.  **Destination URL**: `https://formatdisc.hr/$1`
+This configuration ensures a strict, deterministic 301 redirect from `www` to `root` at the edge, preserving all paths and query strings.
+
+### Rule: `Canonical WWW → Root`
+
+**Condition (When incoming requests match):**
+
+| Field | Operator | Value |
+| :--- | :--- | :--- |
+| **Hostname** | **equals** | `www.formatdisc.hr` |
+
+**Action (Dynamic Redirect):**
+
+*   **Type:** `Dynamic`
+*   **Expression:**
+    ```text
+    concat("https://formatdisc.hr", http.request.uri.path, if(len(http.request.uri.query) > 0, concat("?", http.request.uri.query), ""))
+    ```
+*   **Status Code:** `301` (Permanent Redirect)
+*   **Preserve Query String:** *Handled by expression above (Explicit & Deterministic)*
 
 ---
 
-## 3. Verification
-After applying, test with curl:
+## 🧪 Verification Protocol
+
+### A. Manual "Edge" Check
+Execute via terminal to verify the 301 header without loading the app.
 
 ```bash
-curl -I https://www.formatdisc.hr/manifesto
+curl -I https://www.formatdisc.hr/manifesto?x=1
 ```
 
-**Expected Output**:
+**Expected Output:**
 ```http
 HTTP/2 301
-location: https://formatdisc.hr/manifesto
+location: https://formatdisc.hr/manifesto?x=1
+server: cloudflare
 ```
+
+### B. Common Pitfalls Avoided
+
+1.  ❌ **Redirecting at App Layer:** We do NOT do this. It adds latency and complicates the codebase.
+2.  ❌ **302 Redirects:** We use 301 for maximum SEO authority transfer.
+3.  ❌ **Regex Page Rules:** We use "Dynamic Redirects" (Ruleset Engine) which is faster and more predictable than legacy Page Rules.
+
+---
+
+## 🧠 Reasoned Conclusion
+
+*   **Zero Latency:** Redirect happens at the nearest Cloudflare PoP.
+*   **SEO Safe:** Google loves consistent 301s.
+*   **Deterministic:** No "magic" checkboxes; the expression explicitly defines the output URL.
+
+**Signed:**
+*FormatDisc DevOps Division*
