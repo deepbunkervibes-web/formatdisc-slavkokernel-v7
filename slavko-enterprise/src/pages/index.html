@@ -62,9 +62,9 @@
             font-size: 14px
         }
     </style>
-    <link rel="preload" href="/assets/index.css" as="style">
-    <link rel="stylesheet" href="/assets/cockpit.css">
-    <link rel="preload" href="/assets/loader.js" as="script">
+    <link rel="preload" href="assets/index.css" as="style">
+    <link rel="stylesheet" href="assets/cockpit.css">
+    <link rel="preload" href="assets/loader.js" as="script">
 </head>
 
 <body>
@@ -92,8 +92,8 @@
     </main>
 
     <script type="module">
-        import { initTerminal } from '/components/terminal.js';
-        import { initLogs } from '/components/logs.js';
+        import { initTerminal } from './components/terminal.js';
+        import { initLogs } from './components/logs.js';
 
         // Provenance will be injected by build script
         window.__SLAVKO_PROVENANCE__ = {

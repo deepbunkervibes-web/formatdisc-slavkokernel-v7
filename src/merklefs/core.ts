@@ -322,12 +322,15 @@ export class MerkleFS {
   }
 
   async getCommit(root: string): Promise<CommitMetadata | null> {
-    const files = await fs.readdir(this.storageDir);
-    const metaFile = files.find(f => f.includes(root.slice(0, 16)) && f.endsWith(".json"));
-    if (!metaFile) return null;
-    try { 
-        return JSON.parse(await fs.readFile(path.join(this.storageDir, metaFile), "utf8")); 
-    } catch { return null; }
+    try {
+      const files = await fs.readdir(this.storageDir);
+      const metaFile = files.find(f => f.includes(root.slice(0, 16)) && f.endsWith(".json"));
+      if (!metaFile) return null;
+      const content = await fs.readFile(path.join(this.storageDir, metaFile), "utf8");
+      return JSON.parse(content);
+    } catch (e) {
+      return null;
+    }
   }
 
   async reconstructData(root: string): Promise<Buffer> {
@@ -354,6 +357,14 @@ export class MerkleFS {
     let cur: string | undefined = startRoot;
     let iters = 0;
     while (cur && iters < limit) {
+      if (cur === 'LATEST') {
+        try {
+          cur = await fs.readFile(path.join(this.storageDir, 'LATEST'), 'utf8');
+        } catch {
+          cur = undefined;
+        }
+      }
+      if (!cur) break;
       const c: CommitMetadata | null = await this.getCommit(cur);
       if (!c) break;
       chain.push(c);

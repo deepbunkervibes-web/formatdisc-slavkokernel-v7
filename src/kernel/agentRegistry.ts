@@ -76,12 +76,30 @@ function bootstrap(): void {
       updatedAt: now
     },
     {
-      citizenshipId: "agent:grok-beta",
-      displayName: "Grok Analyst",
-      adapterKey: "grok",
-      domains: ["fusion", "telemetry"],
-      rights: ["read-fusion-state"],
-      duties: ["log-actions"],
+       citizenshipId: "agent:grok-beta",
+       displayName: "Grok Analyst",
+       adapterKey: "grok",
+       domains: ["fusion", "telemetry"],
+       rights: ["read-fusion-state"],
+       duties: ["log-actions"],
+       enabled: true,
+       createdAt: now,
+       updatedAt: now
+    },
+    {
+      citizenshipId: "agent:slavko-architect",
+      displayName: "Slavko-Architect",
+      adapterKey: "slavko-architect",
+      domains: ["ui", "fusion", "protocol", "governance", "telemetry", "simulation"],
+      rights: [
+        "propose-ui-change",
+        "execute-kernel-task",
+        "read-fusion-state",
+        "write-fusion-state",
+        "invoke-external-model",
+        "participate-in-council"
+      ],
+      duties: ["log-actions", "respect-policies", "expose-metrics", "accept-governance-overrides"],
       enabled: true,
       createdAt: now,
       updatedAt: now

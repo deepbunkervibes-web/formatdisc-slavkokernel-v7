@@ -1,8 +1,8 @@
 {
-  "build_time": "2026-01-02T21:14:14.628Z",
-  "source_commit": "11cacef",
-  "artifact": "index-c5b5395144e3.html",
-  "sha256": "c5b5395144e3e96f4cfd5fc1f6adcc0a2d788c7cab498761f2d995e7c6e974b9",
+  "build_time": "2026-01-02T21:25:51.982Z",
+  "source_commit": "5ce2e89",
+  "artifact": "index-b28082bdb899.html",
+  "sha256": "b28082bdb899225cb38d5e1da7074754f731a3f1981b3660f38be12ea39fc410",
   "page": "index.html",
   "files_included": [
     "governance",
