@@ -1,8 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://a-naos.dev/schemas/manifest/v1.0.0",
   "title": "A-NAOS Manifest",
+  "description": "Canonical state manifest for A-NAOS Sovereign Runtime v12.2",
+  "version": "1.0.0",
   "type": "object",
   "properties": {
+    "$schemaVersion": {
+      "type": "string",
+      "description": "Version of the manifest schema",
+      "default": "1.0.0"
+    },
     "root": { "type": "string" },
     "epoch": { "type": "integer", "minimum": 0 },
     "timestamp": { "type": "string", "format": "date-time" },
