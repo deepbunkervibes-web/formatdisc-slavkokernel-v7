@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import App from './App';
+import { DomainGateway } from './routes/DomainGateway';
 
 const LandingPage = React.lazy(() => import('./routes/LandingPage').then(module => ({ default: module.LandingPage })));
 const OrchestrationHub = React.lazy(() => import('./routes/OrchestrationHub'));
@@ -26,11 +27,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <Suspense fallback={<PageLoader />}>
-            <LandingPage />
-          </Suspense>
-        ),
+        element: <DomainGateway />,
       },
       {
         path: 'manifesto',
