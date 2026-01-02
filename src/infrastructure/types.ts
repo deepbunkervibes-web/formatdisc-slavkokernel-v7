@@ -33,6 +33,7 @@ export type ProtocolSpec = {
 };
 
 export type KernelTask = {
+  agent: string;
   action: string;
   mode: 'deterministic' | 'probabilistic' | 'reasoning';
   payload: any;

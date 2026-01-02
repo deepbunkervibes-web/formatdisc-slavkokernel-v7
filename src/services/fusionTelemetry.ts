@@ -26,4 +26,13 @@ export class FusionTelemetry {
        window.dispatchEvent(event);
     }
   }
+
+  static logTokens(name: string, count: number) {
+    console.log(`%c[TELEMETRY] ${name.toUpperCase()} tokens: ${count}`, 'color: #10b981; font-weight: bold;');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('FUSION_TOKENS', { 
+        detail: { name, count, timestamp: Date.now() } 
+      }));
+    }
+  }
 }

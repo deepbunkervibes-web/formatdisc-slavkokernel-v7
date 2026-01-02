@@ -1,5 +1,5 @@
 /**
- * NEMOTRON-3-NANO ADAPTER — Extended V7 Spec
+ * NEMOTRON-3-NANO ADAPTER — Final V7 Production Spec
  */
 import { KernelTask, KernelResult } from "../../infrastructure/types";
 import { FusionTelemetry } from "../../services/fusionTelemetry";
@@ -13,11 +13,12 @@ Payload:
 ${JSON.stringify(task.payload, null, 2)}
 `.trim();
 
-  // Budget-aware model selection
+  // 👉 Model selection based on budget
   const model = task.budget === "cloud" 
                 ? "nemotron-3-nano:30b-cloud"
                 : "nemotron-3-nano:latest";
 
+  // 👇 Start the timer – exactly what Fusion Telemetry expects
   FusionTelemetry.start("nemotron");
 
   try {
@@ -40,7 +41,12 @@ ${JSON.stringify(task.payload, null, 2)}
     }
 
     const json = await response.json();
+    
+    // 👇 Stop the timer – records latency to FusionTelemetry store
     FusionTelemetry.stop("nemotron");
+    
+    // Log tokens if available (calculated by response length as proxy for now)
+    FusionTelemetry.logTokens("nemotron", json.response.length);
 
     return {
       agent: "nemotron-3-nano",
