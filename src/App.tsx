@@ -9,6 +9,7 @@ import { Footer } from './components/ui/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useSovereignTelemetry } from './fusion/telemetryHooks';
 import { SEOManager } from './components/ui/SEOManager';
+import { PersonaProvider } from './persona/PersonaContext';
 
 export default function App() {
   const location = useLocation();
@@ -38,26 +39,28 @@ export default function App() {
     <>
       <SEOManager mode={sovereignMode.name} hostname={hostname} />
       <CRTOverlay scanlineIntensity={sovereignMode.intensity} />
-      <KernelProvider>
-        <LanguageProvider>
-          <InvestorAuthProvider>
-            <div className={`min-h-screen bg-black text-foreground antialiased ${sovereignMode.hideShellUI ? 'sovereign-view' : ''}`}>
-              
-              {!sovereignMode.hideShellUI && <Navigation />}
-              
-              <main className={`flex-1 ${sovereignMode.hideShellUI ? '' : 'pt-16'}`}>
-                <Outlet />
-              </main>
+      <PersonaProvider>
+        <KernelProvider>
+          <LanguageProvider>
+            <InvestorAuthProvider>
+              <div className={`min-h-screen bg-black text-foreground antialiased ${sovereignMode.hideShellUI ? 'sovereign-view' : ''}`}>
+                
+                {!sovereignMode.hideShellUI && <Navigation />}
+                
+                <main className={`flex-1 ${sovereignMode.hideShellUI ? '' : 'pt-16'}`}>
+                  <Outlet />
+                </main>
 
-              {!sovereignMode.hideShellUI && <Footer />}
-              
-              {/* Grok chat is only for the Shell/Cockpit, not for dedicated Law or Nervous System domains */}
-              {!sovereignMode.hideShellUI && <GrokChat />}
-              
-            </div>
-          </InvestorAuthProvider>
-        </LanguageProvider>
-      </KernelProvider>
+                {!sovereignMode.hideShellUI && <Footer />}
+                
+                {/* Grok chat is only for the Shell/Cockpit, not for dedicated Law or Nervous System domains */}
+                {!sovereignMode.hideShellUI && <GrokChat />}
+                
+              </div>
+            </InvestorAuthProvider>
+          </LanguageProvider>
+        </KernelProvider>
+      </PersonaProvider>
     </>
   );
 }

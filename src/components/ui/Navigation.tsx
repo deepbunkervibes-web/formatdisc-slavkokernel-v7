@@ -5,6 +5,7 @@ import { Menu, X, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { INSTITUTIONAL_TRANSITION, HEAVY_EASE } from '../../lib/motion-presets';
+import { PersonaSwitcher } from './PersonaSwitcher';
 
 export function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +76,9 @@ export function Navigation() {
                         <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e]" />
                         <span className="font-mono text-[8px] text-neutral-500 tracking-[0.3em] uppercase">Status: DETERMINISTIC</span>
                     </div>
+
+                    {/* Persona Switcher (v2.0) */}
+                    <PersonaSwitcher />
 
                     <button
                         onClick={() => setLanguage(language === 'hr' ? 'en' : 'hr')}
