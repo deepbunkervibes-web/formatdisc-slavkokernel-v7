@@ -2,10 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { registerFusionHandler } from '../../fusion/fusionEngine';
 import { FusionEvent } from '../../fusion/fusionTypes';
+import { NeuralBus } from '../../kernel/neuralBus'; // Corrected path
 
 // Institutional Component
 import { CouncilVotePanel } from '../../components/ui/CouncilVotePanel';
 import { LiveRuntimeRenderer } from '../../components/ui/LiveRuntimeRenderer';
+
+const NeuralActivityLog = () => {
+  const [logs, setLogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+        setLogs(prev => [e.detail, ...prev].slice(0, 20));
+    };
+    window.addEventListener('NEURAL_SYNAPSE_FIRED', handler);
+    return () => window.removeEventListener('NEURAL_SYNAPSE_FIRED', handler);
+  }, []);
+
+  if (logs.length === 0) return <div className="text-zinc-600 italic">Network silent. Waiting for synapse...</div>;
+
+  return (
+    <>
+      {logs.map((log) => (
+        <div key={log.id} className="flex gap-2 border-l-2 border-blue-500/30 pl-2">
+           <span className="text-blue-400 font-bold w-16">{log.type}</span>
+           <span className="text-zinc-500">{log.senderId.split(':')[1]}</span>
+           <span className="text-zinc-600">→</span>
+           <span className="text-zinc-300">{log.targetId === 'BROADCAST' ? '*' : log.targetId.split(':')[1]}</span>
+        </div>
+      ))}
+    </>
+  );
+};
 
 export default function FusionConsole() {
   const [events, setEvents] = useState<FusionEvent[]>([]);
@@ -15,6 +43,20 @@ export default function FusionConsole() {
     registerFusionHandler((event) => {
       setEvents((prev) => [event, ...prev].slice(0, 50)); // Keep last 50
     });
+
+    // SIMULATION: Igniting the Neural Bus
+    setTimeout(() => {
+        NeuralBus.dispatch({ type: 'HEARTBEAT', senderId: 'agent:nemotron-3-nano', targetId: 'BROADCAST', payload: { status: 'ONLINE' } });
+    }, 1000);
+
+    setTimeout(() => {
+        NeuralBus.dispatch({ type: 'QUERY', senderId: 'agent:policy-engine', targetId: 'agent:nemotron-3-nano', payload: { query: 'report_status' } });
+    }, 2500);
+
+    setTimeout(() => {
+        NeuralBus.dispatch({ type: 'COMMAND', senderId: 'agent:nemotron-3-nano', targetId: 'agent:frontend-generator', payload: { cmd: 'prepare_workspace' } });
+    }, 4500);
+
   }, []);
 
   return (
@@ -72,6 +114,17 @@ export default function FusionConsole() {
         {/* Right: Live Preview & Stats */}
         <div className="space-y-8">
           
+          {/* Neural Bus Monitor (MCL) */}
+          <div className="bg-zinc-900/20 p-4 border border-green-900/30 rounded">
+             <h2 className="text-sm font-bold text-white uppercase mb-4 flex items-center gap-2">
+               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+               Neural Bus Activity (ACL/MCL)
+             </h2>
+             <div className="h-40 overflow-y-auto font-mono text-[10px] space-y-1">
+                <NeuralActivityLog />
+             </div>
+          </div>
+
           {/* AI Factory Output */}
           <div className="bg-zinc-900/20 p-4 border border-green-900/30 rounded">
              <h2 className="text-sm font-bold text-white uppercase mb-4 flex items-center gap-2">
