@@ -32,6 +32,24 @@ export type ProtocolSpec = {
   };
 };
 
+export type KernelTask = {
+  action: string;
+  mode: 'deterministic' | 'probabilistic' | 'reasoning';
+  payload: any;
+  budget?: 'local' | 'cloud';
+};
+
+export type KernelResult = {
+  agent: string;
+  output: string;
+  timestamp: number;
+  audit: {
+    model: string;
+    reasoning: string;
+    mode: string;
+  };
+};
+
 export type KernelState = {
   institutionalBriefing: InstitutionalBriefing;
   protocolSpec: ProtocolSpec;

@@ -1,24 +1,8 @@
 /**
- * NEMOTRON-3-NANO ADAPTER — Sovereign LLM Integration
- * Calls local Ollama instance for deterministic inference.
+ * NEMOTRON-3-NANO ADAPTER — Extended V7 Spec
  */
-
-export interface KernelTask {
-  action: string;
-  mode: 'deterministic' | 'probabilistic';
-  payload: any;
-}
-
-export interface KernelResult {
-  agent: string;
-  output: string;
-  timestamp: number;
-  audit: {
-    model: string;
-    reasoning: string;
-    mode: string;
-  };
-}
+import { KernelTask, KernelResult } from "../../infrastructure/types";
+import { FusionTelemetry } from "../../services/fusionTelemetry";
 
 export async function nemotronAdapter(task: KernelTask): Promise<KernelResult> {
   const prompt = `
@@ -29,31 +13,47 @@ Payload:
 ${JSON.stringify(task.payload, null, 2)}
 `.trim();
 
-  const response = await fetch("http://localhost:11434/api/generate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "nemotron-3-nano:latest",
-      prompt,
-      stream: false
-    })
-  });
+  // Budget-aware model selection
+  const model = task.budget === "cloud" 
+                ? "nemotron-3-nano:30b-cloud"
+                : "nemotron-3-nano:latest";
 
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Ollama error ${response.status}: ${err}`);
-  }
+  FusionTelemetry.start("nemotron");
 
-  const json = await response.json();
+  try {
+    const response = await fetch("http://localhost:11434/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        prompt,
+        stream: false,
+        options: {
+          temperature: task.mode === "probabilistic" ? 0.7 : 0,
+        }
+      })
+    });
 
-  return {
-    agent: "nemotron-3-nano",
-    output: json.response,
-    timestamp: Date.now(),
-    audit: {
-      model: "nemotron-3-nano:latest",
-      reasoning: "internal",
-      mode: task.mode
+    if (!response.ok) {
+      const err = await response.text();
+      throw new Error(`Ollama error ${response.status}: ${err}`);
     }
-  };
+
+    const json = await response.json();
+    FusionTelemetry.stop("nemotron");
+
+    return {
+      agent: "nemotron-3-nano",
+      output: json.response,
+      timestamp: Date.now(),
+      audit: {
+        model,
+        reasoning: task.mode === "reasoning" ? "enabled" : "internal",
+        mode: task.mode
+      }
+    };
+  } catch (error) {
+    FusionTelemetry.stop("nemotron");
+    throw error;
+  }
 }

@@ -2,12 +2,10 @@
  * KERNEL AGENT REGISTRY — SlavkoKernel v7
  */
 
-import { nemotronAdapter } from "./adapters/nemotronAdapter";
+import { adapters } from "./adapters";
 
-// Whitelist of allowed agents
-export const allowedAgents = ["llama2", "gemini", "grok", "nemotron"] as const;
+// Unified registry of all available adapters
+export const kernelAgents = adapters;
 
-export const kernelAgents = {
-  // Other adapters would be imported here
-  nemotron: nemotronAdapter
-};
+// Whitelist of allowed agents for quick validation
+export const allowedAgents = Object.keys(adapters) as (keyof typeof adapters)[];
