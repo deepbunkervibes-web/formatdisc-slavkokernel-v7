@@ -9,7 +9,7 @@ export function Footer() {
 
     const links = {
         Product: [
-            { label: t('nav.studio'), href: 'https://simulate.formatdisc.hr', external: true },
+            { label: t('nav.studio'), href: '/simulator', external: false },
             { label: 'Kernel Engine', href: '/kernel' },
             { label: t('nav.docs'), href: '/docs' }],
 

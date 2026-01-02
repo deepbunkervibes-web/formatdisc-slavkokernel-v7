@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Suspense, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Shield } from 'lucide-react';
 import { HEAVY_EASE } from '../../lib/motion-presets';
 
@@ -106,10 +107,8 @@ export const ComplianceDemoSection = React.memo(() => {
                                 transition={{ delay: 0.5 }}
                                 className="pt-8"
                             >
-                                <a
-                                    href="https://simulate.formatdisc.hr"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <Link
+                                    to="/simulator"
                                     className="
                                         w-full bg-green-600 text-white px-8 py-5 rounded-sm font-bold tracking-[0.2em] uppercase font-mono text-xs
                                         hover:bg-green-500 transition-all duration-500 flex items-center justify-between group 
@@ -118,7 +117,7 @@ export const ComplianceDemoSection = React.memo(() => {
                                 >
                                     <span>Deploy Simulation</span>
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </a>
+                                </Link>
                             </motion.div>
                         </div>
                     </div>

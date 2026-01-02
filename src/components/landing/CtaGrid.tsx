@@ -11,9 +11,9 @@ export const CtaGrid = React.memo(() => {
       title: "Run a Simulation",
       desc: "Deploy a live kernel instance and test your architecture against our constraints.",
       icon: Terminal,
-      link: "https://simulate.formatdisc.hr",
+      link: "/simulator",
       primary: true,
-      external: true,
+      external: false,
       cta: "Launch Studio"
     },
     {

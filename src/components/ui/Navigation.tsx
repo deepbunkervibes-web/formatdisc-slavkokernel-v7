@@ -14,9 +14,9 @@ export function Navigation() {
     const NAV_ITEMS = [
         { path: '/', label: 'The Kernel' },
         { path: '/manifesto', label: 'Manifesto' },
-        { path: '/audit', label: 'Audit Trail' },
-        { path: '/docs', label: 'Documentation' },
-        { path: 'https://simulate.formatdisc.hr', label: 'Deploy Simulation', external: true, primary: true },
+        // { path: '/audit', label: 'Audit Trail' }, // Pending Module
+        // { path: '/docs', label: 'Documentation' }, // Pending Module
+        { path: '/simulator', label: 'Deploy Simulation', external: false, primary: true },
     ];
 
     return (
