@@ -1,0 +1,71 @@
+# SLAVKOSHELL OS v1.3.1 — DOMAIN VERIFICATION PROTOCOL
+================================================================================
+AUTHOR: Mladen Gertner
+DATE: 2026-01-02
+STATUS: CANONICAL_VERIFICATION_READY
+================================================================================
+
+## VERIFICATION CHECKLIST (Execute for each domain)
+
+### DOMAIN 1: slavkoshell.formatdisc.hr
+- [ ] 1. Page loads without 404/500 errors
+- [ ] 2. Console shows NO TypeScript runtime errors
+- [ ] 3. Navigation bar is VISIBLE (Shell mode)
+- [ ] 4. GrokChat widget is VISIBLE (Shell mode)
+- [ ] 5. Footer is VISIBLE (Shell mode)
+- [ ] 6. CRT Overlay intensity: 0.3 (balanced)
+- [ ] 7. Meta title: "SlavkoShell OS — Sovereign Cockpit"
+- [ ] 8. Meta description contains "Primary control center"
+- [ ] 9. Response headers include "X-System-Status: SECURE"
+- [ ] 10. Response headers include "Strict-Transport-Security"
+- [ ] 11. No "x-powered-by" or "server" headers visible
+- [ ] 12. Telemetry console log: "[TELEMETRY] Sovereign Mode: SHELL @ 0.3"
+
+### DOMAIN 2: slavkofusion.formatdisc.hr
+- [ ] 1. Page loads without 404/500 errors
+- [ ] 2. Console shows NO TypeScript runtime errors
+- [ ] 3. Navigation bar is HIDDEN (Sovereign mode)
+- [ ] 4. GrokChat widget is HIDDEN (Sovereign mode)
+- [ ] 5. Footer is HIDDEN (Sovereign mode)
+- [ ] 6. CRT Overlay intensity: 0.5 (high noise)
+- [ ] 7. Meta title: "SlavkoFusion — Nervous System Terminal"
+- [ ] 8. Meta description contains "Real-time telemetry"
+- [ ] 9. Response headers include "X-System-Status: SECURE"
+- [ ] 10. Response headers include "Content-Security-Policy"
+- [ ] 11. No tech stack identifiers in headers
+- [ ] 12. Telemetry console log: "[TELEMETRY] Sovereign Mode: FUSION @ 0.5"
+
+### DOMAIN 3: slavkoprotocol.formatdisc.hr
+- [ ] 1. Page loads without 404/500 errors
+- [ ] 2. Console shows NO TypeScript runtime errors
+- [ ] 3. Navigation bar is HIDDEN (Sovereign mode)
+- [ ] 4. GrokChat widget is HIDDEN (Sovereign mode)
+- [ ] 5. Footer is HIDDEN (Sovereign mode)
+- [ ] 6. CRT Overlay intensity: 0.2 (low noise)
+- [ ] 7. Meta title: "SlavkoProtocol — Legislative Vault"
+- [ ] 8. Meta description contains "Canonical standard documentation"
+- [ ] 9. Response headers include "X-Frame-Options: DENY"
+- [ ] 10. Response headers include "X-Content-Type-Options: nosniff"
+- [ ] 11. Middleware routing works (no visible /protocol in URL)
+- [ ] 12. Telemetry console log: "[TELEMETRY] Sovereign Mode: PROTOCOL @ 0.2"
+
+### DOMAIN 4: investitors.formatdisc.hr
+- [ ] 1. Page loads without 404/500 errors
+- [ ] 2. Console shows NO TypeScript runtime errors
+- [ ] 3. Navigation bar is HIDDEN (Sovereign mode)
+- [ ] 4. GrokChat widget is HIDDEN (Sovereign mode)
+- [ ] 5. Footer is HIDDEN (Sovereign mode)
+- [ ] 6. ThreeTerminal component renders (3D scene visible)
+- [ ] 7. Meta title: "Apex Investors — Institutional Briefing"
+- [ ] 8. Meta description contains "Strategic overview"
+- [ ] 9. Response headers include Pentagon security suite
+- [ ] 10. No CORS errors in console
+- [ ] 11. Apex manifest data loads correctly
+- [ ] 12. Telemetry console log: "[TELEMETRY] Sovereign Mode: INVESTORS @ 0.3"
+
+================================================================================
+VERIFICATION RESULT: [ ] PASSED / [ ] FAILED
+NOTES:
+________________________________________________________________________________
+________________________________________________________________________________
+================================================================================
