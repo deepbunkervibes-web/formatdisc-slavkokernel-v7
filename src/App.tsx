@@ -8,6 +8,7 @@ import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useSovereignTelemetry } from './fusion/telemetryHooks';
+import { SEOManager } from './components/ui/SEOManager';
 
 export default function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ export default function App() {
 
   return (
     <>
+      <SEOManager mode={sovereignMode.name} hostname={hostname} />
       <CRTOverlay scanlineIntensity={sovereignMode.intensity} />
       <KernelProvider>
         <LanguageProvider>

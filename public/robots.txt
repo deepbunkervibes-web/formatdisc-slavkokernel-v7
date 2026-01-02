@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Allow: /fusion
+Allow: /protocol
+Allow: /investors
 
-Sitemap: https://slavkokernel-v7.pages.dev/sitemap.xml
+Sitemap: https://slavkoshell.formatdisc.hr/sitemap.xml
