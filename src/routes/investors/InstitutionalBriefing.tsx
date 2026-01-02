@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThreeTerminal } from './ThreeTerminal';
 
-export const InvestorsRoute = () => {
+export const InstitutionalBriefing = () => {
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-terminal-green selection:text-black">
       {/* 1. HERO TERMINAL */}
