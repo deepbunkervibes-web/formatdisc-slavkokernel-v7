@@ -1,103 +1,146 @@
-/**
- * AGENT CITIZENSHIP REGISTRY (CNOS v8 Kernel Module)
- * Defines Agents as First-Class Citizens with Identity, Rights, and Duties.
- */
+// src/kernel/agentRegistry.ts
 
-export type AgentRole = 'CREATOR' | 'RESEARCHER' | 'EXECUTOR' | 'AUDITOR' | 'GOVERNOR';
-export type Domain = 'UI_FACTORY' | 'FUSION_BUS' | 'PROTOCOL_LAYER' | 'KERNEL_CORE' | 'GOVERNANCE_CHAMBER';
+/* ============================================================= */
+/*  Agent Citizenship Layer – CNOS v8                              */
+/* ============================================================= */
 
-export interface AgentRights {
-  canInitiate: boolean;      // Can start tasks autonomously
-  canVote: boolean;          // Has a seat on the Council
-  canModifyState: boolean;   // Can write to Canonical State
-  resourceBudget: number;    // Compute/Token allowance per epoch
-}
+/* ----------  Types ------------------------------------------------ */
 
-export interface AgentDuties {
-  auditLevel: 'NONE' | 'BASIC' | 'FULL_TRACE';
-  heartbeatIntervalMs: number;
-  requiredQuorumAttendance: number; // % of votes they must participate in
-}
+export type AgentDomain   = 
+  | "ui"
+  | "fusion"
+  | "protocol"
+  | "governance"
+  | "telemetry"
+  | "simulation";
+
+export type AgentRight    = 
+  | "propose-ui-change"
+  | "execute-kernel-task"
+  | "read-fusion-state"
+  | "write-fusion-state"
+  | "invoke-external-model"
+  | "participate-in-council";
+
+export type AgentDuty     = 
+  | "log-actions"
+  | "respect-policies"
+  | "expose-metrics"
+  | "accept-governance-overrides";
 
 export interface AgentCitizen {
-  id: string;                // Unique Citizenship ID (DID)
-  name: string;
-  role: AgentRole;
-  domains: Domain[];
-  rights: AgentRights;
-  duties: AgentDuties;
-  status: 'ACTIVE' | 'DORMANT' | 'EXILED';
-  version: string;
-  genesisBlock: number;      // Timestamp of creation
+  citizenshipId: string;          // stable identifier
+  displayName: string;            // human‑readable name
+  adapterKey: string;             // key used in kernelAgents map
+  domains: AgentDomain[];         // domains where the citizen may act
+  rights: AgentRight[];           // powers granted to the citizen
+  duties: AgentDuty[];            // obligations that must be fulfilled
+  enabled: boolean;               // residency status – alive?
+  createdAt: string;              // ISO‑8601 timestamp
+  updatedAt: string;              // ISO‑8601 timestamp
 }
 
-// THE RESIDENCY LEDGER
-const registry: Map<string, AgentCitizen> = new Map();
+/* ----------  Registry ------------------------------------------------ */
 
-// --- KERNEL API ---
+const registry = new Map<string, AgentCitizen>();
 
-export function registerCitizen(agent: Omit<AgentCitizen, 'status' | 'genesisBlock'>): AgentCitizen {
-  if (registry.has(agent.id)) {
-    throw new Error(`Citizen ID collision: ${agent.id} already exists.`);
+/* ----------  Bootstrap ------------------------------------------------- */
+
+function bootstrap(): void {
+  const now = new Date().toISOString();
+
+  const base: AgentCitizen[] = [
+    {
+      citizenshipId: "agent:nemotron-v3",
+      displayName: "Nemotron-UI-Designer",
+      adapterKey: "nemotron",
+      domains: ["ui", "simulation"],
+      rights: ["invoke-external-model", "propose-ui-change"],
+      duties: ["log-actions", "respect-policies", "expose-metrics"],
+      enabled: true,
+      createdAt: now,
+      updatedAt: now
+    },
+    {
+      citizenshipId: "agent:frontend-factory",
+      displayName: "Frontend Generator",
+      adapterKey: "frontend-generator",
+      domains: ["ui"],
+      rights: ["propose-ui-change", "execute-kernel-task"],
+      duties: ["log-actions", "respect-policies"],
+      enabled: true,
+      createdAt: now,
+      updatedAt: now
+    },
+    {
+      citizenshipId: "agent:grok-beta",
+      displayName: "Grok Analyst",
+      adapterKey: "grok",
+      domains: ["fusion", "telemetry"],
+      rights: ["read-fusion-state"],
+      duties: ["log-actions"],
+      enabled: true,
+      createdAt: now,
+      updatedAt: now
+    }
+  ];
+
+  for (const agent of base) {
+    registry.set(agent.citizenshipId, agent);
   }
-
-  const newCitizen: AgentCitizen = {
-    ...agent,
-    status: 'ACTIVE',
-    genesisBlock: Date.now()
-  };
-
-  registry.set(agent.id, newCitizen);
-  console.log(`[ACL] New Citizen Registered: ${agent.name} (${agent.role})`);
-  return newCitizen;
+  console.log(`[ACL] Bootstrapped Agent Citizenship Registry with ${base.length} citizens.`);
 }
 
-export function getCitizen(id: string): AgentCitizen | undefined {
-  return registry.get(id);
-}
+// Auto-bootstrap on module load
+bootstrap();
+
+/* ----------  Public API ------------------------------------------------ */
 
 export function listCitizens(): AgentCitizen[] {
   return Array.from(registry.values());
 }
 
-export function revokeCitizenship(id: string, reason: string) {
-  const citizen = registry.get(id);
-  if (!citizen) throw new Error("Citizen not found");
-  
-  citizen.status = 'EXILED';
-  console.warn(`[ACL] Citizenship REVOKED for ${citizen.name}. Reason: ${reason}`);
+export function getAgentById(id: string): AgentCitizen | undefined {
+  return registry.get(id);
 }
 
-// --- BOOTSTRAP GENESIS CITIZENS ---
+export function getAgentByAdapterKey(adapterKey: string): AgentCitizen | undefined {
+  return Array.from(registry.values()).find(a => a.adapterKey === adapterKey);
+}
 
-export function bootstrapRegistry() {
-    registerCitizen({
-        id: 'agent:nemotron-3-nano',
-        name: 'Nemotron-3-Nano',
-        role: 'CREATOR',
-        domains: ['UI_FACTORY', 'KERNEL_CORE'],
-        rights: { canInitiate: true, canVote: true, canModifyState: true, resourceBudget: 100000 },
-        duties: { auditLevel: 'FULL_TRACE', heartbeatIntervalMs: 60000, requiredQuorumAttendance: 0.8 },
-        version: 'v8.0.0-alpha'
-    });
+/**
+ *  Returns `true` only if the citizen exists, is enabled and owns the requested right.
+ */
+export function isAgentAllowed(adapterKey: string, right: AgentRight): boolean {
+  const citizen = getAgentByAdapterKey(adapterKey);
+  
+  // Implicitly allow unregistered agents in DEMO mode, but WARN
+  if (!citizen) {
+    console.warn(`[ACL] UNREGISTERED ADAPTER ATTEMPTING ACTION: ${adapterKey}`);
+    return false;
+  }
+  
+  if (!citizen.enabled) return false;
+  return citizen.rights.includes(right);
+}
 
-    registerCitizen({
-        id: 'agent:policy-engine',
-        name: 'Policy Sentinel',
-        role: 'AUDITOR',
-        domains: ['GOVERNANCE_CHAMBER', 'KERNEL_CORE'],
-        rights: { canInitiate: false, canVote: false, canModifyState: false, resourceBudget: 5000 },
-        duties: { auditLevel: 'BASIC', heartbeatIntervalMs: 1000, requiredQuorumAttendance: 1.0 },
-        version: 'v1.0.0'
-    });
+/**
+ *  Update rights / domains / enabled flag.
+ *  Governance may call this; the `citizenshipId` is immutable.
+ */
+export function updateAgentRights(
+  citizenshipId: string,
+  patch: Partial<Pick<AgentCitizen, "rights" | "domains" | "enabled">>
+): AgentCitizen | undefined {
+  const existing = registry.get(citizenshipId);
+  if (!existing) return undefined;
 
-    registerCitizen({
-        id: 'agent:frontend-generator',
-        name: 'UI Factory Worker',
-        role: 'EXECUTOR',
-        domains: ['UI_FACTORY'],
-        rights: { canInitiate: false, canVote: false, canModifyState: true, resourceBudget: 50000 },
-        duties: { auditLevel: 'BASIC', heartbeatIntervalMs: 0, requiredQuorumAttendance: 0 },
-        version: 'v7.1.0'
-    });
+  const updated: AgentCitizen = {
+    ...existing,
+    ...patch,
+    updatedAt: new Date().toISOString()
+  };
+
+  registry.set(citizenshipId, updated);
+  return updated;
 }

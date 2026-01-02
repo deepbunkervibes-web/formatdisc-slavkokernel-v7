@@ -6,6 +6,7 @@
 import { KernelTask, KernelResult } from "../infrastructure/types";
 import { kernelAgents } from "./kernelAgents";
 import policyData from "../../config/councilPolicy.json";
+import { isAgentAllowed, getAgentByAdapterKey } from "./agentRegistry";
 
 export interface CouncilPolicy {
   agents: Record<string, {
@@ -24,6 +25,28 @@ const councilPolicy = policyData as CouncilPolicy;
  */
 export async function executeAgent(task: KernelTask, personaRole: string): Promise<KernelResult> {
   const agentId = task.agent as keyof typeof kernelAgents;
+  
+  // 0. AGENT CITIZENSHIP CHECK (CNOS v8)
+  const citizen = getAgentByAdapterKey(agentId);
+  if (!citizen) {
+       // For migration stability, we allow legacy agents but log a strict warning.
+       // In v8-Strict mode, this will throw.
+       console.warn(`[ACL] WARNING: Agent [${agentId}] is UNDOCUMENTED (Non-Citizen). Execution Proceeding under amnesty.`);
+  } else {
+      if (!citizen.enabled) {
+          throw new Error(`[ACL] EXILE: Agent citizen [${citizen.citizenshipId}] has been disabled/exiled.`);
+      }
+
+      // Check Specific Rights
+      let requiredRight = null;
+      if (task.action === 'generate-ui') requiredRight = 'propose-ui-change';
+      // Add mappings for other actions...
+
+      if (requiredRight && !isAgentAllowed(agentId, requiredRight as any)) {
+          throw new Error(`[ACL] RIGHTS VIOLATION: Citizen [${citizen.citizenshipId}] attempted [${task.action}] without [${requiredRight}] grant.`);
+      }
+  }
+
   const policy = councilPolicy.agents[agentId];
 
   // 1. Policy Whitelist Enforcement
