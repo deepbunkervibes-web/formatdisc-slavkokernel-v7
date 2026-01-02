@@ -136,6 +136,7 @@ VITE_MOCK_MODE=false
 
 # **8. Documentation & Doctrine**
 
+- [**The Manifesto**](./docs/MANIFESTO.md) — The philosophical core.
 - [**Whitepaper v1.0**](./WHITEPAPER.md) — Executive & Technical Brief.
 - [**Slavko Fusion Spec**](./docs/SLAVKO_FUSION.md) — Orchestration Convergence.
 - [**Slavko Protocol RFC-1**](./docs/SLAVKO_PROTOCOL_RFC.md) — Canonical Interaction Standard.

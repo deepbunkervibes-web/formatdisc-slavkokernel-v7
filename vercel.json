@@ -1,31 +1,29 @@
 {
-    "rewrites": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/simulator",
+      "destination": "/simulator/index.html"
+    },
+    {
+      "source": "/simulator/",
+      "destination": "/simulator/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(simulator/.*)",
+      "headers": [
         {
-            "source": "/api/(.*)",
-            "destination": "/api/$1"
+          "key": "X-Frame-Options",
+          "value": "DENY"
         },
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+          "key": "X-Slavko-Engine",
+          "value": "V1-CANONICAL"
         }
-    ],
-    "headers": [
-        {
-            "source": "/(.*)",
-            "headers": [
-                {
-                    "key": "X-Content-Type-Options",
-                    "value": "nosniff"
-                },
-                {
-                    "key": "X-Frame-Options",
-                    "value": "DENY"
-                },
-                {
-                    "key": "X-XSS-Protection",
-                    "value": "1; mode=block"
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ]
 }

@@ -1,10 +1,12 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "slavkoshell-os",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:unified": "node scripts/unified-build.js",
+    "deploy:simulator": "cd slavko-enterprise && npm run build",
     "start": "next start",
     "lint": "eslint .",
     "preview": "vite preview"
