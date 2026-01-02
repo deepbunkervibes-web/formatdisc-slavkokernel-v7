@@ -2,7 +2,7 @@ import { FusionEvent, FusionChannel } from './fusionTypes';
 import { SlavkoMessage } from '../protocol/types';
 import { enforceProtocol } from '../protocol/validators';
 
-type FusionHandler = (event: FusionEvent) => void;
+type FusionHandler = (event: FusionEvent<any>) => void;
 
 // Singleton event bus
 const handlers: FusionHandler[] = [];
@@ -16,19 +16,21 @@ export const dispatchFusionEvent = <T>(
   message: SlavkoMessage<T>
 ) => {
   try {
+    // 1. Pentagon Enforcement - Validation & Hardening
     const canonical = enforceProtocol(message);
 
+    // 2. Fusion Encapsulation
     const event: FusionEvent<T> = {
       message: canonical,
       route: {
         channel,
-        target: canonical.origin,
+        target: canonical.origin, // Mapping to SlavkoModule source
       },
     };
 
-    // Broadcast to all fusion handlers (e.g. Logger, Simulator, AI)
+    // 3. Dispersion
     handlers.forEach((h) => h(event));
   } catch (err) {
-    console.error('[FUSION_ERROR] Dispersion failed:', err);
+    console.error('[FUSION_ERROR] Signal dispersion failed integrity check:', err);
   }
 };
