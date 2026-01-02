@@ -26,5 +26,14 @@ export const onRequest: PagesFunction = async (context) => {
      }
   }
 
-  return context.next();
+  const response = await context.next();
+  const ghostResponse = new Response(response.body, response);
+  
+  // Operational Ghosting (Pentagon Mode)
+  ghostResponse.headers.delete('x-powered-by');
+  ghostResponse.headers.delete('x-turbo-charged-by');
+  ghostResponse.headers.delete('server');
+  ghostResponse.headers.set('X-System-Status', 'SECURE');
+  
+  return ghostResponse;
 };
