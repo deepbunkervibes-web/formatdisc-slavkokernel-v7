@@ -16,7 +16,14 @@ try {
     execSync('npm run build', { stdio: 'inherit', cwd: ROOT_DIR });
 
     // 2. Build Enterprise Simulator
-    console.log('\n[2/3] Building Enterprise Simulator (Static)...');
+    // [Cleanup] Remove incompatible _routes.json if present
+    const routesJson = path.join(DIST_DIR, '_routes.json');
+    if (fs.existsSync(routesJson)) {
+      console.log('🧹 Removing incompatible _routes.json...');
+      fs.unlinkSync(routesJson);
+    }
+
+    console.log('🏗️ [2/3] Building SlavkoEnterprise Simulator (Static)...');
     // Ensure dependencies are installed in submodule if needed, or rely on root.
     // Assuming slavko-enterprise script runs with node
     execSync('npm run build', { stdio: 'inherit', cwd: SIMULATOR_SRC_DIR });

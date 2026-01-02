@@ -131,3 +131,18 @@
 .glass-institutional {
     @apply bg-black/40 backdrop-blur-xl border border-white/5;
 }
+
+/* v1.3 Sovereign Rendering Layer */
+.sovereign-view {
+  overflow: hidden !important;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sovereign-view main {
+  height: 100%;
+  width: 100%;
+}

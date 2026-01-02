@@ -103,7 +103,9 @@ function StreamingText({ text }: { text: string }) {
         maxWidth={isMobile ? viewport.width - 1 : 4.5}
         lineHeight={1.4}
         font="https://fonts.gstatic.com/s/jetbrainsmono/v18/t6nu48P_4K1zG7j06-A1979_82V_L0-eF9Y.woff"
-      />
+      >
+        {""}
+      </Text>
     </G>
   );
 }
