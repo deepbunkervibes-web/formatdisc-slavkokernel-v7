@@ -2,15 +2,14 @@ import * as React from 'react';
 import { motion } from 'framer-motion';
 import { Navigation } from '../components/ui/Navigation';
 import { Footer } from '../components/ui/Footer';
-import { 
-    INSTITUTIONAL_TRANSITION, 
-    HEAVY_EASE, 
-    staggerContainer, 
-    slideUpHeavy, 
-    fadeInHeavy 
+import {
+    INSTITUTIONAL_TRANSITION,
+    staggerContainer,
+    slideUpHeavy,
+    fadeInHeavy
 } from '../lib/motion-presets';
 
-const ManifestoPage = () => {
+export const ManifestoPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-black text-white selection:bg-green-500/20 selection:text-green-200">
       <Navigation />
@@ -77,7 +76,7 @@ const ManifestoPage = () => {
               }
             ].map((principle, index) => (
               <motion.section 
-                key={index}
+                key={principle.number}
                 variants={slideUpHeavy}
                 className="relative pl-12 border-l border-white/5 group hover:border-green-500/20 transition-all duration-1000"
               >
