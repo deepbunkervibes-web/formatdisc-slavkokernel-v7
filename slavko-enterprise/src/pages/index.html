@@ -63,6 +63,7 @@
         }
     </style>
     <link rel="preload" href="/assets/index.css" as="style">
+    <link rel="stylesheet" href="/assets/cockpit.css">
     <link rel="preload" href="/assets/loader.js" as="script">
 </head>
 
@@ -71,28 +72,40 @@
         <!-- INJECT HERO -->
         <!-- include components/hero.html -->
 
+        <!-- COCKPIT SECTION -->
+        <div class="cockpit-container">
+            <div id="slavko-terminal">
+                <div id="slavko-terminal-output"></div>
+                <input id="slavko-terminal-input" placeholder="slavko>">
+            </div>
+            <div id="slavko-logs"></div>
+        </div>
+
         <!-- INJECT METRICS -->
         <!-- include components/metrics.html -->
+
+        <!-- SOVEREIGN GOVERNANCE -->
+        <!-- include components/governance.html -->
 
         <!-- INJECT PIPELINE -->
         <!-- include components/pipeline.html -->
     </main>
-    <script defer>
-        /* MICRO LOADER (3KB MAX) */
-        (() => {
-            document.addEventListener('click', e => {
-                const t = e.target;
-                if (t.matches('[data-smooth]')) {
-                    e.preventDefault();
-                    fetch(t.href).then(r => r.text()).then(h => {
-                        document.querySelector('#content').innerHTML = h;
-                        history.pushState(null, '', t.href);
-                    });
-                }
-            });
-            console.log('Static Enterprise v1.0');
-        })();
+
+    <script type="module">
+        import { initTerminal } from '/components/terminal.js';
+        import { initLogs } from '/components/logs.js';
+
+        // Provenance will be injected by build script
+        window.__SLAVKO_PROVENANCE__ = {
+            sha256: "{{SHA256_FROM_BUILD}}"
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initTerminal();
+            initLogs();
+        });
     </script>
 </body>
+
 
 </html>

@@ -1,193 +1,165 @@
-# MVP Simulation Studio — MASTER README (Enterprise Canonical)
+# **� SLAVKOSHELL v1.0 — CANONICAL README**  
+*(Minimalistički izvana. Orkestracijski brutalno iznutra.)*
 
-> **Canonical Source of Truth**  
-> Enterprise governance, security, determinism, and CI/CD guarantees are defined **here**.  
-> For a simplified product overview, see **README.product.md**.
-
----
-
-## 1) Purpose & Positioning (Enterprise Truth)
-
-**MVP Simulation Studio**, powered by **SlavkoKernel™ V7**, is a **deterministic, enterprise‑grade AI orchestration system** for early‑stage startup evaluation.
-
-**Non‑negotiables**
-
-- Deterministic outputs: same input + seed ⇒ same verdict & artifacts.
-- Audit‑ready: SHA‑256 hashed decisions, append‑only logs, reproducible sessions.
-- Zero‑trust security: **server/edge‑only inference**, no client secrets.
-- CI‑enforced governance: lint, tests, coverage, signed releases.
-
-This is **not** a demo or motivational tool.
+```
+███████╗██╗      █████╗ ██╗   ██╗██╗  ██╗ ██████╗ ███████╗██╗  ██╗███████╗██╗     
+██╔════╝██║     ██╔══██╗██║   ██║██║ ██╔╝██╔════╝ ██╔════╝██║  ██║██╔════╝██║     
+███████╗██║     ███████║██║   ██║█████╔╝ ██║  ███╗█████╗  ███████║█████╗  ██║     
+╚════██║██║     ██╔══██║██║   ██║██╔═██╗ ██║   ██║██╔══╝  ██╔══██║██╔══╝  ██║     
+███████║███████╗██║  ██║╚██████╔╝██║  ██╗╚██████╔╝███████╗██║  ██║███████╗███████╗
+╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
+```
 
 ---
 
-## 2) Executive Summary (Ultra‑Condensed)
+# **1. Overview**
 
-- Deterministic council: **Skeptic, Analyst, Simulator, Researcher** → consensus.
-- Verdicts: **PROCEED / REVISE / REJECT** with structured artifacts.
-- Tech: **React 19 + Vite**, TypeScript (strict), Tailwind.
-- Ops: CI gates, Sentry, PostHog, performance tracing.
-- Security: zero‑trust agents, fail‑fast, explicit state boundaries.
-- Ownership: **FORMATDISC** — enterprise discipline.
+**SlavkoShell v1.0** je **sovereign, audit‑safe, AI‑native execution environment**.  
+Sastoji se od dva komplementarna sustava:
 
----
+### **A) Root Application (React 19 + Vite 7)**  
+Interaktivni cockpit koji pruža:
+- **MvpStudio** — simulacija proizvoda i orkestracijskih tokova  
+- **ChatInterface** — AI‑native operativni sloj  
+- **KernelTerminal** — deterministički terminal s audit logovima  
 
-## 3) System Model & Verdicts
+### **B) Enterprise Simulator (`/slavko-enterprise`)**  
+Statički, deterministički cockpit s:
+- SVG pipelineom  
+- Interaktivnim terminalom  
+- Audit log engineom  
+- Zero‑drift vizualnim prikazom stanja  
 
-### Council (Fixed Roles)
-
-- **Skeptic:** distribution, monetization, defensibility failure modes.
-- **Analyst:** product vs. agency, TAM integrity.
-- **Simulator:** 30+ persona scenario rollouts.
-- **Researcher:** historical parallels and empirical signals.
-
-### Verdicts
-
-| Verdict | Meaning | Artifacts |
-|---|---|---|
-| **PROCEED** | Structurally coherent | MVP blueprint, 5‑slide pitch, investor summary |
-| **REVISE** | Insight valid, execution flawed | Prioritized experiments, corrective plan |
-| **REJECT** | Structurally unviable | Reject report, outcome scenarios, alternatives |
-
-All verdicts are deterministic and hash‑recorded.
+Ova dva sloja zajedno čine **SlavkoShell OS** — minimalan izvana, orkestracijski suveren iznutra.
 
 ---
 
-## 4) Determinism & Auditability Guarantees
+# **2. Architecture**
 
-- Fixed orchestration graph per release.
-- Reproducible sessions (seeded).
-- Append‑only `decisions.log` with SHA‑256.
-- CI‑signed releases; Sentry release mapping.
-- Structured reasoning objects (no opaque “AI magic”).
-
----
-
-## 5) Architecture Overview
-
-### Presentation Plane
-
-- **React 19, Vite, TypeScript (strict)**.
-- Presentation‑only — no execution logic, no secrets.
-
-### Execution Plane
-
-- **Server/Edge only** (recommended: **Vercel Edge Functions** or **Cloudflare Workers**).
-- Custom orchestrator controls lifecycle and provider adapters.
-
-### Observability
-
-- **PostHog** (event schema enforced).
-- **Sentry** (errors, releases, traces).
-- CI‑enforced lint/type/coverage gates.
+```
+slavkoshell/
+├── src/
+│   ├── components/
+│   │   ├── kernel/          # KernelTerminal, audit-safe primitives
+│   │   ├── studio/          # MvpStudio (simulation layer)
+│   │   ├── chat/            # ChatInterface (AI-native UX)
+│   │   └── ui/              # Shared UI primitives
+│   ├── services/
+│   │   └── geminiService.ts # AI orchestration
+│   ├── App.tsx
+│   └── main.tsx
+│
+├── slavko-enterprise/        # Deterministic static cockpit
+│   ├── index.html
+│   ├── terminal/
+│   ├── svg/
+│   └── audit/
+│
+├── public/
+└── package.json
+```
 
 ---
 
-## 6) Security & Operational Controls (Non‑Negotiable)
+# **3. SlavkoShell Doctrine v1.0**
 
-- Zero‑trust between agents; isolated runtimes.
-- Fail‑fast with circuit breakers.
-- **No client‑side secrets**; provider keys are server‑only.
-- Input sanitization & prompt isolation.
-- Rate limiting & quotas.
-- SAST/DAST for production branches.
+### **1. Sovereign Execution**  
+Svaki proces mora biti determinističan, reproducibilan i audit‑safe.
+
+### **2. Zero Drift Policy**  
+Nema implicitnih stanja. Nema skrivenih tokova. Nema “magije”.
+
+### **3. Canonical State First**  
+UI, backend i simulator moraju uvijek prikazivati isti izvor istine.
+
+### **4. Auditability as a Feature**  
+Svaka akcija je transakcija. Svaka transakcija je logirana.
+
+### **5. Minimalism Outside, Orchestration Beast Inside**  
+Vanjski sloj je tih, čist i institucionalan.  
+Unutarnji sloj je orkestracijski moćan i eksplicitno definiran.
 
 ---
 
-## 7) Local Development (Canonical)
+# **4. Deployment Matrix**
 
-> **Canonical dev port:** **5173** (Vite default).  
-> If overridden, update **all** docs and CI examples accordingly.
+| Layer | Target | Method |
+|-------|--------|--------|
+| **Root App (React)** | Vercel / Cloudflare Pages | `npm run build` |
+| **Enterprise Simulator** | `/simulator` subpath | Static export (`slavko-enterprise/`) |
+| **Hybrid Mode** | formatdisc.hr | Root = app, `/simulator` = cockpit |
 
+---
+
+# **5. Quick Start**
+
+### Install
 ```bash
-git clone https://github.com/mladengertner/mvp-simulation-tool1
-cd mvp-simulation-tool1
-npm ci
+npm install
+```
+
+### Dev
+```bash
 npm run dev
-# http://localhost:5173
+```
+
+### Build (root)
+```bash
+npm run build
+```
+
+### Build simulator
+```bash
+npm run deploy:simulator
 ```
 
 ---
 
-## 8) Environment & Secrets (Production)
+# **6. Environment Variables**
 
-**Server/Edge only**
-
-- `GEMINI_API_KEY`
-- `SENTRY_DSN`
-- `POSTHOG_KEY`
-- `ADMIN_SECRET`
-- `NODE_ENV=production`
-
-**Policy:** Never inject provider keys into client bundles.
-
----
-
-## 9) CI/CD Gates (Mandatory)
-
-1. `npm run lint` (`--max-warnings 0` or documented, timeboxed tolerance)
-2. `npm run test` (unit + integration)
-3. `npm run test:e2e` (Playwright)
-4. `npm run build` (no warnings)
-5. Coverage ≥ **70%**
-6. SAST/DAST clean
-7. Signed release + `CHANGELOG.md`
-8. Canary deploy + rollback plan
-
----
-
-## 10) Health & Artifacts
-
-### `/api/health`
-
-```json
-{
-  "status": "ok",
-  "version": "v7.0",
-  "lastConsensusHash": "sha256:<hex>",
-  "aiProviderReachable": true,
-  "timestamp": "ISO-8601"
-}
+```
+GEMINI_API_KEY=your_key
+VITE_MOCK_MODE=false
 ```
 
-### Artifacts
+---
 
-- `session-{id}.decision.json`
-- `session-{id}.blueprint.pdf`
-- `session-{id}.revise-plan.md`
-- `session-{id}.reject-report.md`
-- `decisions.log` (append‑only)
+# **7. Roadmap v1.1**
+
+- KernelTerminal v2 (streaming entropy HUD)  
+- Multi-agent orchestration layer  
+- Canonical Log Viewer  
+- Sovereign Persona Engine  
+- Full SlavkoKernel integration  
 
 ---
 
-## 11) Governance & Compliance
+# **8. Documentation & Doctrine**
 
-- Semantic versioning.
-- ADRs required for design changes.
-- Append‑only deployment log.
-- Incident response and rollback runbooks.
-
----
-
-## 12) Product Surface (Marketing Pointer)
-
-> **Product overview, features, and quick start for users** live in  
-> **README.product.md** (non‑canonical, user‑facing).
+- [**Whitepaper v1.0**](./WHITEPAPER.md) — Executive & Technical Brief.
+- [**Slavko Fusion Spec**](./docs/SLAVKO_FUSION.md) — Orchestration Convergence.
+- [**Slavko Protocol RFC-1**](./docs/SLAVKO_PROTOCOL_RFC.md) — Canonical Interaction Standard.
+- [**Completion Report**](./COMPLETION_REPORT.md) — Final handover audit.
+- [**Release Notes v1.0**](./RELEASE_NOTES.md) — Version details.
+- [**Roadmap v1.1**](./ROADMAP.md) — Future trajectory.
+- [**Governance Charter**](./GOVERNANCE.md) — The constitution of SlavkoShell.
+- [**Architecture Diagram**](./docs/ARCHITECTURE.txt) — System visualization.
+- [**Persona Engine**](./docs/PERSONA_ENGINE.md) — Psychological profiling of agents.
 
 ---
 
-## 13) Ownership & Signature
+# **9. System Layers**
 
-**Owner:** FORMATDISC — Mladen Gertner  
-**Contact:** <core@formatdisc.hr> | <security@formatdisc.hr>
+SlavkoShell OS se sastoji od tri fundamentalna sloja:
 
-**Status:** ✔ **CERTIFIED — ENTERPRISE‑GRADE**
+1. **SlavkoKernel** — sovereign runtime
+2. **Slavko Protocol** — canonical interaction law
+3. **Slavko Fusion** — orchestration convergence layer
+
+Ova tri sloja čine zatvoreni, deterministički OS.
 
 ---
 
-### Closing Contract
+# **10. License**
 
-This README is the **canonical enterprise contract**.  
-Deploy with discipline—or accept the operational risk.
-
-**FORMATDISC — Enterprise standards. Zero bullshit.**
+MIT — ali operativna filozofija je **sovereign**.

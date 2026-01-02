@@ -1,38 +1,73 @@
-<section id="pipeline" style="margin-top:40px">
-    <h2 style="font-weight:700;font-size:20px">Deterministic Pipeline</h2>
-    <ol style="margin-top:20px;padding-left:0;list-style:none;counter-reset:step">
-        <li style="counter-increment:step;margin-top:16px">
-            <div style="display:flex;align-items:center">
-                <div
-                    style="width:24px;height:24px;background:var(--g);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin-right:12px">
-                    1</div>
-                <div>
-                    <div style="font-weight:700">Atomic Extraction</div>
-                    <div style="color:var(--muted);margin-top:2px">Parse HTML → components</div>
-                </div>
+<section id="pipeline" style="margin-top:60px">
+    <div style="display:flex; justify-content:between; align-items:center; margin-bottom:24px">
+        <h2 style="font-weight:700; font-size:24px; letter-spacing:-0.02em">Quantum Orchestration Pipeline</h2>
+        <span style="font-family:var(--terminal-font); font-size:12px; color:var(--g); opacity:0.8">ENGINE: SLAVKO-V7</span>
+    </div>
+
+    <div class="svg-container" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:16px; padding:40px; position:relative; overflow:hidden">
+        <svg viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto">
+            <!-- Connection Lines -->
+            <path d="M100 100 H700" stroke="rgba(0,255,68,0.1)" stroke-width="2" stroke-dasharray="8 4" />
+            <path id="flow-line" d="M100 100 H700" stroke="url(#paint0_linear)" stroke-width="2" stroke-dasharray="20 400">
+                <animate attributeName="stroke-dashoffset" from="420" to="0" dur="3s" repeatCount="indefinite" />
+            </path>
+
+            <!-- Node 1: Extraction -->
+            <g class="node" transform="translate(100, 100)">
+                <circle r="30" fill="rgba(0,0,0,0.8)" stroke="var(--g)" stroke-width="2" />
+                <circle r="4" fill="var(--g)">
+                    <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite" />
+                </circle>
+                <text y="50" text-anchor="middle" fill="#fff" font-size="12" font-family="var(--terminal-font)">EXTRACTION</text>
+            </g>
+
+            <!-- Node 2: Transform -->
+            <g class="node" transform="translate(300, 100)">
+                <circle r="30" fill="rgba(0,0,0,0.8)" stroke="var(--g)" stroke-width="2" />
+                <path d="M-10 -10 L10 10 M-10 10 L10 -10" stroke="var(--g)" stroke-width="2" opacity="0.5" />
+                <text y="50" text-anchor="middle" fill="#fff" font-size="12" font-family="var(--terminal-font)">TRANSFORM</text>
+            </g>
+
+            <!-- Node 3: Verification -->
+            <g class="node" transform="translate(500, 100)">
+                <circle r="30" fill="rgba(0,0,0,0.8)" stroke="var(--g)" stroke-width="2" />
+                <path d="M-10 0 L-2 8 L12 -8" stroke="var(--g)" stroke-width="2" />
+                <text y="50" text-anchor="middle" fill="#fff" font-size="12" font-family="var(--terminal-font)">VERIFY</text>
+            </g>
+
+            <!-- Node 4: Immutable -->
+            <g class="node" transform="translate(700, 100)">
+                <circle r="30" fill="rgba(10,255,68,0.1)" stroke="var(--g)" stroke-width="2" />
+                <rect x="-10" y="-10" width="20" height="20" stroke="var(--g)" stroke-width="2" fill="none" />
+                <text y="50" text-anchor="middle" fill="#fff" font-size="12" font-family="var(--terminal-font)">IMMUTABLE</text>
+            </g>
+
+            <defs>
+                <linearGradient id="paint0_linear" x1="100" y1="100" x2="700" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="var(--g)" />
+                    <stop offset="1" stop-color="var(--g)" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <!-- Stats Overlay -->
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; margin-top:40px">
+            <div style="text-align:center">
+                <div style="color:var(--muted); font-size:10px; margin-bottom:4px">LATENCY</div>
+                <div style="font-family:var(--terminal-font); font-size:14px; color:var(--g)">0.002ms</div>
             </div>
-        </li>
-        <li style="counter-increment:step;margin-top:16px">
-            <div style="display:flex;align-items:center">
-                <div
-                    style="width:24px;height:24px;background:var(--g);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin-right:12px">
-                    2</div>
-                <div>
-                    <div style="font-weight:700">Deterministic Build</div>
-                    <div style="color:var(--muted);margin-top:2px">SHA256 hash → immutable artifact</div>
-                </div>
+            <div style="text-align:center">
+                <div style="color:var(--muted); font-size:10px; margin-bottom:4px">INTEGRITY</div>
+                <div style="font-family:var(--terminal-font); font-size:14px; color:var(--g)">100%</div>
             </div>
-        </li>
-        <li style="counter-increment:step;margin-top:16px">
-            <div style="display:flex;align-items:center">
-                <div
-                    style="width:24px;height:24px;background:var(--g);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin-right:12px">
-                    3</div>
-                <div>
-                    <div style="font-weight:700">Audit Trail</div>
-                    <div style="color:var(--muted);margin-top:2px">PROVENANCE.json + SBOM</div>
-                </div>
+            <div style="text-align:center">
+                <div style="color:var(--muted); font-size:10px; margin-bottom:4px">BLOCKS</div>
+                <div style="font-family:var(--terminal-font); font-size:14px; color:var(--g)">#2847</div>
             </div>
-        </li>
-    </ol>
+            <div style="text-align:center">
+                <div style="color:var(--muted); font-size:10px; margin-bottom:4px">ENTROPY</div>
+                <div style="font-family:var(--terminal-font); font-size:14px; color:var(--g)">STABLE</div>
+            </div>
+        </div>
+    </div>
 </section>

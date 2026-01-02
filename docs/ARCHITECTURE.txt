@@ -1,0 +1,38 @@
+
+                         SLAVKOSHELL v1.0 ARCHITECTURE
+================================================================================
+
+      [USER / OPERATOR]
+             |
+             v
++------------------------------------------------------------------+
+|  ROOT APPLICATION (React 19 / Vite 7)                            |
+|                                                                  |
+|  +-----------------+    +-----------------+    +--------------+  |
+|  |   MvpStudio     |<-->|  Slavko Fusion  |<-->| KernelTerm   |  |
+|  |  (Simulation)   |    | (Convergence)   |    | (Audit/Log)  |  |
+|  +-----------------+    +-----------------+    +--------------+  |
+|          |                       ^                    |          |
+|          v                       |                    v          |
+|  [SLAVKO PROTOCOL RFC-1] <-------+-------> [CANONICAL MESSAGE]   |
+|          |                       |                    |          |
++----------|-----------------------|--------------------|----------+
+           |                       |                    |
+           v                       v                    v
++------------------------------------------------------------------+
+|  ENTERPRISE SIMULATOR (/simulator)                               |
+|  [Static / Deterministic / SHA-256 Verified]                     |
+|                                                                  |
+|  +-------------------+  +-------------------+  +--------------+  |
+|  | SVG Pipeline      |  | Logic Engine (JS) |  | UI Cockpit   |  |
+|  | (Visual State)    |  | (Pseudo-Stream)   |  | (Glass/Dark) |  |
+|  +-------------------+  +-------------------+  +--------------+  |
+|                                                                  |
+|  > AGENT CLUSTER: [Analyst] [Skeptic] [Simulator] [Researcher]   |
++------------------------------------------------------------------+
+           |
+           v
+      [CLOUDFLARE PAGES / VERCEL]
+           |
+           v
+      [IMMUTABLE BUILD ARTIFACTS]
