@@ -1,20 +1,9 @@
-
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Shield, Globe, Landmark, ArrowRight, Activity } from 'lucide-react';
-import { useScrollTo } from '../hooks/useScrollTo';
 
 export default function PillarPage() {
-  const scrollTo = useScrollTo();
-
   return (
     <div className="min-h-screen bg-black text-white font-mono selection:bg-green-900 selection:text-white">
-      <Helmet>
-        <title>Zagreb FinTech Hub 2025 — Sovereign Governance & Digital Assets</title>
-        <meta name="description" content="Join the Zagreb FinTech Hub 2025. Verify crypto-receipts, participate in the Meta-Council, and unlock EU-wide sovereign governance directly from Zagreb." />
-        <link rel="canonical" href="https://slavkoshell.formatdisc.hr/fintech-hub" />
-      </Helmet>
-
       {/* HERO SECTION */}
       <section className="relative h-screen flex flex-col items-center justify-center border-b border-gray-800 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,65,0.1),transparent_70%)]" />

@@ -14,6 +14,7 @@ const AuditRoute = React.lazy(() => import('./routes/AuditRoute').then(module =>
 const InvestorsRoute = React.lazy(() => import('./routes/InvestorsRoute').then(module => ({ default: module.InvestorsRoute })));
 const FusionConsole = React.lazy(() => import('./routes/fusion/FusionConsole'));
 const ProtocolDocs = React.lazy(() => import('./routes/protocol/ProtocolDocs'));
+import ErrorPage from './routes/ErrorPage';
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-black">
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

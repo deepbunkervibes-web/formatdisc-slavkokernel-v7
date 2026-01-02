@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useTypedLog } from '../hooks/useTypedLog';
-import { activity } from 'lucide-react';
+import { Activity } from 'lucide-react';
 
 export default function TerminatorIntro({
   onComplete,
 }: { onComplete: () => void }) {
   const [step, setStep] = useState(0); // 0→countdown, 1→final message
-  const [log, addLog] = useTypedLog([]);
 
   // Simulated countdown (3 seconds)
   useEffect(() => {
