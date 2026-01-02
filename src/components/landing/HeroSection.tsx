@@ -1,103 +1,86 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
-import { 
-  staggerContainer, 
-  slideUpHeavy, 
-  fadeInHeavy 
-} from '../../lib/motion-presets';
+export const HeroSection: React.FC = () => {
+    const subtitle = "SOVEREIGN ORCHESTRATION KERNEL v7.0";
 
-const StatusBadge = ({ children, active }: { children: React.ReactNode; active?: boolean }) => (
-    <div className={`flex items-center space-x-2 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-full text-[10px] uppercase tracking-widest font-mono ${active ? 'text-green-500' : 'text-neutral-500'}`}>
-        <div className={`w-1 h-1 rounded-full ${active ? 'bg-green-500 animate-pulse' : 'bg-neutral-800'}`} />
-        <span>{children}</span>
-    </div>
-);
-
-export const HeroSection = React.memo(() => {
     return (
-        <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-hidden bg-black selection:bg-green-500/30 selection:text-green-200">
-            {/* Background Grid & Ambient Glow */}
-            <div className="absolute inset-0 z-0 opacity-20 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-green-500/5 blur-[120px] rounded-full" />
-
-            <motion.div 
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                className="container max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center"
+        <React.Fragment>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="min-h-screen w-full bg-black text-white flex flex-col items-center justify-center relative overflow-hidden selection:bg-green-900 selection:text-white"
             >
-                {/* Status Indicator */}
-                <motion.div variants={fadeInHeavy} className="mb-12 flex items-center gap-3">
-                    <StatusBadge active>Kernel Engine Active</StatusBadge>
-                    <StatusBadge>V7.0 Stable</StatusBadge>
-                </motion.div>
-
-                {/* Headline */}
-                <motion.h1 
-                    variants={slideUpHeavy}
-                    className="text-6xl md:text-8xl lg:text-[100px] font-bold text-white tracking-tight leading-[0.9] mb-8"
-                >
-                    Summon the <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-500">
-                        Kernel.
-                    </span>
-                </motion.h1>
-
-                {/* Subheadline */}
-                <motion.p 
-                    variants={slideUpHeavy}
-                    className="text-lg md:text-2xl text-neutral-400 font-light max-w-2xl mb-12 leading-relaxed"
-                >
-                    Standardize your deployment surface. Eliminate architectural drift. 
-                    Establish a <span className="text-white font-normal underline decoration-green-500/30 underline-offset-4">deterministic sanctuary</span> for your startup's core.
-                </motion.p>
-
-                {/* Unified CTA Logic */}
-                <motion.div 
-                    variants={slideUpHeavy}
-                    className="flex flex-col sm:flex-row items-center gap-6 mb-24"
-                >
-                    <button 
-                        onClick={() => document.getElementById('simulation-mode')?.scrollIntoView({ behavior: 'smooth' })}
-                        className="group relative w-full sm:w-auto px-10 py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-sm transition-all duration-300 shadow-xl shadow-green-900/20 overflow-hidden"
-                    >
-                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        <span className="relative flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
-                            Run a Simulation <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </span>
-                    </button>
+                {/* Background Noise/Grid */}
+                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
+                
+                {/* Central Monolith */}
+                <div className="z-10 flex flex-col items-center text-center space-y-12 max-w-4xl px-6">
                     
-                    <Link to="/investors" className="group w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-sm border border-white/10 transition-all duration-300 flex items-center justify-center">
-                        <span className="flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
-                            Institutional Access <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                    {/* Identifier Block */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                        className="inline-flex items-center gap-3 px-4 py-1.5 border border-white/10 bg-white/5 rounded-sm backdrop-blur-sm"
+                    >
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
+                        <span className="text-[10px] tracking-[0.3em] font-mono font-bold text-neutral-400">NODE: ZAGREB-01</span>
+                    </motion.div>
+
+                    {/* Main Title */}
+                    <div className="space-y-4">
+                        <motion.h1 
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2, duration: 1 }}
+                            className="text-6xl md:text-9xl font-bold tracking-tighter leading-none text-white"
+                        >
+                            FORMAT<span className="text-neutral-600">DISC</span>
+                            <sup className="text-lg md:text-2xl text-neutral-700 ml-2 align-top">TM</sup>
+                        </motion.h1>
+                        
+                        <motion.p 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 0.8 }}
+                            className="text-sm md:text-xl text-neutral-500 font-mono tracking-[0.2em] uppercase"
+                        >
+                            {subtitle}
+                        </motion.p>
+                    </div>
+
+                    {/* Single Deterministic Action */}
+                    <motion.button
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.2, duration: 0.8 }}
+                        onClick={() => window.location.href = '/hub'}
+                        className="group relative px-12 py-5 bg-white text-black font-mono font-bold tracking-[0.2em] text-xs hover:bg-neutral-200 transition-all duration-500"
+                    >
+                        <span className="relative z-10 flex items-center gap-4">
+                            INITIALIZE_SESSION
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">→</span>
                         </span>
-                    </Link>
+                        
+                        {/* Hover Glitch Effect Element */}
+                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-10 transition-opacity duration-100" />
+                    </motion.button>
+
+                </div>
+
+                {/* Footer Meta */}
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.5 }}
+                    transition={{ delay: 2, duration: 1 }}
+                    className="absolute bottom-8 text-[10px] text-neutral-600 font-mono tracking-widest uppercase text-center"
+                >
+                    <p>FormatDisc™ · SlavkoShell™ · SlavkoKernel™</p>
+                    <p className="mt-2">Operating System for Institutional Governance</p>
                 </motion.div>
 
-                {/* Passive Static Telemetry (No Motion to maintain grounding) */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-16 gap-y-4 pt-12 border-t border-white/5 w-full max-w-4xl">
-                    <div className="text-left py-4">
-                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">State</div>
-                        <div className="text-xs text-green-500 font-mono">STABILIZED</div>
-                    </div>
-                    <div className="text-left py-4">
-                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Audit Trail</div>
-                        <div className="text-xs text-white font-mono uppercase">Read-Only Enforced</div>
-                    </div>
-                    <div className="text-left py-4 border-l md:border-l-0 border-white/5 pl-4 md:pl-0">
-                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Governance</div>
-                        <div className="text-xs text-white font-mono uppercase">Token Gated</div>
-                    </div>
-                    <div className="text-left py-4 border-l md:border-l-0 border-white/5 pl-4 md:pl-0">
-                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Uptime</div>
-                        <div className="text-xs text-white font-mono uppercase">99.999% Proven</div>
-                    </div>
-                </div>
             </motion.div>
-        </section>
+        </React.Fragment>
     );
-});
-
-HeroSection.displayName = 'HeroSection';
+};
