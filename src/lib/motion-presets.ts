@@ -77,7 +77,7 @@ export const diagnosticReveal: Variants = {
   },
 };
 
-export const GROK_SLIDE = {
+export const GROK_SLIDE: Variants = {
   hidden: { y: 30, opacity: 0 },
   visible: {
     y: 0,
@@ -86,7 +86,7 @@ export const GROK_SLIDE = {
   },
 };
 
-export const GROK_FADE = {
+export const GROK_FADE: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.3, ease: 'easeOut' } },
 };

@@ -1,8 +1,16 @@
 import { GrokChat } from './components/ui/GrokChat';
+import { CRTOverlay } from './components/ui/CRTOverlay';
+import { KernelProvider } from './kernel/KernelProvider';
+import { LanguageProvider } from './context/LanguageContext';
+import { InvestorAuthProvider } from './context/InvestorAuthContext';
+import { Navigation } from './components/ui/Navigation';
+import { Footer } from './components/ui/Footer';
+import { Outlet } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
     <>
+      <CRTOverlay scanlineIntensity={0.3} />
       <KernelProvider>
         <LanguageProvider>
           <InvestorAuthProvider>

@@ -1,0 +1,7 @@
+{
+  "name": "SLAVKOKERNEL APEX 1.0 Pitch Deck",
+  "description": "Interactive investor pitch deck for SLAVKOKERNEL APEX 1.0, an Enterprise AI Infrastructure Platform.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
