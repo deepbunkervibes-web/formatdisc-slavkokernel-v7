@@ -1,48 +1,25 @@
 import * as React from 'react';
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { useMeta } from '../utils/metaManager';
 import { useLanguage } from '../context/LanguageContext';
+import { MotionLanding } from '../components/motion/MotionTemplates';
 import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 import { SectionSkeleton } from '../components/ui/SectionSkeleton';
-import { usePrefetchSection } from '../hooks/usePrefetchSection';
-import { MotionLanding } from '../components/motion/MotionTemplates';
 
-// ---------- LAZY LOADED SECTIONS (Dynamic Imports) ----------
-const importHero = () => import('../components/landing/HeroSection').then((mod) => ({ default: mod.HeroSection }));
-const importValue = () => import('../components/landing/ValuePropositionSection').then((mod) => ({ default: mod.ValuePropositionSection }));
-const importTimeline = () => import('../components/landing/JourneyTimeline').then((mod) => ({ default: mod.JourneyTimeline }));
-const importArch = () => import('../components/landing/ArchitectureVisualization').then((mod) => ({ default: mod.ArchitectureVisualization }));
-const importCompliance = () => import('../components/landing/ComplianceDemoSection').then((mod) => ({ default: mod.ComplianceDemoSection }));
-const importTryNow = () => import('../components/landing/TryItNowSection').then((mod) => ({ default: mod.TryItNowSection }));
-const importProblem = () => import('../components/landing/ProblemSolutionComparison').then((mod) => ({ default: mod.ProblemSolutionComparison }));
-const importFounder = () => import('../components/landing/FounderStorySection').then((mod) => ({ default: mod.FounderStorySection }));
-const importMetrics = () => import('../components/landing/MetricsSection').then((mod) => ({ default: mod.MetricsSection }));
-const importCta = () => import('../components/landing/CtaGrid').then((mod) => ({ default: mod.CtaGrid }));
-const importPricing = () => import('../components/landing/PricingSection').then((mod) => ({ default: mod.PricingSection }));
+// Only the canonical hero section
+const HeroSection = React.lazy(() =>
+    import('../components/landing/HeroSection').then(mod => ({
+        default: mod.HeroSection
+    }))
+);
 
-const HeroSection = React.lazy(importHero);
-const ValuePropositionSection = React.lazy(importValue);
-const JourneyTimeline = React.lazy(importTimeline);
-const ArchitectureVisualization = React.lazy(importArch);
-const ComplianceDemoSection = React.lazy(importCompliance);
-const TryItNowSection = React.lazy(importTryNow);
-const ProblemSolutionComparison = React.lazy(importProblem);
-const FounderStorySection = React.lazy(importFounder);
-const MetricsSection = React.lazy(importMetrics);
-const CtaGrid = React.lazy(importCta);
-const PricingSection = React.lazy(importPricing);
-const OrchestrationTeaser = React.lazy(() => import('../components/orchestration/OrchestrationTeaser').then(m => ({ default: m.OrchestrationTeaser })));
-
-// ---------- FALLBACK WRAPPER ----------
-const SectionWrapper = ({ children, height, prefetchFn }: { children: React.ReactNode; height: string; prefetchFn?: () => Promise<any>; }) => {
-    const prefetchRef = usePrefetchSection(prefetchFn);
+const SectionWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
-        <ErrorBoundary fallback={<SectionSkeleton height={height} />}>
-            <Suspense fallback={<SectionSkeleton height={height} />}>
+        <ErrorBoundary fallback={<SectionSkeleton height="h-screen" />}>
+            <React.Suspense fallback={<SectionSkeleton height="h-screen" />}>
                 {children}
-            </Suspense>
-            {prefetchRef && <div ref={prefetchRef} className="h-1 w-1" />}
+            </React.Suspense>
         </ErrorBoundary>
     );
 };
@@ -50,90 +27,23 @@ const SectionWrapper = ({ children, height, prefetchFn }: { children: React.Reac
 export function LandingPage() {
     const { t } = useLanguage();
 
-    const metaData = useMemo(() => ({
-        title: t('meta.landingTitle'),
-        description: t('meta.landingDesc'),
-        keywords: 'AI governance, 48h MVP, deterministic AI, SlavkoKernel',
-        canonical: 'https://formatdisc.hr/'
-    }), [t]);
+    const metaData = useMemo(
+        () => ({
+            title: t('meta.landingTitle'),
+            description: t('meta.landingDesc'),
+            keywords: 'FormatDisc, SlavkoShell, SlavkoKernel, OS governance',
+            canonical: 'https://formatdisc.hr/'
+        }),
+        [t]
+    );
 
     useMeta(metaData);
 
-    // We strictly order the sections for the deterministic motion system.
-    // Each MotionLanding wrapper will handle its own entrance animation.
     return (
-        <div className="pt-16 space-y-0 overflow-x-hidden bg-background">
+        <div className="pt-16 overflow-x-hidden bg-background">
             <MotionLanding order={1}>
-                <SectionWrapper height="h-screen">
+                <SectionWrapper>
                     <HeroSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={1.5}>
-                <SectionWrapper height="h-[400px]">
-                    <OrchestrationTeaser />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={1.6}>
-                <SectionWrapper height="h-[auto]" prefetchFn={importMetrics}>
-                    <MetricsSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={2}>
-                <SectionWrapper height="h-[600px]" prefetchFn={importValue}>
-                    <ValuePropositionSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={3}>
-                <SectionWrapper height="h-[300px]" prefetchFn={importTimeline}>
-                    <JourneyTimeline />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={4}>
-                <SectionWrapper height="h-[600px]" prefetchFn={importArch}>
-                    <ArchitectureVisualization />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={5}>
-                <SectionWrapper height="h-screen" prefetchFn={importCompliance}>
-                    <ComplianceDemoSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={6}>
-                <SectionWrapper height="h-[500px]" prefetchFn={importTryNow}>
-                    <TryItNowSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={7}>
-                <SectionWrapper height="h-[300px]" prefetchFn={importProblem}>
-                    <ProblemSolutionComparison />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={8}>
-                <SectionWrapper height="h-[400px]" prefetchFn={importFounder}>
-                    <FounderStorySection />
-                </SectionWrapper>
-            </MotionLanding>
-
-
-
-            <MotionLanding order={10}>
-                <SectionWrapper height="h-[600px]" prefetchFn={importPricing}>
-                    <PricingSection />
-                </SectionWrapper>
-            </MotionLanding>
-
-            <MotionLanding order={11}>
-                <SectionWrapper height="h-[600px]" prefetchFn={importCta}>
-                    <CtaGrid />
                 </SectionWrapper>
             </MotionLanding>
         </div>

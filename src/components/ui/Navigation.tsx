@@ -14,9 +14,8 @@ export function Navigation() {
 
     const NAV_ITEMS = [
         { path: '/', label: 'The Kernel' },
+        { path: '/hub', label: 'Hub' },
         { path: '/manifesto', label: 'Manifesto' },
-        // { path: '/audit', label: 'Audit Trail' }, // Pending Module
-        // { path: '/docs', label: 'Documentation' }, // Pending Module
         { path: '/simulator', label: 'Deploy Simulation', external: false, primary: true },
     ];
 
@@ -51,7 +50,7 @@ export function Navigation() {
                                           : 'text-neutral-500 hover:text-white hover:bg-white/[0.03]'
                                     }`}
                                 >
-                                    {item.label} {item.primary ? null : <span className="text-[7px] align-top opacity-30">↗</span>}
+                                    {item.label} <span className="text-[7px] align-top opacity-30">↗</span>
                                 </a>
                             ) : (
                                 <Link
