@@ -58,6 +58,29 @@ Return exactly one valid JSON object with the following structure:
     const cleanResponse = raw.response.replace(/^```json\n|```$/g, "").trim();
     const parsed = JSON.parse(cleanResponse);
 
+    // 5. Governance: Validate Artifact
+    const { validateUiArtefact } = await import("../../services/uiDiff");
+    validateUiArtefact(parsed);
+
+    // 6. Persistence & Versioning
+    const { saveUIArtifact, loadPreviousArtifact } = await import("../../services/uiArtifactStore");
+    const previous = loadPreviousArtifact();
+    saveUIArtifact(parsed);
+
+    // 7. Compute Diff for Audit
+    let diffLog = null;
+    if (previous) {
+      const { computeUiDiff } = await import("../../services/uiDiff");
+      const diff = computeUiDiff(JSON.stringify(previous), JSON.stringify(parsed));
+      if (diff.length > 0) {
+        diffLog = {
+          event: "ui-diff",
+          changes: diff.length,
+          timestamp: Date.now()
+        };
+      }
+    }
+
     FusionTelemetry.stop("frontend-generator");
     FusionTelemetry.logTokens("frontend-generator", parsed.component.length);
 
@@ -68,7 +91,9 @@ Return exactly one valid JSON object with the following structure:
       audit: {
         model,
         reasoning: task.mode === "reasoning" ? "enabled" : "internal",
-        mode: task.mode
+        mode: task.mode,
+        // @ts-ignore - extending audit log dynamically
+        diff: diffLog
       }
     };
   } catch (error) {
