@@ -8,6 +8,8 @@ import { useToast } from '../hooks/use-toast';
 import { markPerformance, measurePerformancePoint } from '../utils/performance';
 import { trackEvent } from '../utils/posthog';
 
+import { checkOllamaHealth } from '../services/ollamaService';
+
 import { Toaster } from './ui/toaster';
 import { QuantumCanvas } from './studio/QuantumCanvas';
 import { CinematicBoot } from './studio/CinematicBoot';
@@ -61,7 +63,6 @@ export function MvpStudio({
 
     const checkStatus = async () => {
       try {
-        const { checkOllamaHealth } = await import('../services/ollamaService');
         const health = await checkOllamaHealth();
         setOllamaStatus(health.available ? 'connected' : 'disconnected');
       } catch {

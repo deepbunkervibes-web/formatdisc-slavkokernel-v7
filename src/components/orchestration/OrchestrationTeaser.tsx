@@ -1,87 +1,104 @@
-import React from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { Binary, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ChevronRight, Shield, Zap } from 'lucide-react';
+import { INSTITUTIONAL_TRANSITION, HEAVY_EASE } from '../../lib/motion-presets';
 
-export const OrchestrationTeaser: React.FC = () => {
-    const navigate = useNavigate();
+export const OrchestrationTeaser = React.memo(() => {
+    const [activeState, setActiveState] = useState<'improvised' | 'orchestrated'>('orchestrated');
 
     return (
-        <section className="py-24 bg-black border-y border-white/5 relative overflow-hidden">
-            <div className="max-w-6xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-7">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-4xl md:text-5xl font-mono font-black text-white uppercase leading-none mb-6">
-                                <span className="text-cyan-400 block mb-2">Dva Puta.</span>
-                                Jedna Jurisdikcija.
-                            </h2>
-                            <p className="text-xl text-gray-400 font-mono mb-8 max-w-xl">
-                                Od 3.000 sati ručnog rada do automatiziranog audit-pipelinea.
-                                SlavkoKernel ne automatizira povjerenje — on ga kodificira.
-                            </p>
+        <section className="py-24 bg-black border-y border-white/5 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                {/* Text Content */}
+                <div className="space-y-8">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={INSTITUTIONAL_TRANSITION}
+                    >
+                        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+                            Your system deserves <br/>
+                            orchestration, <span className="text-green-500">not improvisation.</span>
+                        </h2>
+                        <p className="mt-8 text-lg text-neutral-400 font-light leading-relaxed max-w-xl">
+                            FormatDisc enforces deterministic behavior across your entire stack. We replace tribal knowledge and shell-script hope with verifiable, kernel-governed reality.
+                        </p>
+                    </motion.div>
 
-                            <div className="flex flex-wrap gap-4">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => navigate('/orchestration')}
-                                    className="px-8 py-4 bg-cyan-500 text-black font-mono font-black uppercase flex items-center gap-3"
-                                >
-                                    Uđi u Hub <ArrowRight size={20} />
-                                </motion.button>
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button className="flex items-center gap-2 group text-sm font-bold text-white uppercase tracking-widest px-6 py-3 bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                            Initialize Protocol <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Interactive Visualization */}
+                <div className="relative aspect-square md:aspect-video rounded-sm border border-white/5 bg-neutral-900/50 p-8 flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.05),transparent)] pointer-events-none" />
+                    
+                    <div className="grid grid-cols-2 gap-8 w-full max-w-md relative z-10">
+                        {/* Improvised State */}
+                        <motion.div 
+                            onClick={() => setActiveState('improvised')}
+                            className={`p-6 border cursor-pointer transition-all duration-700 ${activeState === 'improvised' ? 'bg-red-500/10 border-red-500/50' : 'bg-black/20 border-white/5 opacity-40 hover:opacity-100'}`}
+                            animate={{ 
+                                scale: activeState === 'improvised' ? 1.02 : 1,
+                                filter: activeState === 'improvised' ? 'grayscale(0%)' : 'grayscale(100%)'
+                            }}
+                            transition={INSTITUTIONAL_TRANSITION}
+                        >
+                            <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center mb-4">
+                                <Zap size={20} className="text-red-500" />
                             </div>
+                            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Improvised State</h3>
+                            <p className="text-[10px] text-neutral-500 font-mono leading-tight">
+                                UNSTABLE_DEPS<br/>
+                                SILENT_DRIFT<br/>
+                                MANUAL_FIXES
+                            </p>
+                        </motion.div>
+
+                        {/* Orchestrated State */}
+                        <motion.div 
+                            onClick={() => setActiveState('orchestrated')}
+                            className={`p-6 border cursor-pointer transition-all duration-700 ${activeState === 'orchestrated' ? 'bg-green-500/10 border-green-500/50' : 'bg-black/20 border-white/5 opacity-40 hover:opacity-100'}`}
+                            animate={{ 
+                                scale: activeState === 'orchestrated' ? 1.02 : 1,
+                                filter: activeState === 'orchestrated' ? 'grayscale(0%)' : 'grayscale(100%)'
+                            }}
+                            transition={INSTITUTIONAL_TRANSITION}
+                        >
+                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                                <Shield size={20} className="text-green-500" />
+                            </div>
+                            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Orchestrated State</h3>
+                            <p className="text-[10px] text-neutral-500 font-mono leading-tight">
+                                DETERMINISTIC_FLOW<br/>
+                                KERNEL_ENFORCED<br/>
+                                AUDIT_READY
+                            </p>
                         </motion.div>
                     </div>
 
-                    <div className="lg:col-span-5 grid grid-cols-1 gap-4">
-                        {[
-                            {
-                                title: "RUČNA",
-                                subtitle: "3.000+ Sati discipline",
-                                icon: Binary,
-                                path: "/orchestration/manual"
-                            },
-                            {
-                                title: "AUTOMATIZIRANA",
-                                subtitle: "Skalabilni audit pipeline",
-                                icon: ShieldCheck,
-                                path: "/orchestration/automated"
-                            }
-                        ].map((box, i) => (
-                            <motion.div
-                                key={box.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.2 }}
-                                viewport={{ once: true }}
-                                whileHover={{ borderColor: 'rgba(0,255,255,0.4)', x: 10 }}
-                                onClick={() => navigate(box.path)}
-                                className="group p-6 bg-gray-950 border border-white/10 cursor-pointer transition-all"
-                            >
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
-                                        <box.icon className="text-cyan-500 w-8 h-8" />
-                                        <div>
-                                            <div className="text-xs text-cyan-600 font-mono font-bold">{box.title}</div>
-                                            <div className="text-white font-mono font-black">{box.subtitle}</div>
-                                        </div>
-                                    </div>
-                                    <ArrowRight className="text-gray-700 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                    {/* Connection Lines (Simulated Mechanical Logic) */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" preserveAspectRatio="none">
+                        <motion.path 
+                            d="M 50,50 L 150,150" 
+                            stroke="#ffffff"
+                            strokeWidth="1"
+                            fill="none"
+                            animate={{ pathLength: activeState === 'orchestrated' ? 1 : 0.2 }}
+                            transition={{ duration: 1.5, ease: HEAVY_EASE }}
+                        />
+                    </svg>
                 </div>
-            </div>
 
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-cyan-500/5 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-white/5 blur-[100px] pointer-events-none" />
+            </div>
         </section>
     );
-};
+});
+
+OrchestrationTeaser.displayName = 'OrchestrationTeaser';

@@ -75,6 +75,12 @@ export function LandingPage() {
                 </SectionWrapper>
             </MotionLanding>
 
+            <MotionLanding order={1.6}>
+                <SectionWrapper height="h-[auto]" prefetchFn={importMetrics}>
+                    <MetricsSection />
+                </SectionWrapper>
+            </MotionLanding>
+
             <MotionLanding order={2}>
                 <SectionWrapper height="h-[600px]" prefetchFn={importValue}>
                     <ValuePropositionSection />
@@ -117,11 +123,7 @@ export function LandingPage() {
                 </SectionWrapper>
             </MotionLanding>
 
-            <MotionLanding order={9}>
-                <SectionWrapper height="h-[200px]" prefetchFn={importMetrics}>
-                    <MetricsSection />
-                </SectionWrapper>
-            </MotionLanding>
+
 
             <MotionLanding order={10}>
                 <SectionWrapper height="h-[600px]" prefetchFn={importPricing}>

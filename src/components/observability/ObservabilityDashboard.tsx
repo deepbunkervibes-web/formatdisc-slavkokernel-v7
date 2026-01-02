@@ -57,7 +57,7 @@ export default function ObservabilityDashboard() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <StatusBadge status="SYSTEM ONLINE" variant="active" animate />
+                    <StatusBadge status="SYSTEM ONLINE" active />
                     <div className="text-right">
                         <div className="text-xs text-gray-500 font-mono">UPTIME</div>
                         <div className="text-xl font-bold font-mono">99.998%</div>

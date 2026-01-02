@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
+import { HealthService, KernelHealth } from './monitoring/HealthService';
+
 type KernelState = 'init' | 'ready';
 
 export interface AuditEntry {
@@ -14,8 +16,11 @@ interface KernelContextType {
   state: KernelState;
   tick: number;
   audit: AuditEntry[];
+  currentSessionId: string | null;
   emit: (actor: string, action: string) => void;
   resetAudit: () => void;
+  startNewSession: () => void;
+  getHealth: () => KernelHealth;
 }
 
 const KernelContext = createContext<KernelContextType | null>(null);
@@ -44,7 +49,8 @@ const safeUUID = () => {
 };
 
 // ✅ SAFE HASH (Mladen's Patch) - Avoids bitwise overflows in sandboxes
-const generateHash = (payload: string): string => {
+// This is the source of truth for all hashing in the system
+export const generateHash = (payload: string): string => {
   if (!payload) return "0".repeat(64);
 
   let hash = 0n;
@@ -55,14 +61,18 @@ const generateHash = (payload: string): string => {
   return hash.toString(16).padStart(64, "0");
 };
 
+const healthService = new HealthService();
+
 export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, setState] = useState<KernelState>('init');
   const [tick, setTick] = useState(0);
   const [audit, setAudit] = useState<AuditEntry[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     const boot = setTimeout(() => {
       setState('ready');
+      setCurrentSessionId(safeUUID());
       const bootEntry: AuditEntry = {
         id: safeUUID(),
         ts: Date.now(),
@@ -71,6 +81,7 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         hash: generateHash(`${Date.now()}::kernel::boot:complete`)
       };
       setAudit(prev => [...prev, bootEntry]);
+      healthService.recordAuditEvent();
     }, 420);
 
     return () => clearTimeout(boot);
@@ -80,6 +91,7 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (state === 'ready') {
       const interval = setInterval(() => {
         setTick(t => t + 1);
+        healthService.recordTick();
       }, 16);
       return () => clearInterval(interval);
     }
@@ -99,19 +111,31 @@ export const KernelProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
 
     setAudit(prev => [...prev, entry]);
+    healthService.recordAuditEvent();
   }, []);
 
   const resetAudit = useCallback(() => {
     setAudit([]);
   }, []);
 
+  const startNewSession = useCallback(() => {
+    setCurrentSessionId(safeUUID());
+    setAudit([]);
+    emit('kernel', 'session:started');
+  }, [emit]);
+
+  const getHealth = useCallback(() => healthService.getHealth(), []);
+
   const value = useMemo(() => ({
     state,
     tick,
     audit,
+    currentSessionId,
     emit,
-    resetAudit
-  }), [state, tick, audit, emit, resetAudit]);
+    resetAudit,
+    startNewSession,
+    getHealth
+  }), [state, tick, audit, currentSessionId, emit, resetAudit, startNewSession, getHealth]);
 
   return (
     <KernelContext.Provider value={value}>

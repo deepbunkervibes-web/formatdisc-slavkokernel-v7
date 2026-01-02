@@ -1,108 +1,139 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { HeadingBlock, SectionDivider } from '../components/orchestration/OrchestrationHelpers';
 import { QuantumPreview } from '../components/orchestration/QuantumPreview';
 import { User, Cpu, ArrowRight } from 'lucide-react';
-import { motionTokens } from '../constants/motionTokens';
+import { 
+    INSTITUTIONAL_TRANSITION, 
+    HEAVY_EASE, 
+    staggerContainer, 
+    slideUpHeavy, 
+    fadeInHeavy 
+} from '../lib/motion-presets';
 
 const OrchestrationHub: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono selection:bg-cyan-500/30 pt-24 pb-20">
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-green-500/20 pt-32 pb-32">
             <div className="max-w-6xl mx-auto px-6">
                 {/* Founding Statement */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: motionTokens.duration.slow, ease: motionTokens.ease.audit }}
-                    className="mb-24 text-center"
+                    variants={staggerContainer}
+                    initial="hidden"
+                    animate="visible"
+                    className="mb-32 text-center"
                 >
-                    <div className="inline-block px-4 py-1.5 border border-cyan-500/30 bg-cyan-950/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
-                        Constitutional Boundary
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">
-                        Orchestration is <br />not a feature.<br />
-                        <span className="text-cyan-500 italic">It is a law.</span>
-                    </h1>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-xl leading-relaxed font-medium">
-                        U svijetu SlavkoKernela, orkestracija je čin suvereniteta.
-                        Ovdje definiramo granicu između ljudske namjere i sistemske egzekucije.
-                    </p>
+                    <motion.div 
+                        variants={fadeInHeavy}
+                        className="inline-block px-5 py-2 border border-green-500/10 bg-green-500/[0.02] text-green-500 text-[9px] font-bold uppercase tracking-[0.4em] mb-12 rounded-sm"
+                    >
+                        CONSTITUTIONAL_BOUNDARY_L7
+                    </motion.div>
+                    <motion.h1 
+                        variants={slideUpHeavy}
+                        className="text-5xl md:text-8xl font-bold uppercase tracking-tight mb-12 leading-[0.85]"
+                    >
+                        Orchestration is <br />
+                        <span className="text-neutral-500 italic lowercase tracking-tight">not a feature.</span><br />
+                        <span className="text-green-500">It is a law.</span>
+                    </motion.h1>
+                    <motion.p 
+                        variants={fadeInHeavy}
+                        className="text-neutral-400 max-w-2xl mx-auto text-xl leading-relaxed font-light"
+                    >
+                        In the world of SlavkoKernel, orchestration is an act of sovereignty. 
+                        We define the hard boundary between human intent and systemic execution.
+                    </motion.p>
                 </motion.div>
 
                 {/* Central Quantum Surface */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    variants={fadeInHeavy}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    className="mb-24"
+                    className="mb-32 group"
                 >
                     <QuantumPreview mode="hub" />
-                    <p className="mt-6 text-center text-gray-600 text-[10px] uppercase tracking-[0.4em] font-black">
-                        Quantum Orchestration Surface · v1.0.0
-                    </p>
+                    <div className="mt-8 flex items-center justify-between px-2">
+                         <p className="text-neutral-700 text-[9px] uppercase tracking-[0.5em] font-mono">
+                            Quantum_Orchestration_Grid :: SECURE_SYNC
+                        </p>
+                        <p className="text-neutral-800 text-[9px] uppercase tracking-[0.5em] font-mono">
+                            v7.0.4r
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* Path Selectors */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <motion.div 
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                >
                     {/* Manual */}
                     <motion.div
-                        whileHover={{ y: -10, borderColor: 'rgba(0,255,255,0.4)', backgroundColor: 'rgba(0,255,157,0.02)' }}
+                        variants={slideUpHeavy}
                         onClick={() => navigate('/orchestration/manual')}
-                        className="group p-10 bg-gray-900/10 border border-white/5 cursor-pointer transition-all flex flex-col justify-between min-h-[440px]"
+                        className="group p-12 bg-neutral-950/50 border border-white/5 cursor-pointer transition-all duration-700 hover:border-green-500/20 flex flex-col justify-between min-h-[480px] rounded-sm relative overflow-hidden"
                     >
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500/0 via-green-500/0 to-green-500/0 group-hover:via-green-500/30 transition-all duration-1000" />
+                        
                         <div>
-                            <div className="flex items-center gap-5 mb-10">
-                                <div className="p-4 bg-cyan-500/10 border border-cyan-500/20 rounded-sm">
-                                    <User className="text-cyan-400 w-10 h-10" />
+                            <div className="flex items-center gap-6 mb-12">
+                                <div className="p-5 bg-white/[0.02] border border-white/10 rounded-sm group-hover:border-green-500/30 transition-all duration-700">
+                                    <User className="text-neutral-500 group-hover:text-green-500 w-8 h-8 transition-colors duration-700" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-cyan-600 uppercase tracking-widest mb-1">Human Intent</div>
-                                    <div className="text-2xl font-black text-white uppercase">RUČNA</div>
+                                    <div className="text-[10px] font-bold text-neutral-600 uppercase tracking-[0.3em] mb-2">Source: Human_Intent</div>
+                                    <div className="text-2xl font-bold text-white uppercase tracking-wider">Manual_Control</div>
                                 </div>
                             </div>
-                            <h3 className="text-3xl font-black mb-6 uppercase tracking-tight">3.000 Sati Discipline</h3>
-                            <p className="text-gray-500 text-lg leading-relaxed mb-8">
-                                SlavkoKernel nije nastao automatizacijom, nego ručnom orkestracijom.
-                                Istražite put od servisera do suverenog kernela.
+                            <h3 className="text-3xl font-bold mb-8 uppercase tracking-tight text-white/90">3.000 Hours of Discipline.</h3>
+                            <p className="text-neutral-500 text-lg leading-relaxed mb-8 font-light">
+                                SlavkoKernel was not born from automation, but from manual orchestration. 
+                                Explore the path from artisan to sovereign kernel.
                             </p>
                         </div>
-                        <div className="flex items-center justify-between text-cyan-500 font-black uppercase tracking-[0.2em] text-xs">
-                            <span>Sovereignty details</span>
-                            <ArrowRight className="group-hover:translate-x-3 transition-transform" />
+                        <div className="flex items-center justify-between text-neutral-600 group-hover:text-green-500 font-bold uppercase tracking-[0.3em] text-[10px] transition-all duration-700">
+                            <span>Sovereignty_Ledger</span>
+                            <ArrowRight className="group-hover:translate-x-3 transition-transform duration-700" />
                         </div>
                     </motion.div>
 
                     {/* Automated */}
                     <motion.div
-                        whileHover={{ y: -10, borderColor: 'rgba(255,255,255,0.3)', backgroundColor: 'rgba(255,255,255,0.02)' }}
+                        variants={slideUpHeavy}
                         onClick={() => navigate('/orchestration/automated')}
-                        className="group p-10 bg-gray-950 border border-white/10 cursor-pointer transition-all flex flex-col justify-between min-h-[440px]"
+                        className="group p-12 bg-neutral-950/50 border border-white/5 cursor-pointer transition-all duration-700 hover:border-white/20 flex flex-col justify-between min-h-[480px] rounded-sm relative overflow-hidden"
                     >
+                        <div className="absolute top-0 left-0 w-full h-1 bg-white/0 group-hover:bg-white/10 transition-all duration-1000" />
+
                         <div>
-                            <div className="flex items-center gap-5 mb-10">
-                                <div className="p-4 bg-white/5 border border-white/10 rounded-sm">
-                                    <Cpu className="text-white w-10 h-10" />
+                            <div className="flex items-center gap-6 mb-12">
+                                <div className="p-5 bg-white/[0.02] border border-white/10 rounded-sm group-hover:border-white/30 transition-all duration-700">
+                                    <Cpu className="text-neutral-500 group-hover:text-white w-8 h-8 transition-colors duration-700" />
                                 </div>
                                 <div>
-                                    <div className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-1">System Execution</div>
-                                    <div className="text-2xl font-black text-white uppercase">AUTOMATIZIRANA</div>
+                                    <div className="text-[10px] font-bold text-neutral-600 uppercase tracking-[0.3em] mb-2">Source: System_Law</div>
+                                    <div className="text-2xl font-bold text-white uppercase tracking-wider">Kinetic_Execution</div>
                                 </div>
                             </div>
-                            <h3 className="text-3xl font-black mb-6 uppercase tracking-tight">Kinetic Scaling</h3>
-                            <p className="text-gray-500 text-lg leading-relaxed mb-8">
-                                Kad je zakon definiran, kernel preuzima.
-                                Skalabilni audit pipelineovi koji ne žrtvuju suverenitet radi brzine.
+                            <h3 className="text-3xl font-bold mb-8 uppercase tracking-tight text-white/90">Autonomous Scaling.</h3>
+                            <p className="text-neutral-500 text-lg leading-relaxed mb-8 font-light">
+                                Once the law is defined, the kernel executes. 
+                                Scalable audit pipelines that never sacrifice sovereignty for speed.
                             </p>
                         </div>
-                        <div className="flex items-center justify-between text-white/50 group-hover:text-white font-black uppercase tracking-[0.2em] text-xs transition-colors">
-                            <span>Infrastructure layer</span>
-                            <ArrowRight className="group-hover:translate-x-3 transition-transform" />
+                        <div className="flex items-center justify-between text-neutral-600 group-hover:text-white font-bold uppercase tracking-[0.3em] text-[10px] transition-all duration-700">
+                            <span>Infrastructure_Protocol</span>
+                            <ArrowRight className="group-hover:translate-x-3 transition-transform duration-700" />
                         </div>
                     </motion.div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

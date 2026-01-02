@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { HeadingBlock, SectionDivider } from '../components/orchestration/OrchestrationHelpers';
 import { QuantumPreview } from '../components/orchestration/QuantumPreview';
 import { Clock, Binary, Zap, ArrowLeft, Mail, ShieldCheck } from 'lucide-react';
-import { motionTokens } from '../constants/motionTokens';
+import { 
+    INSTITUTIONAL_TRANSITION, 
+    HEAVY_EASE, 
+    staggerContainer, 
+    slideUpHeavy, 
+    fadeInHeavy 
+} from '../lib/motion-presets';
 
 const ManualOrchestration: React.FC = () => {
     const navigate = useNavigate();
@@ -22,56 +28,65 @@ const ManualOrchestration: React.FC = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black text-white font-mono selection:bg-cyan-500/30 pt-20 pb-20">
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-green-500/20 pt-32 pb-32">
             {/* Nav Back */}
-            <div className="max-w-4xl mx-auto px-6 pt-8 mb-16">
+            <div className="max-w-4xl mx-auto px-6 mb-20">
                 <button
                     onClick={() => navigate('/orchestration')}
-                    className="flex items-center gap-2 text-gray-600 hover:text-cyan-400 transition-colors uppercase text-[10px] font-black tracking-[0.3em]"
+                    className="flex items-center gap-3 text-neutral-600 hover:text-green-500 transition-all duration-500 uppercase text-[9px] font-bold tracking-[0.4em] group"
                 >
-                    <ArrowLeft size={14} /> Back to Hub
+                    <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform duration-500" /> 
+                    <span>Back_to_Operational_Hub</span>
                 </button>
             </div>
 
             <main className="max-w-4xl mx-auto px-6">
                 {/* Hero Section */}
                 <motion.section
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: motionTokens.duration.slow }}
-                    className="mb-32"
+                    variants={staggerContainer}
+                    initial="hidden"
+                    animate="visible"
+                    className="mb-40"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-950/20 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-widest mb-10">
-                        <ShieldCheck size={14} /> Sovereign Intent
-                    </div>
-                    <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-12 leading-[0.85]">
-                        Ručna <br />
-                        <span className="text-cyan-500">Orkestracija.</span>
-                    </h1>
-                    <p className="text-2xl text-gray-400 leading-tight max-w-2xl mb-16">
-                        Disciplina stvaranja AI suvereniteta kroz 3.000 sati ručnog rada. Bez tima. Bez prečaca.
-                    </p>
+                    <motion.div 
+                        variants={fadeInHeavy}
+                        className="inline-flex items-center gap-3 px-4 py-1.5 bg-green-500/[0.03] border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-12 rounded-sm"
+                    >
+                        <ShieldCheck size={14} /> Sovereign_Intent_Boundary
+                    </motion.div>
+                    
+                    <motion.h1 
+                        variants={slideUpHeavy}
+                        className="text-5xl md:text-9xl font-bold uppercase tracking-tighter mb-16 leading-[0.8] text-white"
+                    >
+                        Manual <br />
+                        <span className="text-green-500 italic lowercase tracking-tight">Orchestration.</span>
+                    </motion.h1>
+                    
+                    <motion.p 
+                        variants={fadeInHeavy}
+                        className="text-2xl text-neutral-400 leading-relaxed max-w-2xl mb-20 font-light"
+                    >
+                        The discipline of creating AI sovereignty through 3,000 hours of manual labor. 
+                        No hidden teams. No proxies. No shortcuts.
+                    </motion.p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.1 }}
-                            className="p-10 bg-gray-900/20 border border-cyan-500/10 rounded-sm"
+                            variants={slideUpHeavy}
+                            className="p-12 bg-neutral-950/50 border border-white/5 rounded-sm group hover:border-green-500/20 transition-all duration-700"
                         >
-                            <Clock className="text-cyan-500 mb-6 w-10 h-10" />
-                            <div className="text-6xl font-black text-white mb-2 tracking-tighter">{hours.toLocaleString()}</div>
-                            <div className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold">Hours of labor</div>
+                            <Clock className="text-neutral-500 group-hover:text-green-500 mb-8 w-10 h-10 transition-colors duration-700" />
+                            <div className="text-7xl font-bold text-white mb-3 tracking-tighter tabular-nums">{hours.toLocaleString()}</div>
+                            <div className="text-[10px] text-neutral-600 uppercase tracking-[0.4em] font-bold">Labor_Hours_Verified</div>
                         </motion.div>
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="p-10 bg-gray-900/20 border border-cyan-500/10 rounded-sm"
+                            variants={slideUpHeavy}
+                            className="p-12 bg-neutral-950/50 border border-white/5 rounded-sm group hover:border-green-500/20 transition-all duration-700"
                         >
-                            <Binary className="text-cyan-500 mb-6 w-10 h-10" />
-                            <div className="text-6xl font-black text-white mb-2 tracking-tighter">{projects}</div>
-                            <div className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold">Sovereign Projects</div>
+                            <Binary className="text-neutral-500 group-hover:text-green-500 mb-8 w-10 h-10 transition-colors duration-700" />
+                            <div className="text-7xl font-bold text-white mb-3 tracking-tighter tabular-nums">{projects}</div>
+                            <div className="text-[10px] text-neutral-600 uppercase tracking-[0.4em] font-bold">Sovereign_State_Projects</div>
                         </motion.div>
                     </div>
                 </motion.section>
@@ -79,86 +94,112 @@ const ManualOrchestration: React.FC = () => {
                 <SectionDivider />
 
                 {/* Narrative */}
-                <section className="mb-32">
-                    <HeadingBlock title="Vjerodostojnost" subtitle="Što znači biti ručni arhitekt?" />
-                    <div className="space-y-10 text-gray-400 text-xl leading-relaxed">
-                        <p>
-                            Ručna orkestracija u SlavkoKernel svijetu znači da **nema skrivenog tima**.
-                            Svaki commit, svaki deployment, svaki incident — nosi jedan potpis.
-                            Ovo nije priča o "AI magiji", već o rigoroznom inženjerskom i forenzičkom radu.
-                        </p>
-                        <div className="space-y-6">
+                <motion.section 
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="mb-40"
+                >
+                    <motion.div variants={fadeInHeavy}>
+                        <HeadingBlock title="Credibility" subtitle="The artisan architect protocol." />
+                    </motion.div>
+                    
+                    <div className="space-y-12 text-neutral-400 text-xl leading-relaxed font-light mt-12">
+                        <motion.p variants={fadeInHeavy}>
+                            Manual orchestration in the SlavkoKernel world means there is <strong className="text-white font-medium">no hidden team</strong>. 
+                            Every commit, every deployment, every incident — carries a single, verifiable signature. 
+                            This is not a tale of "AI magic," but of rigorous engineering and forensic discipline.
+                        </motion.p>
+                        
+                        <div className="space-y-8 pt-6">
                             {[
-                                "Bez crnih kutija: svaki AI tok ima auditni sloj i hash.",
-                                "Bez naknadne dokumentacije: pitch, kernel i audit nastaju sinkrono.",
-                                "Puna forenzička odgovornost za svaku liniju koda."
+                                "No Black Boxes: Every AI flow has a dedicated audit layer and cryptographic hash.",
+                                "No Post-Documentation: Strategy, Kernel, and Audit are born synchronously.",
+                                "Full Forensic Accountability for every single line of code in production."
                             ].map((item, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="flex gap-5 items-start"
+                                    variants={fadeInHeavy}
+                                    className="flex gap-6 items-start group"
                                 >
-                                    <Zap className="text-cyan-500 mt-1 shrink-0" size={20} />
-                                    <span className="font-bold uppercase tracking-tight text-white/90">{item}</span>
+                                    <div className="w-6 h-6 rounded-sm bg-green-500/10 flex items-center justify-center shrink-0 mt-1">
+                                        <Zap className="text-green-500" size={12} />
+                                    </div>
+                                    <span className="font-bold uppercase tracking-tight text-white/90 text-lg group-hover:text-green-500 transition-colors duration-500">{item}</span>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
-                </section>
+                </motion.section>
 
                 {/* Quantum TV Section */}
-                <section className="mb-32">
-                    <div className="mb-12">
-                        <HeadingBlock title="Quantum TV" subtitle="Hologramski Pregled Sustava" />
-                        <p className="text-gray-500 max-w-xl text-lg italic uppercase tracking-tighter">
-                            Zamislite ekran koji ne prikazuje samo UI, nego cijeli životni ciklus jedne odluke.
+                <motion.section 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    viewport={{ once: true }}
+                    className="mb-40"
+                >
+                    <div className="mb-16">
+                        <HeadingBlock title="The Lens" subtitle="Holographic System Overview" />
+                        <p className="text-neutral-500 max-w-xl text-lg italic uppercase tracking-widest mt-6">
+                            Imagine a screen that displays not just the UI, but the entire lifecycle of a single decision.
                         </p>
                     </div>
-                    <QuantumPreview mode="manual" />
-                    <div className="mt-10 p-8 bg-gray-900/10 border border-white/5 rounded-sm">
-                        <h4 className="text-cyan-500 font-black uppercase text-sm mb-4 tracking-widest">Što gledaš:</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            Ovo nije "lijepa animacija". Svaka linija predstavlja tok odluke kroz SlavkoKernel: 
-                          ulazni signal -> prolazak kroz council -> hash-lančani audit zapis.
-                            Ručna orkestracija znači da svaki od tih tokova ima ime, commit i odgovornu osobu.
+                    
+                    <div className="relative group">
+                        <div className="absolute -inset-1 bg-green-500/5 blur-2xl group-hover:opacity-100 opacity-20 transition-opacity duration-1000" />
+                        <QuantumPreview mode="manual" />
+                    </div>
+
+                    <div className="mt-12 p-10 bg-neutral-950 border border-white/5 rounded-sm">
+                        <h4 className="text-green-500 font-bold uppercase text-[10px] mb-6 tracking-[0.4em]">Audit_Readout:</h4>
+                        <p className="text-neutral-500 text-lg leading-relaxed font-light">
+                            This is not a "pretty animation." Every line represents a decision-flow through the SlavkoKernel: 
+                            <span className="text-white"> Input_Signal {"->"} Council_Verification {"->"} Hash-Linked_Artifact</span>. 
+                            Manual orchestration ensures that every flow has a name, a commit, and an accountable owner.
                         </p>
                     </div>
-                </section>
+                </motion.section>
 
                 <SectionDivider />
 
                 {/* CTA */}
                 <motion.section
-                    whileHover={{ scale: 1.02 }}
-                    className="p-16 bg-cyan-500 text-black text-center relative overflow-hidden"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={INSTITUTIONAL_TRANSITION}
+                    viewport={{ once: true }}
+                    className="p-20 bg-green-600 text-white text-center relative overflow-hidden rounded-sm"
                 >
-                    <div className="absolute top-0 left-0 w-full h-1 bg-white/20" />
-                    <h2 className="text-4xl md:text-5xl font-black uppercase mb-6 tracking-tighter">Organiziraj predavanje</h2>
-                    <p className="text-xl font-bold mb-10 opacity-80 uppercase tracking-tight max-w-xl mx-auto">
-                        Pokažite svom timu kako izgleda ručno orkestriran AI sustav — bez filtera, bez marketinga.
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-white/20" />
+                    <h2 className="text-4xl md:text-6xl font-bold uppercase mb-8 tracking-tighter leading-none">Schedule a <br/> Governance Audit</h2>
+                    <p className="text-xl font-medium mb-12 opacity-80 uppercase tracking-tight max-w-xl mx-auto leading-relaxed">
+                        Show your team what a manually orchestrated AI system looks like — without filters, without marketing.
                     </p>
                     <a
                         href="mailto:mladen@formatdisc.hr?subject=Predavanje - Ručna Orkestracija"
-                        className="inline-flex items-center gap-4 px-12 py-5 bg-black text-cyan-500 font-black uppercase tracking-[0.2em] text-sm hover:scale-105 transition-transform"
+                        className="inline-flex items-center gap-4 px-12 py-5 bg-black text-green-500 font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-neutral-900 transition-all duration-500 shadow-2xl"
                     >
-                        <Mail size={24} /> Get in touch
+                        <Mail size={18} /> Establish Contact
                     </a>
+
+                    {/* Subtle aesthetic lines */}
+                    <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-white/10" />
+                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-white/10" />
                 </motion.section>
             </main>
 
-            {/* Ambient Background Elements */}
-            {[25, 30, 35].map((duration, i) => (
-                <motion.div
-                    key={i}
-                    animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-                    transition={{ duration, repeat: Infinity, ease: "linear" }}
-                    className={`fixed pointer-events-none ${i === 0 ? '-right-64 top-1/4' : i === 1 ? '-left-64 bottom-1/4' : 'top-0 left-1/2'} w-[500px] h-[500px] border border-cyan-500/5 rounded-full`}
-                />
-            ))}
+            {/* Ambient Background Elements - Institutional Scanning Line */}
+            <motion.div 
+                className="fixed inset-0 pointer-events-none z-50 opacity-[0.03]"
+                animate={{ backgroundPosition: ['0% 0%', '0% 100%'] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                style={{ backgroundImage: 'linear-gradient(to bottom, transparent, #22c55e, transparent)', backgroundSize: '100% 200px' }}
+            />
         </div>
     );
 };
 
-export default ManualOrchestration;
+export default memo(ManualOrchestration);

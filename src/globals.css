@@ -3,178 +3,131 @@
 @tailwind utilities;
 
 :root {
-  /* SLAVKOKERNEL OPERATIONAL TOKENS v12.1 */
-  /* Authority-First / Institutional Standard */
+  /* SLAVKOKERNEL OPERATIONAL TOKENS v7.0.4 - INSTITUTIONAL REVISION */
+  
+  --brand-green: #22c55e;
+  --brand-neutral: #0a0a0a;
+  
+  --signal-verified: var(--brand-green);
+  --signal-active: var(--brand-green);
+  --signal-alert: #f59e0b;
+  --signal-critical: #ef4444;
+  --signal-locked: #404040;
 
-  /* Signals (State Indicators) */
-  --signal-verified: #10B981;
-  /* Emerald: Ready, Verified, Secure */
-  --signal-active: #06B6D4;
-  /* Cyan: Processing, Live, Telemetry */
-  --signal-alert: #F59E0B;
-  /* Amber: Warning, Calibration */
-  --signal-critical: #EF4444;
-  /* Red: Error, Halt */
-  --signal-locked: #737373;
-  /* Neutral-500: Restricted, Sealed */
+  --surface-primary: #000000;
+  --surface-elevated: #050505;
+  --surface-glass: rgba(0, 0, 0, 0.8);
 
-  /* Surfaces (Infrastructure Hierarchy) */
-  --surface-primary: #020617;
-  /* Deepest: Slate-950/Black */
-  --surface-elevated: #0F172A;
-  /* Elevated: Slate-900 */
-  --surface-glass: rgba(15, 23, 42, 0.7);
-  /* Translucent */
+  --text-primary: #ffffff;
+  --text-secondary: #737373;
+  --text-muted: #404040;
 
-  /* Text & Content */
-  --text-primary: #F8FAFC;
-  /* Slate-50: Main Headers, Data */
-  --text-secondary: #94A3B8;
-  /* Slate-400: Labels, Subtitles */
-  --text-muted: #475569;
-  /* Slate-600: Inactive, Footer */
-
-  /* Functional Borders */
   --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-strong: rgba(255, 255, 255, 0.15);
+  --border-strong: rgba(255, 255, 255, 0.12);
 
-  /* Typography */
-  --font-mono: 'Roboto Mono', 'Courier New', monospace;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Legacy Mapping (for compatibility) */
-  --background: var(--surface-primary);
-  --foreground: var(--text-primary);
-  --muted: var(--surface-elevated);
-  --muted-foreground: var(--text-secondary);
-  --border: var(--border-subtle);
-  --accent: var(--signal-active);
-  --accent-foreground: #ffffff;
-}
-
-.dark {
-  --background: var(--surface-primary);
-  --foreground: var(--text-primary);
-}
-
-html,
-body,
-#root {
-  height: 100%;
-}
-
-body {
-  @apply bg-background text-foreground antialiased transition-colors duration-300;
-  font-family: var(--font-sans);
-}
-
-/* --- SYSTEM TYPOGRAPHY --- */
-
-/* Primary Monolithic Headers */
-.font-brand {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  /* Wide tracking for authority */
-  font-weight: 700;
-}
-
-/* Technical Labels (e.g., "STATUS: READY") */
-.text-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  /* ~11px */
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* --- ENTERPRISE UTILITIES --- */
-
-/* Enterprise Card - Cold, Stable, Sharp */
-.card-enterprise {
-  background: linear-gradient(145deg, var(--surface-primary), var(--surface-elevated));
-  border: 1px solid var(--border-subtle);
-  @apply rounded-sm relative overflow-hidden;
-}
-
-.card-enterprise:hover {
-  border-color: var(--border-strong);
-}
-
-/* Status Signal (Dot) */
-.signal-dot {
-  @apply h-2 w-2 rounded-full inline-block mr-2;
-}
-
-/* Scanline Overlay (Subtle Tech Texture) */
-.scanline-overlay {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2));
-  background-size: 100% 4px;
-  pointer-events: none;
-}
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+  /* Tailwind CSS Mappings (Shadcn/UI Compat) */
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 2%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 2%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 142 70% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 9%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 10%;
+  --input: 0 0% 10%;
+  --ring: 142 70% 45%;
+  --radius: 0.125rem;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-white antialiased selection:bg-green-500/20 selection:text-green-500;
+    font-family: var(--font-sans);
   }
+
+  /* Custom Scrollbar - Minimal Institutional */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
+  }
+}
+
+/* --- SYSTEM UTILITIES --- */
+
+.font-brand {
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+.font-mono-inst {
+    font-family: var(--font-mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+/* Institutional Card */
+.card-institutional {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  @apply rounded-sm relative overflow-hidden transition-all duration-700;
+}
+
+.card-institutional:hover {
+  border-color: var(--border-strong);
+}
+
+/* Scanning Effect Utility */
+.scanline-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-active::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, rgba(34, 197, 94, 0.05), transparent);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  from { top: -100%; }
+  to { top: 200%; }
+}
+
+/* Glassmorphism Refinement */
+.glass-institutional {
+    @apply bg-black/40 backdrop-blur-xl border border-white/5;
 }

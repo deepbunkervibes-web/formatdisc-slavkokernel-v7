@@ -1,0 +1,5 @@
+
+> my-v0-project@0.1.0 build
+> tsc && vite build
+
+src/services/geminiService.ts(26,25): error TS2339: Property 'getGenerativeModel' does not exist on type 'GoogleGenAI'.

@@ -1,0 +1,46 @@
+
+> my-v0-project@0.1.0 build
+> tsc && vite build
+
+[36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mÔťô[39m 2064 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) C:/Users/gera/projects2026/kernel-formatdisc2/formatdisc-slavkokernel-v7-repo/src/services/ollamaService.ts is dynamically imported by C:/Users/gera/projects2026/kernel-formatdisc2/formatdisc-slavkokernel-v7-repo/src/components/MvpStudio.tsx but also statically imported by C:/Users/gera/projects2026/kernel-formatdisc2/formatdisc-slavkokernel-v7-repo/src/services/geminiService.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+[2mdist/[22m[32mindex.html                                    [39m[1m[2m    3.61 kB[22m[1m[22m[2m Ôöé gzip:   1.30 kB[22m
+[2mdist/[22m[35massets/index-nTnormVl.css                     [39m[1m[2m  130.39 kB[22m[1m[22m[2m Ôöé gzip:  19.45 kB[22m
+[2mdist/[22m[36massets/OrchestrationHelpers-DWqlJQO1.js       [39m[1m[2m    0.74 kB[22m[1m[22m[2m Ôöé gzip:   0.44 kB[22m
+[2mdist/[22m[36massets/PitchDeckView-ZhzyIq-d.js              [39m[1m[2m    1.11 kB[22m[1m[22m[2m Ôöé gzip:   0.55 kB[22m
+[2mdist/[22m[36massets/MetricsSection-D7K6ZxUM.js             [39m[1m[2m    1.53 kB[22m[1m[22m[2m Ôöé gzip:   0.84 kB[22m
+[2mdist/[22m[36massets/JourneyTimeline-BQEKq34D.js            [39m[1m[2m    2.61 kB[22m[1m[22m[2m Ôöé gzip:   1.22 kB[22m
+[2mdist/[22m[36massets/FounderStorySection-DMwC0Aog.js        [39m[1m[2m    2.69 kB[22m[1m[22m[2m Ôöé gzip:   1.18 kB[22m
+[2mdist/[22m[36massets/ValuePropositionSection-BoVSolxh.js    [39m[1m[2m    2.76 kB[22m[1m[22m[2m Ôöé gzip:   1.29 kB[22m
+[2mdist/[22m[36massets/ArchitectureVisualization-i59GA6LH.js  [39m[1m[2m    3.22 kB[22m[1m[22m[2m Ôöé gzip:   1.24 kB[22m
+[2mdist/[22m[36massets/MvpPreview-BByeceM5.js                 [39m[1m[2m    3.33 kB[22m[1m[22m[2m Ôöé gzip:   1.19 kB[22m
+[2mdist/[22m[36massets/CtaGrid-lzK-dQ5R.js                    [39m[1m[2m    3.47 kB[22m[1m[22m[2m Ôöé gzip:   1.48 kB[22m
+[2mdist/[22m[36massets/QuantumPreview-9bg8NR8G.js             [39m[1m[2m    3.73 kB[22m[1m[22m[2m Ôöé gzip:   1.43 kB[22m
+[2mdist/[22m[36massets/OrchestrationTeaser-rXNy5er_.js        [39m[1m[2m    3.90 kB[22m[1m[22m[2m Ôöé gzip:   1.50 kB[22m
+[2mdist/[22m[36massets/ProblemSolutionComparison-DpFSW4v1.js  [39m[1m[2m    3.98 kB[22m[1m[22m[2m Ôöé gzip:   1.40 kB[22m
+[2mdist/[22m[36massets/PricingSection-D4FRU4we.js             [39m[1m[2m    4.10 kB[22m[1m[22m[2m Ôöé gzip:   1.65 kB[22m
+[2mdist/[22m[36massets/TryItNowSection-Cn7G-oLe.js            [39m[1m[2m    4.22 kB[22m[1m[22m[2m Ôöé gzip:   1.66 kB[22m
+[2mdist/[22m[36massets/ManifestoPage-JDhDjWPo.js              [39m[1m[2m    4.46 kB[22m[1m[22m[2m Ôöé gzip:   1.84 kB[22m
+[2mdist/[22m[36massets/ComplianceDemoSection-DH4ZETm6.js      [39m[1m[2m    5.24 kB[22m[1m[22m[2m Ôöé gzip:   1.97 kB[22m
+[2mdist/[22m[36massets/OrchestrationHub-C8j8tzDI.js           [39m[1m[2m    5.52 kB[22m[1m[22m[2m Ôöé gzip:   1.60 kB[22m
+[2mdist/[22m[36massets/ResultActions-CpCcHE-m.js              [39m[1m[2m    7.14 kB[22m[1m[22m[2m Ôöé gzip:   2.06 kB[22m
+[2mdist/[22m[36massets/ManualOrchestration-CYHRNPG3.js        [39m[1m[2m    7.48 kB[22m[1m[22m[2m Ôöé gzip:   2.69 kB[22m
+[2mdist/[22m[36massets/AutomatedOrchestration-Rjdqx5HF.js     [39m[1m[2m    8.33 kB[22m[1m[22m[2m Ôöé gzip:   2.82 kB[22m
+[2mdist/[22m[36massets/react-vendor-OvXVS5lI.js               [39m[1m[2m   11.32 kB[22m[1m[22m[2m Ôöé gzip:   4.07 kB[22m
+[2mdist/[22m[36massets/landing-BO7yEalK.js                    [39m[1m[2m   11.76 kB[22m[1m[22m[2m Ôöé gzip:   3.93 kB[22m
+[2mdist/[22m[36massets/router-DwAPH4Fh.js                     [39m[1m[2m   85.02 kB[22m[1m[22m[2m Ôöé gzip:  28.94 kB[22m
+[2mdist/[22m[36massets/animations-C3kNhucV.js                 [39m[1m[2m  122.97 kB[22m[1m[22m[2m Ôöé gzip:  41.03 kB[22m
+[2mdist/[22m[36massets/index-BB8w-KEt.js                      [39m[1m[2m  190.14 kB[22m[1m[22m[2m Ôöé gzip:  59.26 kB[22m
+[2mdist/[22m[36massets/studio-CTLwzI7H.js                     [39m[1m[33m1,157.85 kB[39m[22m[2m Ôöé gzip: 330.69 kB[22m
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[32mÔťô built in 10.02s[39m

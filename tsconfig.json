@@ -43,6 +43,11 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/test/**/*",
+    "src/kernel/tests/**/*",
+    "src/lib/redisBroadcaster.ts"
   ]
 }

@@ -1,132 +1,83 @@
 import * as React from 'react';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Lightbulb, Layers, Rocket } from 'lucide-react';
-
-import { useLanguage } from '../../context/LanguageContext';
-
-const getCards = (t: any) => [
-  {
-    title: t('valueProp.cards.idea.title'),
-    icon: Lightbulb,
-    description: t('valueProp.cards.idea.desc'),
-    bullet: t('valueProp.cards.idea.bullet'),
-    color: 'from-amber-500/20 to-orange-500/10'
-  },
-  {
-    title: t('valueProp.cards.system.title'),
-    icon: Layers,
-    description: t('valueProp.cards.system.desc'),
-    bullet: t('valueProp.cards.system.bullet'),
-    color: 'from-blue-500/20 to-cyan-500/10'
-  },
-  {
-    title: t('valueProp.cards.result.title'),
-    icon: Rocket,
-    description: t('valueProp.cards.result.desc'),
-    bullet: t('valueProp.cards.result.bullet'),
-    color: 'from-emerald-500/20 to-green-500/10'
-  }
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-};
+import { Shield, Lock, LayoutGrid, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { staggerContainer, slideUpHeavy } from '../../lib/motion-presets';
 
 export const ValuePropositionSection = React.memo(() => {
-  const { t } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const cards = React.useMemo(() => getCards(t), [t]);
+    const pillars = [
+        {
+            icon: Shield,
+            title: "Kernel-Governed Architecture",
+            desc: "Every architectural decision is verified against established constraints before execution.",
+            points: ["Conflict avoidance", "Dependency integrity", "Systemic stability"]
+        },
+        {
+            icon: Lock,
+            title: "Audit-Safe Execution",
+            desc: "Operational history is recorded in an immutable ledger, ensuring zero-drift compliance.",
+            points: ["Change signatures", "Historical playback", "Regulatory readiness"]
+        },
+        {
+            icon: LayoutGrid,
+            title: "Institutional Governance",
+            desc: "Moving from tribal knowledge to a formal system of record for all infrastructure.",
+            points: ["Token-gated access", "Role-based control", "Automated oversight"]
+        }
+    ];
 
-  return (
-    <section className="py-32 bg-background relative overflow-hidden">
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-cyan-500/5 to-transparent blur-3xl opacity-40" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-purple-500/5 to-transparent blur-3xl opacity-40" />
-      </div>
+    return (
+        <section className="py-32 bg-black border-t border-white/5 selection:bg-green-500/30">
+            <div className="max-w-7xl mx-auto px-6">
+                <motion.header 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-2xl mb-24"
+                >
+                    <p className="text-green-500 font-mono text-xs mb-4 tracking-[0.3em] uppercase">THE DOCTRINE</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+                        A deterministic execution environment for high-stakes startups.
+                    </h2>
+                </motion.header>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20">
-
-          <motion.p
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="text-accent font-mono text-xs mb-4 tracking-[0.3em] uppercase">
-
-            {t('valueProp.label')}
-          </motion.p>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
-            {t('valueProp.title')}
-          </h2>
-          <p className="max-w-2xl mx-auto text-muted-foreground text-lg">
-            {t('valueProp.description')}
-          </p>
-        </motion.div>
-
-        {/* Cards Grid */}
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          {cards.map((card, i) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative p-8 rounded-2xl bg-card border border-border hover:border-accent/30 transition-all duration-300">
-
-                {/* Hover glow */}
-                <motion.div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-                <div className="relative">
-                  {/* Icon */}
-                  <motion.div
-                    className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-foreground transition-colors duration-300"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: 'spring', stiffness: 400 }}>
-
-                    <Icon className="w-7 h-7 text-foreground group-hover:text-background transition-colors duration-300" />
-                  </motion.div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{card.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4 text-sm">{card.description}</p>
-                  <p className="text-[10px] text-accent uppercase tracking-[0.2em] font-mono">{card.bullet}</p>
-                </div>
-              </motion.div>);
-          })}
-        </motion.div>
-      </div>
-    </section>);
-
+                <motion.div 
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                >
+                    {pillars.map((pillar, i) => {
+                        const Icon = pillar.icon;
+                        return (
+                            <motion.div 
+                                key={i}
+                                variants={slideUpHeavy}
+                                className="group p-10 bg-white/[0.02] border border-white/5 rounded-sm hover:border-white/10 hover:bg-white/[0.04] transition-all duration-500 flex flex-col h-full"
+                            >
+                                <div className="w-12 h-12 rounded-sm bg-neutral-900 border border-white/10 flex items-center justify-center mb-8 group-hover:border-green-500/50 transition-colors duration-500">
+                                    <Icon size={24} className="text-neutral-400 group-hover:text-green-500 transition-colors duration-500" />
+                                </div>
+                                <h3 className="text-xl font-bold text-white mb-4">{pillar.title}</h3>
+                                <p className="text-neutral-500 text-sm font-light leading-relaxed mb-8 flex-grow">
+                                    {pillar.desc}
+                                </p>
+                                <ul className="space-y-3 pt-8 border-t border-white/5">
+                                    {pillar.points.map((point, j) => (
+                                        <li key={j} className="flex items-center gap-3 text-[10px] text-neutral-400 font-mono uppercase tracking-widest">
+                                            <div className="w-1 h-1 bg-green-500/50 rounded-full" />
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+            </div>
+        </section>
+    );
 });
 
 ValuePropositionSection.displayName = 'ValuePropositionSection';

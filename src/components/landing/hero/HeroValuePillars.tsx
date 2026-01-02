@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
-const magneticPull = {
+const magneticPull: Variants = {
   hidden: { opacity: 0, x: -100, rotate: -5 },
   visible: (i: number) => ({
     opacity: 1,

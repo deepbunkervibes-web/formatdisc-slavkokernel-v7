@@ -1,0 +1,24 @@
+src/components/kernel/introspection/IntrospectionPanel.tsx(9,11): error TS2339: Property 'getHealth' does not exist on type 'KernelContextType'.
+src/components/landing/hero/HeroValuePillars.tsx(31,5): error TS2322: Type '{ hidden: { opacity: number; x: number; rotate: number; }; visible: (i: number) => { opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '(i: number) => { opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }' is not assignable to type 'Variant'.
+      Type '(i: number) => { opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetResolver'.
+        Type '{ opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }' is not assignable to type 'string | TargetAndTransition'.
+          Type '{ opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetAndTransition'.
+            Type '{ opacity: number; x: number; rotate: number; transition: { delay: number; type: string; stiffness: number; damping: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+              Types of property 'transition' are incompatible.
+                Type '{ delay: number; type: string; stiffness: number; damping: number; }' is not assignable to type 'Transition<any>'.
+                  Type '{ delay: number; type: string; stiffness: number; damping: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                    Type '{ delay: number; type: string; stiffness: number; damping: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                      Types of property 'type' are incompatible.
+                        Type 'string' is not assignable to type 'AnimationGeneratorType'.
+src/components/MvpStudio.tsx(56,11): error TS2339: Property 'startNewSession' does not exist on type 'KernelContextType'.
+src/components/MvpStudio.tsx(56,28): error TS2339: Property 'currentSessionId' does not exist on type 'KernelContextType'.
+src/components/observability/ObservabilityDashboard.tsx(60,57): error TS2322: Type '{ status: string; variant: string; animate: true; }' is not assignable to type 'IntrinsicAttributes & StatusBadgeProps'.
+  Property 'variant' does not exist on type 'IntrinsicAttributes & StatusBadgeProps'.
+src/kernel/tests/auth.test.ts(2,59): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/lib/redisBroadcaster.ts(1,30): error TS2307: Cannot find module 'redis' or its corresponding type declarations.
+src/test/setup.ts(2,25): error TS2307: Cannot find module '@testing-library/react' or its corresponding type declarations.
+src/test/setup.ts(3,27): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/utils/inputSanitizer.test.ts(1,38): error TS2307: Cannot find module 'vitest' or its corresponding type declarations.
+src/utils/sentry.ts(1,25): error TS2307: Cannot find module '@sentry/react' or its corresponding type declarations.

@@ -1,4 +1,4 @@
-import { AuditEntry } from '../KernelProvider';
+import { AuditEntry, generateHash } from '../KernelProvider';
 
 export interface AuditVerification {
     isValid: boolean;
@@ -8,17 +8,6 @@ export interface AuditVerification {
 }
 
 export class AuditVerifier {
-    // Simple non-Node.js compatible hash for verification consistency
-    private static generateHash(payload: string): string {
-        let hash = 0;
-        for (let i = 0; i < payload.length; i++) {
-            const char = payload.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-        return Math.abs(hash).toString(16).padStart(64, '0');
-    }
-
     static verifyChain(audit: AuditEntry[]): AuditVerification {
         const violations: string[] = [];
         let isValid = true;
@@ -26,7 +15,7 @@ export class AuditVerifier {
         for (let i = 0; i < audit.length; i++) {
             const entry = audit[i];
             const payload = `${entry.ts}::${entry.actor}::${entry.action}`;
-            const expectedHash = this.generateHash(payload);
+            const expectedHash = generateHash(payload);
 
             if (entry.hash !== expectedHash) {
                 isValid = false;

@@ -1,89 +1,121 @@
 import * as React from 'react';
+import { motion } from 'framer-motion';
 import { Cpu, Lock, ShieldCheck } from 'lucide-react';
-
-
-
 import { KernelStatus } from '../components/kernel/KernelStatus';
 import { AuditTrail } from '../components/kernel/AuditTrail';
 import { DeploymentControls } from '../components/kernel/DeploymentControls';
 import { Terminal } from '../components/kernel/Terminal';
 import { IntrospectionPanel } from '../components/kernel/introspection/IntrospectionPanel';
-import { Navigation } from '../components/ui/Navigation';
-import { Footer } from '../components/ui/Footer';
+import { 
+    INSTITUTIONAL_TRANSITION, 
+    staggerContainer, 
+    slideUpHeavy, 
+    fadeInHeavy 
+} from '../lib/motion-presets';
 
 export function KernelRoute() {
     return (
-        <div className="min-h-screen bg-[#020202] text-white flex flex-col">
-            <Navigation />
+        <div className="min-h-screen bg-black text-white selection:bg-green-500/20">
+            <main className="max-w-7xl mx-auto px-6 pt-32 pb-32">
+                <motion.header 
+                    variants={staggerContainer}
+                    initial="hidden"
+                    animate="visible"
+                    className="mb-20 relative"
+                >
+                    {/* Minimal aesthetic anchor */}
+                    <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-green-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
-            <main className="flex-1 pt-32 pb-24 container mx-auto px-4 md:px-8">
-                <header className="mb-16 relative">
-                    <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
-                        <div className="space-y-4">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">
-                                <ShieldCheck size={12} />
-                                Regulatory Protocol v12.1
-                            </div>
-                            <div className="flex items-center gap-6">
-                                <div className="p-4 bg-white/5 border border-white/10 rounded-2xl shadow-emerald-500/5 shadow-2xl">
-                                    <Cpu size={40} className="text-[#00ff9d]" />
-                                </div>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-12">
+                        <div className="space-y-8">
+                            <motion.div 
+                                variants={fadeInHeavy}
+                                className="inline-flex items-center gap-3 px-4 py-1.5 border border-green-500/20 bg-green-500/[0.02] text-green-500 text-[10px] font-bold uppercase tracking-[0.4em] rounded-sm"
+                            >
+                                <ShieldCheck size={14} />
+                                Regulatory_Protocol_V7.0.4
+                            </motion.div>
+                            
+                            <div className="flex items-center gap-8">
+                                <motion.div 
+                                    variants={slideUpHeavy}
+                                    className="p-6 bg-neutral-950 border border-white/10 rounded-sm shadow-2xl"
+                                >
+                                    <Cpu size={48} className="text-green-500" />
+                                </motion.div>
                                 <div>
-                                    <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase italic">
-                                        Slavko<span className="text-[#00ff9d]">Kernel</span>
-                                    </h1>
-                                    <p className="text-gray-500 font-mono text-xs mt-2 uppercase tracking-widest flex items-center gap-2">
-                                        <Lock size={12} className="text-blue-500" /> Secure Deterministic Execution Layer
-                                    </p>
+                                    <motion.h1 
+                                        variants={slideUpHeavy}
+                                        className="text-5xl md:text-7xl font-bold tracking-tight uppercase leading-none text-white italic"
+                                    >
+                                        Slavko<span className="text-green-500">Kernel.</span>
+                                    </motion.h1>
+                                    <motion.p 
+                                        variants={fadeInHeavy}
+                                        className="text-neutral-500 font-mono text-[10px] mt-4 uppercase tracking-[0.3em] flex items-center gap-3"
+                                    >
+                                        <Lock size={12} className="text-white opacity-40" /> Secure_Deterministic_Execution_Layer
+                                    </motion.p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col items-end gap-2">
-                            <div className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">System Integrity</div>
-                            <div className="px-6 py-2 bg-black border border-[#00ff9d]/30 rounded-xl flex items-center gap-3">
-                                <div className="w-2 h-2 rounded-full bg-[#00ff9d] shadow-[0_0_10px_#00ff9d]"></div>
-                                <span className="text-xs font-mono font-bold text-white tracking-[0.3em]">OLLAMA_ACTIVE</span>
+                        <motion.div 
+                            variants={fadeInHeavy}
+                            className="flex flex-col items-end gap-3"
+                        >
+                            <div className="text-[10px] text-neutral-600 font-bold uppercase tracking-[0.4em]">System_State</div>
+                            <div className="px-8 py-3 bg-neutral-950 border border-green-500/30 rounded-sm flex items-center gap-4 hover:border-green-500 transition-colors duration-700">
+                                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_12px_#22c55e] animate-pulse"></div>
+                                <span className="text-[10px] font-mono font-bold text-white tracking-[0.4em]">NODE_OPERATIONAL</span>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
-                    <p className="max-w-3xl text-gray-400 text-sm leading-relaxed font-light border-l-2 border-[#00ff9d]/30 pl-6 py-2 bg-gradient-to-r from-emerald-500/5 to-transparent">
-                        Welcome to the core of the FormatDisc ecosystem. The SlavkoKernel v12 architecture ensures 100% deterministic outputs
-                        by synchronizing all UI and system events to a single global clock. Every action is cryptographically sealed in the
-                        immutable audit trail, providing a regulator-ready proof of operation.
-                    </p>
-                </header>
+                    <motion.div 
+                        variants={slideUpHeavy}
+                        className="max-w-4xl text-neutral-400 text-lg leading-relaxed font-light border-l border-green-500/40 pl-10 py-4 bg-gradient-to-r from-green-500/[0.03] to-transparent"
+                    >
+                        Welcome to the operational core. The SlavkoKernel architecture enforces 100% deterministic outputs 
+                        by synchronizing all UI and system events to a single global clock. Every action is cryptographically 
+                        verified and sealed in the immutable audit ledger.
+                    </motion.div>
+                </motion.header>
 
-                <div className="w-full">
-                    <KernelStatus />
+                <motion.div 
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="w-full space-y-12"
+                >
+                    <motion.div variants={fadeInHeavy}>
+                        <KernelStatus />
+                    </motion.div>
 
-                    <div className="grid lg:grid-cols-2 gap-12 mt-12">
+                    <div className="grid lg:grid-cols-2 gap-12">
                         <div className="space-y-12">
-                            <section>
+                            <motion.section variants={slideUpHeavy}>
                                 <Terminal />
-                            </section>
-                            <section>
+                            </motion.section>
+                            <motion.section variants={slideUpHeavy}>
                                 <DeploymentControls />
-                            </section>
+                            </motion.section>
                         </div>
 
                         <div className="space-y-12">
-                            <section>
+                            <motion.section variants={slideUpHeavy}>
                                 <AuditTrail />
-                            </section>
+                            </motion.section>
 
-                            <section>
+                            <motion.section variants={slideUpHeavy}>
                                 <IntrospectionPanel />
-                            </section>
+                            </motion.section>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </main>
-
-            <Footer />
         </div>);
-
 }
+
+KernelRoute.displayName = 'KernelRoute';

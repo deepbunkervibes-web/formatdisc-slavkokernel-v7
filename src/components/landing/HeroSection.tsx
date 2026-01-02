@@ -1,107 +1,99 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
-import { useLanguage } from '../../context/LanguageContext';
-import { StatusBadge } from '../ui/StatusBadge';
+import { ChevronRight } from 'lucide-react';
+import { 
+  staggerContainer, 
+  slideUpHeavy, 
+  fadeInHeavy 
+} from '../../lib/motion-presets';
 
-export function HeroSection() {
-  const { t } = useLanguage();
+const StatusBadge = ({ children, active }: { children: React.ReactNode; active?: boolean }) => (
+    <div className={`flex items-center space-x-2 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-full text-[10px] uppercase tracking-widest font-mono ${active ? 'text-green-500' : 'text-neutral-500'}`}>
+        <div className={`w-1 h-1 rounded-full ${active ? 'bg-green-500 animate-pulse' : 'bg-neutral-800'}`} />
+        <span>{children}</span>
+    </div>
+);
 
-  return (
-    <section className="relative min-h-screen bg-surface-primary flex items-center justify-center overflow-hidden border-b border-border-subtle">
-      {/* Background Matrix/Grid Effect - Subtle, authoritative */}
-      <div className="absolute inset-0 scanline-overlay opacity-30" />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+export const HeroSection = React.memo(() => {
+    return (
+        <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-24 pb-16 overflow-hidden bg-black selection:bg-green-500/30 selection:text-green-200">
+            {/* Background Grid & Ambient Glow */}
+            <div className="absolute inset-0 z-0 opacity-20 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-green-500/5 blur-[120px] rounded-full" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-20">
+            <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+                className="container max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center"
+            >
+                {/* Status Indicator */}
+                <motion.div variants={fadeInHeavy} className="mb-12 flex items-center gap-3">
+                    <StatusBadge active>Kernel Engine Active</StatusBadge>
+                    <StatusBadge>V7.0 Stable</StatusBadge>
+                </motion.div>
 
-        {/* Status Header - Declarative, not promotional */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center justify-center mb-16 space-y-4"
-        >
-          <div className="flex items-center space-x-6">
-            <StatusBadge status="EU AI ACT COMPLIANT" variant="verified" animate />
-            <span className="text-text-muted text-[10px]">|</span>
-            <StatusBadge status="SYSTEM OPERATIONAL" variant="active" />
-          </div>
-        </motion.div>
+                {/* Headline */}
+                <motion.h1 
+                    variants={slideUpHeavy}
+                    className="text-6xl md:text-8xl lg:text-[100px] font-bold text-white tracking-tight leading-[0.9] mb-8"
+                >
+                    Summon the <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-neutral-500">
+                        Kernel.
+                    </span>
+                </motion.h1>
 
-        {/* Monolithic Heading - White, Cold, Massive */}
-        <div className="text-center mb-20 space-y-8">
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="font-brand text-5xl md:text-7xl lg:text-9xl tracking-widest text-text-primary"
-          >
-            SLAVKOKERNEL<span className="text-2xl lg:text-4xl align-top opacity-30">™</span>
-          </motion.h1>
+                {/* Subheadline */}
+                <motion.p 
+                    variants={slideUpHeavy}
+                    className="text-lg md:text-2xl text-neutral-400 font-light max-w-2xl mb-12 leading-relaxed"
+                >
+                    Standardize your deployment surface. Eliminate architectural drift. 
+                    Establish a <span className="text-white font-normal underline decoration-green-500/30 underline-offset-4">deterministic sanctuary</span> for your startup's core.
+                </motion.p>
 
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-mono text-sm md:text-base text-text-muted uppercase tracking-[0.3em]"
-          >
-            Deterministic AI Governance OS <span className="text-white/10 px-2">//</span> v12.1
-          </motion.h2>
-        </div>
+                {/* Unified CTA Logic */}
+                <motion.div 
+                    variants={slideUpHeavy}
+                    className="flex flex-col sm:flex-row items-center gap-6 mb-24"
+                >
+                    <button className="group relative w-full sm:w-auto px-10 py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-sm transition-all duration-300 shadow-xl shadow-green-900/20 overflow-hidden">
+                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                        <span className="relative flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
+                            Run a Simulation <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                    </button>
+                    
+                    <button className="group w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-sm border border-white/10 transition-all duration-300">
+                        <span className="flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
+                            Institutional Access <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                        </span>
+                    </button>
+                </motion.div>
 
-        {/* Declarative States - No CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-12 font-mono text-xs tracking-widest text-text-secondary"
-        >
-          <div className="flex flex-col items-center gap-2 group cursor-default">
-            <span className="text-text-muted text-[10px]">ACCESS STATUS</span>
-            <span className="border-b border-transparent group-hover:border-text-muted transition-colors">
-              RESTRICTED [INVITE ONLY]
-            </span>
-          </div>
+                {/* Passive Static Telemetry (No Motion to maintain grounding) */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-16 gap-y-4 pt-12 border-t border-white/5 w-full max-w-4xl">
+                    <div className="text-left py-4">
+                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">State</div>
+                        <div className="text-xs text-green-500 font-mono">STABILIZED</div>
+                    </div>
+                    <div className="text-left py-4">
+                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Audit Trail</div>
+                        <div className="text-xs text-white font-mono uppercase">Read-Only Enforced</div>
+                    </div>
+                    <div className="text-left py-4 border-l md:border-l-0 border-white/5 pl-4 md:pl-0">
+                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Governance</div>
+                        <div className="text-xs text-white font-mono uppercase">Token Gated</div>
+                    </div>
+                    <div className="text-left py-4 border-l md:border-l-0 border-white/5 pl-4 md:pl-0">
+                        <div className="text-[10px] text-neutral-500 uppercase tracking-[.3em] font-mono mb-1">Uptime</div>
+                        <div className="text-xs text-white font-mono uppercase">99.999% Proven</div>
+                    </div>
+                </div>
+            </motion.div>
+        </section>
+    );
+});
 
-          <div className="hidden sm:block w-px h-8 bg-white/5" />
-
-          <div className="flex flex-col items-center gap-2 group cursor-pointer hover:text-text-primary transition-colors">
-            <span className="text-text-muted text-[10px]">DOCUMENTATION</span>
-            <a href="/docs" className="flex items-center gap-2 border-b border-transparent group-hover:border-white/20 transition-all">
-              AVAILABLE
-              <span className="text-[10px] opacity-50">↗</span>
-            </a>
-          </div>
-
-          <div className="hidden sm:block w-px h-8 bg-white/5" />
-
-          <div className="flex flex-col items-center gap-2 group cursor-pointer hover:text-text-primary transition-colors">
-            <span className="text-text-muted text-[10px]">INVESTOR DATA</span>
-            <a href="/investors" className="flex items-center gap-2 border-b border-transparent group-hover:border-white/20 transition-all">
-              AUTHORIZED
-              <span className="text-[10px] opacity-50">↗</span>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* System Footer Metrics - Passive Telemetry */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-12 left-0 right-0 flex justify-center space-x-16 opacity-40 hover:opacity-100 transition-opacity duration-500"
-        >
-          <div className="text-center">
-            <div className="text-[9px] font-mono text-text-muted tracking-wider mb-1">GLOBAL DECISIONS</div>
-            <div className="text-[10px] font-mono text-signal-active">1,024,892_</div>
-          </div>
-          <div className="text-center">
-            <div className="text-[9px] font-mono text-text-muted tracking-wider mb-1">UPTIME</div>
-            <div className="text-[10px] font-mono text-signal-verified">99.999%</div>
-          </div>
-        </motion.div>
-
-      </div>
-    </section>
-  );
-}
+HeroSection.displayName = 'HeroSection';
