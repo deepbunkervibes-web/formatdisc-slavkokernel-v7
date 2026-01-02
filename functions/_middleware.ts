@@ -1,30 +1,30 @@
-// Sovereign Routing Layer v1.2
-// Enables multi-domain federation for SlavkoShell OS
-
 export const onRequest: PagesFunction = async (context) => {
   const url = new URL(context.request.url);
   const hostname = url.hostname;
 
-  // 1. FUSION DOMAIN
-  // fusion.formatdisc.hr -> serves /fusion internally
-  if (hostname.startsWith('fusion.')) {
-    // If accessing root of fusion domain, rewrite to /fusion path
+  // 1. FUSION DOMAIN (Supports slavkofusion.* and fusion.*)
+  if (hostname.startsWith('slavkofusion.') || hostname.startsWith('fusion.')) {
     if (url.pathname === '/' || url.pathname === '') {
       url.pathname = '/fusion';
       return context.env.ASSETS.fetch(url.toString(), context.request);
     }
   }
 
-  // 2. PROTOCOL DOMAIN
-  // protocol.formatdisc.hr -> serves /protocol internally
-  if (hostname.startsWith('protocol.')) {
-     // If accessing root of protocol domain, rewrite to /protocol path
+  // 2. PROTOCOL DOMAIN (Supports slavkoprotocol.* and protocol.*)
+  if (hostname.startsWith('slavkoprotocol.') || hostname.startsWith('protocol.')) {
      if (url.pathname === '/' || url.pathname === '') {
       url.pathname = '/protocol';
       return context.env.ASSETS.fetch(url.toString(), context.request);
      }
   }
 
-  // 3. Fallback / Pass-through
+  // 3. INVESTORS DOMAIN (Supports investitors.* and investors.*)
+  if (hostname.startsWith('investitors.') || hostname.startsWith('investors.')) {
+     if (url.pathname === '/' || url.pathname === '') {
+      url.pathname = '/investors';
+      return context.env.ASSETS.fetch(url.toString(), context.request);
+     }
+  }
+
   return context.next();
 };

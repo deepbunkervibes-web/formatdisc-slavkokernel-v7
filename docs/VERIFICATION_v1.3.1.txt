@@ -1,0 +1,41 @@
+
+SLAVKOSHELL OS v1.3.1 — SOVEREIGN VERIFICATION SUITE
+================================================================================
+DATE: 2026-01-02
+AUTHOR: Mladen Gertner / Arhitekt
+STATUS: CANONICAL_SYNC_COMPLETE
+================================================================================
+
+[TEST_CASE_01]: COCKPIT_PRIMARY
+- DOMAIN: slavkoshell.formatdisc.hr
+- EXPECTED_PATH: /
+- UI_DETECTION: Shell-Mode (Navigation Active, GrokChat Active)
+- CRT: Balanced (0.3)
+
+[TEST_CASE_02]: FUSION_TERMINAL
+- DOMAIN: slavkofusion.formatdisc.hr
+- EXPECTED_PATH: /fusion
+- UI_DETECTION: Sovereign-Mode (Navigation Hidden, Chat Hidden)
+- CRT: High Intensity (0.5)
+
+[TEST_CASE_03]: PROTOCOL_VAULT
+- DOMAIN: slavkoprotocol.formatdisc.hr
+- EXPECTED_PATH: /protocol
+- UI_DETECTION: Sovereign-Mode (Navigation Hidden, Chat Hidden)
+- CRT: Low Noise (0.2)
+
+[TEST_CASE_04]: INVESTOR_BRIEFING
+- DOMAIN: investitors.formatdisc.hr
+- EXPECTED_PATH: /investors
+- UI_DETECTION: Sovereign-Mode (Navigation Hidden, Chat Hidden)
+- ASSETS: ThreeTerminal Active, Apex Manifest Ready
+
+[TEST_CASE_05]: MIDDLEWARE_REWRITE
+- ACTION: Access slavkofusion.formatdisc.hr/ (Root)
+- EXPECTED: Internal serving of /fusion without browser-level 301/302.
+- SIGNATURE: SERVER_SIDE_REWRITE
+
+================================================================================
+[ENFORCEMENT]: ZERO_DRIFT_DETECTED
+[RESULT]: PASSED
+================================================================================

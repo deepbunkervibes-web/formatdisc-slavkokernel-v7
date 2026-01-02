@@ -7,6 +7,7 @@ import { InvestorAuthProvider } from './context/InvestorAuthContext';
 import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
 import { Outlet, useLocation } from 'react-router-dom';
+import { useSovereignTelemetry } from './fusion/telemetryHooks';
 
 export default function App() {
   const location = useLocation();
@@ -14,17 +15,23 @@ export default function App() {
 
   // v1.3 Sovereign Detection Logic
   const sovereignMode = useMemo(() => {
-    const isFusion = hostname.startsWith('fusion.') || location.pathname.startsWith('/fusion');
-    const isProtocol = hostname.startsWith('protocol.') || location.pathname.startsWith('/protocol');
-    const isInvestors = hostname.startsWith('investors.') || location.pathname.startsWith('/investors');
+    const isFusion = hostname.startsWith('slavkofusion.') || hostname.startsWith('fusion.') || location.pathname.startsWith('/fusion');
+    const isProtocol = hostname.startsWith('slavkoprotocol.') || hostname.startsWith('protocol.') || location.pathname.startsWith('/protocol');
+    const isInvestors = hostname.startsWith('investitors.') || hostname.startsWith('investors.') || location.pathname.startsWith('/investors');
     const isSimulator = location.pathname.startsWith('/simulator');
+
+    const activeMode = isFusion ? 'FUSION' : isProtocol ? 'PROTOCOL' : isInvestors ? 'INVESTORS' : isSimulator ? 'SIMULATOR' : 'SHELL';
 
     return {
       active: isFusion || isProtocol || isInvestors || isSimulator,
       hideShellUI: isFusion || isProtocol || isInvestors || isSimulator,
-      intensity: isFusion ? 0.5 : isProtocol ? 0.2 : 0.3
+      intensity: isFusion ? 0.5 : isProtocol ? 0.2 : 0.3,
+      name: activeMode
     };
   }, [hostname, location.pathname]);
+
+  // v1.3.1 Telemetry Activation
+  useSovereignTelemetry(sovereignMode.name, sovereignMode.intensity);
 
   return (
     <>
