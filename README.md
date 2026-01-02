@@ -140,6 +140,7 @@ VITE_MOCK_MODE=false
 - [**Whitepaper v1.0**](./WHITEPAPER.md) — Executive & Technical Brief.
 - [**Slavko Fusion Spec**](./docs/SLAVKO_FUSION.md) — Orchestration Convergence.
 - [**Slavko Protocol RFC-1**](./docs/SLAVKO_PROTOCOL_RFC.md) — Canonical Interaction Standard.
+- [**Verification Protocol**](./docs/VERIFICATION_PROTOCOL.md) — Post-deployment state validation.
 - [**Completion Report**](./COMPLETION_REPORT.md) — Final handover audit.
 - [**Release Notes v1.0**](./RELEASE_NOTES.md) — Version details.
 - [**Roadmap v1.1**](./ROADMAP.md) — Future trajectory.
