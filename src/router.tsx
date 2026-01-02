@@ -7,6 +7,9 @@ const OrchestrationHub = React.lazy(() => import('./routes/OrchestrationHub'));
 const ManualOrchestration = React.lazy(() => import('./routes/ManualOrchestration'));
 const AutomatedOrchestration = React.lazy(() => import('./routes/AutomatedOrchestration'));
 const ManifestoPage = React.lazy(() => import('./routes/ManifestoPage'));
+const DocsRoute = React.lazy(() => import('./routes/DocsRoute').then(module => ({ default: module.DocsRoute })));
+const AuditRoute = React.lazy(() => import('./routes/AuditRoute').then(module => ({ default: module.AuditRoute })));
+const InvestorsRoute = React.lazy(() => import('./routes/InvestorsRoute').then(module => ({ default: module.InvestorsRoute })));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-black">
@@ -32,6 +35,30 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<PageLoader />}>
             <ManifestoPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'docs',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <DocsRoute />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'audit',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AuditRoute />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'investors',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <InvestorsRoute />
           </Suspense>
         ),
       },

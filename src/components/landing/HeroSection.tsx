@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { 
@@ -58,18 +59,21 @@ export const HeroSection = React.memo(() => {
                     variants={slideUpHeavy}
                     className="flex flex-col sm:flex-row items-center gap-6 mb-24"
                 >
-                    <button className="group relative w-full sm:w-auto px-10 py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-sm transition-all duration-300 shadow-xl shadow-green-900/20 overflow-hidden">
+                    <button 
+                        onClick={() => document.getElementById('simulation-mode')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="group relative w-full sm:w-auto px-10 py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-sm transition-all duration-300 shadow-xl shadow-green-900/20 overflow-hidden"
+                    >
                         <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                         <span className="relative flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
                             Run a Simulation <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                         </span>
                     </button>
                     
-                    <button className="group w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-sm border border-white/10 transition-all duration-300">
+                    <Link to="/investors" className="group w-full sm:w-auto px-10 py-5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-sm border border-white/10 transition-all duration-300 flex items-center justify-center">
                         <span className="flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
                             Institutional Access <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                         </span>
-                    </button>
+                    </Link>
                 </motion.div>
 
                 {/* Passive Static Telemetry (No Motion to maintain grounding) */}

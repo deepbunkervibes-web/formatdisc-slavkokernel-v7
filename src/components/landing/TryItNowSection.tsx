@@ -36,7 +36,7 @@ export const TryItNowSection = memo(() => {
     };
 
     return (
-        <section className="py-32 bg-black border-t border-white/5 selection:bg-green-500/20">
+        <section id="simulation-mode" className="py-32 bg-black border-t border-white/5 selection:bg-green-500/20">
             <div className="max-w-4xl mx-auto px-6 text-center">
                 <header className="mb-16">
                      <motion.p

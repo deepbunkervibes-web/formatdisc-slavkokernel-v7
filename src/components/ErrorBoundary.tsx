@@ -1,52 +1,37 @@
-import * as React from 'react';import { Component, ReactNode } from 'react';
 
-import { captureException } from '../utils/sentry';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
-interface Props {
-  children: ReactNode;
-}
+type Props = { children: ReactNode };
+type State = { hasError: boolean; error?: Error };
 
-interface State {
-  hasError: boolean;
-}
+export default class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false };
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
+  static getDerivedStateFromError(err: Error) {
+    return { hasError: true, error: err };
   }
 
-  static getDerivedStateFromError(): State {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, info: any) {
-    captureException(error, { componentStack: info.componentStack });
+  componentDidCatch(err: Error, info: ErrorInfo) {
+    console.error('Unhandled error', err, info);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="w-full h-screen flex flex-col items-center justify-center text-center bg-background text-foreground animate-in fade-in duration-500">
-                    <div className="bg-destructive/10 p-8 rounded-2xl border border-destructive/20 backdrop-blur-sm max-w-md mx-4">
-                        <div className="w-16 h-16 bg-destructive/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-destructive"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        </div>
-                        <h1 className="text-3xl font-bold text-destructive mb-2 tracking-tight">System Critical</h1>
-                        <p className="text-muted-foreground mb-6">
-                            An unrecoverable state has been detected. The kernel has logged this event for analysis.
-                        </p>
-                        <button
-              onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-lg hover:shadow-primary/20">
-              
-                            Reboot System
-                        </button>
-                    </div>
-                </div>);
-
+        <div className="min-h-screen bg-black text-white flex items-center justify-center font-mono">
+            <div className="text-center p-8 border border-red-500/20 bg-red-950/10 rounded-sm max-w-lg">
+                <h1 className="text-xl text-red-500 font-bold mb-4 uppercase tracking-widest">System_Critical_Error</h1>
+                <p className="text-neutral-500 text-xs mb-8">{this.state.error?.message || 'Unknown kernel panic'}</p>
+                <button 
+                    onClick={() => window.location.reload()}
+                    className="px-6 py-2 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/20 transition-all uppercase tracking-widest text-[10px] font-bold"
+                >
+                    Reboot_System
+                </button>
+            </div>
+        </div>
+      );
     }
-
     return this.props.children;
   }
 }

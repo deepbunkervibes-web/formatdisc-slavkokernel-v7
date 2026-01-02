@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://slavkokernel-v7.pages.dev/sitemap.xml

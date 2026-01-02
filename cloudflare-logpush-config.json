@@ -1,0 +1,8 @@
+{
+  "dataset": "http_requests",
+  "logpull_options": "fields=ClientIP,ClientRequestHost,ClientRequestMethod,ClientRequestURI,EdgeEndTimestamp,EdgeResponseBytes,EdgeResponseStatus,RayID&timestamps=rfc3339",
+  "destination_conf": "s3://slavkokernel-logs?region=us-east-1",
+  "ownership_challenge": "00000000000000000000",
+  "name": "slavkokernel-production-logs",
+  "comment": "Logpush configuration for SlavkoKernel v7 production monitoring"
+}
