@@ -1,14 +1,15 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { KernelProvider } from './kernel/KernelProvider';
 import { LanguageProvider } from './context/LanguageContext';
+import { lazyWithRetry, lazyNamedWithRetry } from './utils/lazyWithRetry';
 
-// Lazy load shell routes for optimal performance
-const OrchestrationHub = lazy(() => import('./routes/OrchestrationHub'));
-const ManualOrchestration = lazy(() => import('./routes/ManualOrchestration'));
-const AutomatedOrchestration = lazy(() => import('./routes/AutomatedOrchestration'));
-const DocsRoute = lazy(() => import('./routes/DocsRoute').then(m => ({ default: m.DocsRoute })));
-const AuditRoute = lazy(() => import('./routes/AuditRoute').then(m => ({ default: m.AuditRoute })));
+// Lazy load shell routes with automatic retry on chunk failures
+const OrchestrationHub = lazyWithRetry(() => import('./routes/OrchestrationHub'));
+const ManualOrchestration = lazyWithRetry(() => import('./routes/ManualOrchestration'));
+const AutomatedOrchestration = lazyWithRetry(() => import('./routes/AutomatedOrchestration'));
+const DocsRoute = lazyNamedWithRetry(() => import('./routes/DocsRoute'), 'DocsRoute');
+const AuditRoute = lazyNamedWithRetry(() => import('./routes/AuditRoute'), 'AuditRoute');
 
 const ShellBootLoader = () => (
     <div className="flex h-screen w-full items-center justify-center bg-black text-green-500 font-mono text-sm tracking-widest">

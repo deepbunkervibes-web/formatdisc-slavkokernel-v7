@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, BrowserRouter } from 'react-router-dom'
 import { router } from './router'
@@ -7,14 +7,15 @@ import './globals.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initSentry } from './utils/sentry';
 import { initPostHog } from './utils/posthog';
+import { lazyWithRetry } from './utils/lazyWithRetry';
 
 // Initialize monitoring
 initSentry();
 initPostHog();
 
-// Lazy load sovereign apps
-const SimulationApp = lazy(() => import('./SimulationApp'));
-const ShellApp = lazy(() => import('./ShellApp'));
+// Lazy load sovereign apps with automatic retry
+const SimulationApp = lazyWithRetry(() => import('./SimulationApp'));
+const ShellApp = lazyWithRetry(() => import('./ShellApp'));
 
 // Deterministic Entry Point Protocol
 // Supports simulation, shell, and main platform through sovereign entry points
