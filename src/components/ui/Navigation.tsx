@@ -16,7 +16,7 @@ export function Navigation() {
         { path: '/manifesto', label: 'Manifesto' },
         { path: '/audit', label: 'Audit Trail' },
         { path: '/docs', label: 'Documentation' },
-        { path: 'https://simulate.formatdisc.hr', label: 'Deploy Simulation', external: true, primary: true },
+        { path: 'https://simulation.formatdisc.hr', label: 'Deploy Simulation', external: true, primary: true },
     ];
 
     return (
