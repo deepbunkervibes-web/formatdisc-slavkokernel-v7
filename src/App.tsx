@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Outlet } from 'react-router-dom';
+import ScrollToTop from './components/ui/ScrollToTop';
 import { InvestorAuthProvider } from './context/InvestorAuthContext';
 import { Navigation } from './components/ui/Navigation';
 import { Footer } from './components/ui/Footer';
@@ -12,6 +13,7 @@ function App() {
         <KernelProvider>
             <LanguageProvider>
                 <InvestorAuthProvider>
+                    <ScrollToTop />
                     <div className="min-h-screen bg-background text-foreground antialiased">
                         <Navigation />
                         <main className="flex-1 pt-16">
