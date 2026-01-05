@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { KernelEvent, simulatorEmitter } from '../../stores/simulatorStore';
 import LazyWithRetry from './LazyWithRetry';
+import { Terminal } from '../../components/Terminal';
 
 interface EngineerViewProps {
     events: KernelEvent[];
@@ -38,8 +39,13 @@ const EngineerView: React.FC<EngineerViewProps> = ({ events }) => {
 
     return (
         <div className="grid grid-cols-12 gap-6 h-full min-h-[700px]">
-            {/* System Controls & Terminal */}
-            <div className="col-span-12 lg:col-span-12 xl:col-span-8 flex flex-col gap-6">
+            {/* Interactive Terminal */}
+            <div className="col-span-12 lg:col-span-7">
+                <Terminal />
+            </div>
+
+            {/* System Controls & Event Stream */}
+            <div className="col-span-12 lg:col-span-5 flex flex-col gap-6">
                 {/* Active Terminal Panel */}
                 <div className="flex-1 bg-black border border-white/10 rounded-sm flex flex-col font-mono relative overflow-hidden">
                     <div className="flex items-center justify-between px-4 py-2 bg-white/[0.03] border-b border-white/5">

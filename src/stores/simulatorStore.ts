@@ -5,10 +5,15 @@ export type SimulatorMode = 'INVESTOR' | 'ENGINEER' | 'AUDITOR';
 
 export interface KernelEvent {
     id: string;
-    type: 'decision:created' | 'fallback:triggered' | 'retry:attempted' | 'identity:verified' | 'region:validated';
+    type: 'decision:created' | 'fallback:triggered' | 'retry:attempted' | 'identity:verified' | 'region:validated' | 'command:executed';
     payload: any;
     timestamp: string;
     node: string;
+}
+
+export interface TerminalSession {
+    commands: string[];
+    timestamp: string;
 }
 
 export interface SimulatorState {
@@ -18,6 +23,8 @@ export interface SimulatorState {
     auditTrail: AuditLog[];
     healthScore: number;
     latencyProfile: 'H100_OPTIMIZED' | 'STANDARD';
+    terminalSessions: TerminalSession[];
+    currentSessionId: string;
 }
 
 /**
@@ -50,6 +57,13 @@ export class SimulatorEmitter {
         return () => {
             this.listeners = this.listeners.filter(l => l !== listener);
         };
+    }
+
+    // Add command to terminal history
+    addCommandToHistory(command: string) {
+        // This will be handled by the component state for now
+        // In a full implementation, this would update a global store
+        console.log(`[TERMINAL_HISTORY] ${command}`);
     }
 }
 
