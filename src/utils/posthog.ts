@@ -21,7 +21,9 @@ export const initPostHog = () => {
       capture_pageview: true,
       persistence: 'localStorage+cookie',
     });
-    console.log('PostHog initialized.');
+    if (import.meta.env.DEV) {
+      console.log('PostHog initialized.');
+    }
   } catch (e) {
     console.error('PostHog initialization failed:', e);
   }
@@ -31,7 +33,9 @@ export const trackEvent = (eventName: string, properties?: Record<string, any>) 
   if (import.meta.env.VITE_POSTHOG_KEY) {
     posthog.capture(eventName, properties);
   } else {
-    console.log(`[PostHog Mock] Track: ${eventName}`, properties);
+    if (import.meta.env.DEV) {
+      console.log(`[PostHog Mock] Track: ${eventName}`, properties);
+    }
   }
 };
 
@@ -39,6 +43,8 @@ export const identifyUser = (userId: string, properties?: Record<string, any>) =
   if (import.meta.env.VITE_POSTHOG_KEY) {
     posthog.identify(userId, properties);
   } else {
-    console.log(`[PostHog Mock] Identify: ${userId}`, properties);
+    if (import.meta.env.DEV) {
+      console.log(`[PostHog Mock] Identify: ${userId}`, properties);
+    }
   }
 };

@@ -12,27 +12,37 @@ let activeProvider: 'OLLAMA' | 'GEMINI' | 'MOCK' = 'OLLAMA';
 const getApiKey = () => import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
 
 /**
- * Generate a response using Google Gemini API
+ * Generate a response using Google Gemini API with retries
  */
-export async function generateWithGemini(prompt: string, systemPrompt?: string): Promise<string> {
+export async function generateWithGemini(prompt: string, systemPrompt?: string, retries = 2): Promise<string> {
   const apiKey = getApiKey();
   if (!apiKey || apiKey === 'mock-key') {
     throw new Error('Gemini API Key missing or invalid');
   }
 
-  try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.0-flash",
-      systemInstruction: systemPrompt 
-    });
+  let attempt = 0;
+  while (attempt <= retries) {
+    try {
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ 
+        model: "gemini-2.0-flash",
+        systemInstruction: systemPrompt 
+      });
 
-    const result = await model.generateContent(prompt);
-    return result.response.text();
-  } catch (error) {
-    logger.error('Gemini generation failed:', error);
-    throw error;
+      const result = await model.generateContent(prompt);
+      return result.response.text();
+    } catch (error) {
+      attempt++;
+      if (attempt > retries) {
+        logger.error('Gemini generation failed after retries:', error);
+        throw error;
+      }
+      const delay = Math.pow(2, attempt) * 1000;
+      logger.warn(`Gemini attempt ${attempt} failed, retrying in ${delay}ms...`);
+      await new Promise(r => setTimeout(r, delay));
+    }
   }
+  throw new Error('Gemini generation exhausted all retries');
 }
 
 /**

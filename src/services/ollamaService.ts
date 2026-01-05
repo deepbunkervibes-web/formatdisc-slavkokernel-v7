@@ -20,12 +20,14 @@ interface OllamaResponse {
     eval_count?: number;
 }
 
+const OLLAMA_TIMEOUT = parseInt(import.meta.env.VITE_OLLAMA_TIMEOUT || '30000', 10);
+
 /**
  * Generate a response from the local Ollama model with timeout
  */
 export async function generateWithOllama(prompt: string, systemPrompt?: string): Promise<string> {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+    const timeoutId = setTimeout(() => controller.abort(), OLLAMA_TIMEOUT);
 
     try {
         const response = await fetch(`${OLLAMA_HOST}/api/generate`, {
@@ -55,8 +57,8 @@ export async function generateWithOllama(prompt: string, systemPrompt?: string):
     } catch (error) {
         clearTimeout(timeoutId);
         if (error instanceof Error && error.name === 'AbortError') {
-            console.error('Ollama request timed out (5s)');
-            throw new Error('Ollama service unavailable. Simulation paused.');
+            console.error(`Ollama request timed out after ${OLLAMA_TIMEOUT}ms`);
+            throw new Error('Ollama service high latency: Simulation paused to prevent cache poisoning.');
         }
         console.error('Ollama generation failed:', error);
         throw error;
