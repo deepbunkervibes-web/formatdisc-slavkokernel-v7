@@ -100,11 +100,14 @@ export function MvpStudio({
       });
 
       markPerformance('build-start');
+      trackEvent('mvp_generation_started');
 
       try {
-        const mvpBlueprint = await mvpStudioService.generateMvp(idea, evaluation);
-        const pitchDeck = await mvpStudioService.generatePitchDeck(idea, evaluation, mvpBlueprint);
-        const investorSummary = await mvpStudioService.generateInvestorSummary(idea, evaluation, mvpBlueprint, pitchDeck);
+        const { resurrection } = await import('../utils/resurrection');
+        
+        const mvpBlueprint = await resurrection(mvpStudioService.generateMvp(idea, evaluation));
+        const pitchDeck = await resurrection(mvpStudioService.generatePitchDeck(idea, evaluation, mvpBlueprint));
+        const investorSummary = await resurrection(mvpStudioService.generateInvestorSummary(idea, evaluation, mvpBlueprint, pitchDeck));
 
         measurePerformancePoint('mvp_generation_duration', 'build-start');
 
@@ -148,7 +151,8 @@ export function MvpStudio({
     markPerformance('eval-start');
 
     try {
-      const evaluation = await mvpStudioService.evaluateIdea(idea);
+      const { resurrection } = await import('../utils/resurrection');
+      const evaluation = await resurrection(mvpStudioService.evaluateIdea(idea));
       measurePerformancePoint('idea_evaluation_duration', 'eval-start');
       setState((prev) => ({ ...prev, evaluation }));
       trackEvent('evaluation_completed', { verdict: evaluation.verdict, score: evaluation.score });

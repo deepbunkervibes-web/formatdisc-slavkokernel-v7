@@ -5,9 +5,10 @@ import { IdeaEvaluation, MvpBlueprint, PitchDeck, InvestorSummary } from '../typ
 import { validateAndSanitizeInput, wrapUserPrompt } from '../utils/inputSanitizer';
 
 import { generateWithOllama, checkOllamaHealth } from './ollamaService';
+import { mockH100Response, createAuditLog } from './h100Backends';
 
 // Flag to track the active AI provider
-let activeProvider: 'OLLAMA' | 'GEMINI' | 'MOCK' = 'OLLAMA';
+let activeProvider: 'OLLAMA' | 'GEMINI' | 'MOCK' | 'H100_MOCK' = 'OLLAMA';
 
 const getApiKey = () => import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
 

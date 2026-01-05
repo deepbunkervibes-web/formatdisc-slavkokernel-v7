@@ -8,10 +8,18 @@ import ErrorBoundary from './components/ErrorBoundary'
 import { initSentry } from './utils/sentry';
 import { initPostHog } from './utils/posthog';
 import { lazyWithRetry } from './utils/lazyWithRetry';
+import { validateEnvironment } from './protocol/slavkoProtocol';
 
-// Initialize monitoring
+// Initialize monitoring & Protocol Validation
 initSentry();
 initPostHog();
+
+try {
+    validateEnvironment();
+} catch (error) {
+    console.error('[KERNEL_PANIC] Protocol verification failed:', error);
+    // In strict mode, we'd halt here, but we'll log it for MVP stability
+}
 
 // Lazy load sovereign apps with automatic retry
 const SimulationApp = lazyWithRetry(() => import('./SimulationApp'));

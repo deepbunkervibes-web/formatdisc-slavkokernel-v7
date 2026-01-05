@@ -10,6 +10,7 @@ const ManualOrchestration = lazyWithRetry(() => import('./routes/ManualOrchestra
 const AutomatedOrchestration = lazyWithRetry(() => import('./routes/AutomatedOrchestration'));
 const DocsRoute = lazyNamedWithRetry(() => import('./routes/DocsRoute'), 'DocsRoute');
 const AuditRoute = lazyNamedWithRetry(() => import('./routes/AuditRoute'), 'AuditRoute');
+const InstitutionalSimulator = lazyWithRetry(() => import('./routes/InstitutionalSimulator'));
 
 const ShellBootLoader = () => (
     <div className="flex h-screen w-full items-center justify-center bg-black text-green-500 font-mono text-sm tracking-widest">
@@ -34,6 +35,9 @@ const ShellApp: React.FC = () => {
                             {/* Documentation & Audit */}
                             <Route path="/docs" element={<DocsRoute />} />
                             <Route path="/audit" element={<AuditRoute />} />
+                            
+                            {/* Institutional Simulator */}
+                            <Route path="/simulator" element={<InstitutionalSimulator />} />
                             
                             {/* Fallback: Redirect unknown routes to Hub */}
                             <Route path="*" element={<OrchestrationHub />} />
