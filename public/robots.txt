@@ -1,4 +1,25 @@
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /audit/raw/
 
-Sitemap: https://slavkokernel-v7.pages.dev/sitemap.xml
+Sitemap: https://formatdisc.hr/sitemap.xml
