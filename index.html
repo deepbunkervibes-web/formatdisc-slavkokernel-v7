@@ -3,25 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- Primary Meta Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <!-- Primary Meta Tags -->
   <title>SlavkoKernel v7 — Deterministic Orchestration Kernel by FormatDisc</title>
   <meta name="title" content="SlavkoKernel v7 — Deterministic Orchestration Kernel by FormatDisc">
   <meta name="description" content="SlavkoKernel v7 is an institutional-grade orchestration kernel designed for deterministic execution, audit-safe governance, and AI-native compliance. Built by FormatDisc.">
+  <meta name="theme-color" content="#0a0a0a">
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://slavkokernel-v7.pages.dev/">
+  <link rel="canonical" href="https://formatdisc.hr/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://slavkokernel-v7.pages.dev/">
+  <meta property="og:url" content="https://formatdisc.hr/">
   <meta property="og:title" content="SlavkoKernel v7 — Deterministic Orchestration Kernel">
   <meta property="og:description" content="Institutional orchestration kernel for deterministic systems, audit trails, and AI-native governance.">
   <meta property="og:image" content="https://formatdisc.hr/assets/slavkokernel-og.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://slavkokernel-v7.pages.dev/">
+  <meta property="twitter:url" content="https://formatdisc.hr/">
   <meta property="twitter:title" content="SlavkoKernel v7 — Deterministic Orchestration Kernel">
   <meta property="twitter:description" content="Audit-safe, deterministic orchestration kernel for institutional systems.">
   <meta property="twitter:image" content="https://formatdisc.hr/assets/slavkokernel-og.jpg">
@@ -42,7 +43,7 @@
     "operatingSystem": "Any",
     "applicationCategory": "DeveloperApplication",
     "description": "Deterministic orchestration kernel for audit-safe, AI-native, institutional systems.",
-    "url": "https://slavkokernel-v7.pages.dev/",
+    "url": "https://formatdisc.hr/",
     "image": "https://formatdisc.hr/assets/slavkokernel-og.jpg",
     "author": {
       "@type": "Organization",
@@ -58,125 +59,44 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  
+  <!-- Critical Performance: Preconnect & Font Display Swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+    media="print" 
+    onload="this.media='all'"
+  >
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    >
+  </noscript>
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
       /* The background color is now managed by React to allow theme switching */
       transition: background-color 0.3s ease-in-out;
+      background-color: #000; /* Critical for LCP/CLS stability before hydration */
+      color: #fff;
     }
 
     .font-mono {
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .animate-fade-in {
-      animation: fadeIn 0.5s ease-in-out;
-    }
+    /* Core animations */
+    .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-fade-in-out {
-      animation: fadeInOut 5s ease-in-out forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-
-      20%,
-      80% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateY(-5px);
-      }
-    }
-
-    .animate-blob {
-      animation: blob 10s infinite;
-    }
-
-    @keyframes blob {
-      0% {
-        transform: translate(0px, 0px) scale(1);
-      }
-
-      33% {
-        transform: translate(30px, -50px) scale(1.2);
-      }
-
-      66% {
-        transform: translate(-20px, 20px) scale(0.8);
-      }
-
-      100% {
-        transform: translate(0px, 0px) scale(1);
-      }
-    }
-
-    .animation-delay-2000 {
-      animation-delay: 2s;
-    }
-
-    .animation-delay-4000 {
-      animation-delay: 4s;
-    }
-
-    /* Progress bar shimmer animation */
-    @keyframes shimmer {
-      100% {
-        transform: translateX(100%);
-      }
-    }
-
-    .shimmer {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shimmer::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(90deg,
-          rgba(255, 255, 255, 0) 0,
-          rgba(255, 255, 255, 0.05) 20%,
-          rgba(255, 255, 255, 0.2) 60%,
-          rgba(255, 255, 255, 0));
-      transform: translateX(-100%);
-      animation: shimmer 2.5s infinite;
-    }
-
-    /* Unified motion discipline (Apple-style) */
+    /* Optimize CSS rendering */
     .transition-ui {
-      transition:
-        background-color 150ms ease,
-        color 150ms ease,
-        border-color 150ms ease,
-        transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+      transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
     }
   </style>
 
@@ -184,6 +104,7 @@
 
 <body>
   <div id="root"></div>
+  <!-- Application Entry -->
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
