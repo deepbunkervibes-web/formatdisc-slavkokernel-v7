@@ -15,8 +15,8 @@ export function Footer() {
 
         Governance: [
             { label: 'Operational Manifesto', href: '/manifesto', external: false },
-            { label: 'Ollama_Dist_v7', href: 'https://ollama.com/mladen-gertner/slavkokernel-v7', external: true },
-            { label: 'GitHub_Repository', href: 'https://github.com/mladengertner', external: true }],
+            { label: 'Ollama_Dist_v7', href: 'https://ollama.com/formatdisc/slavkokernel-v7', external: true },
+            { label: 'GitHub_Repository', href: 'https://github.com/formatdisc/formatdisc-slavkokernel-v7', external: true }],
 
         Institutional: [
             { label: 'Investor_Data_Room', href: '/investors', external: false },

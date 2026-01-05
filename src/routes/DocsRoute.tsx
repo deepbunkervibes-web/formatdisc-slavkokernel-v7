@@ -94,7 +94,17 @@ export function DocsRoute() {
                             <button 
                                 onClick={() => {
                                     if (doc.type === 'pdf') {
-                                        alert("Document is currently being updated for v7 compliance. Please contact support.");
+                                        // Guard against missing file – check existence first
+                                        const url = '/assets/docs/whitepaper-v7.pdf'; // Assuming standard name, adjust if needed
+                                        fetch(url, { method: 'HEAD' })
+                                        .then(res => {
+                                            if (res.ok) {
+                                                window.open(url, '_blank');
+                                            } else {
+                                                alert("Document is currently being updated for v7 compliance. Please contact support.");
+                                            }
+                                        })
+                                        .catch(() => alert("Unable to fetch the document network status."));
                                     } else {
                                         window.open("https://docs.formatdisc.hr", "_blank");
                                     }
