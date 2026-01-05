@@ -7,8 +7,6 @@ import './globals.css'
 import ErrorBoundary from './components/ErrorBoundary'
 import { initSentry } from './utils/sentry';
 import { initPostHog } from './utils/posthog';
-import { KernelProvider } from './kernel/KernelProvider';
-import { LanguageProvider } from './context/LanguageContext';
 
 // Initialize monitoring
 initSentry();
@@ -16,7 +14,7 @@ initPostHog();
 
 // Lazy load sovereign apps
 const SimulationApp = lazy(() => import('./SimulationApp'));
-const OrchestrationHub = lazy(() => import('./routes/OrchestrationHub'));
+const ShellApp = lazy(() => import('./ShellApp'));
 
 // Deterministic Entry Point Protocol
 // Supports simulation, shell, and main platform through sovereign entry points
@@ -43,16 +41,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 {isSimulationMode ? (
                     <SimulationApp />
                 ) : isShellMode ? (
-                    <KernelProvider>
-                         <LanguageProvider>
-                            {/* Shell Mode: Direct access to Orchestration Hub */}
-                            <div className="min-h-screen bg-black text-white antialiased selection:bg-green-500/30">
-                                <BrowserRouter>
-                                    <OrchestrationHub />
-                                </BrowserRouter>
-                            </div>
-                        </LanguageProvider>
-                    </KernelProvider>
+                    <BrowserRouter>
+                        <ShellApp />
+                    </BrowserRouter>
                 ) : (
                     <RouterProvider router={router} />
                 )}
