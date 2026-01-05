@@ -84,22 +84,22 @@ export function InvestorPortal() {
                                 Documents
                             </h3>
                             <div className="space-y-3">
-                                <a href="#" className="flex items-center gap-3 group">
-                                    <div className="w-8 h-8 rounded bg-neutral-800 flex items-center justify-center group-hover:bg-accent-purple/20 transition-colors">
-                                        <Download className="w-4 h-4 text-neutral-400 group-hover:text-accent-purple" />
+                                <a href="#" onClick={(e) => { e.preventDefault(); alert("Access restricted: Please contact Mladen for Data Room access."); }} className="flex items-center gap-3 group opacity-50 cursor-not-allowed">
+                                    <div className="w-8 h-8 rounded bg-neutral-800 flex items-center justify-center">
+                                        <Download className="w-4 h-4 text-neutral-600" />
                                     </div>
                                     <div>
-                                        <div className="text-sm text-neutral-200 group-hover:underline">Pitch Deck (Dec 2025)</div>
-                                        <div className="text-[10px] text-neutral-500">PDF • 2.4 MB</div>
+                                        <div className="text-sm text-neutral-400">Pitch Deck (Dec 2025)</div>
+                                        <div className="text-[10px] text-neutral-600">PDF • Restricted</div>
                                     </div>
                                 </a>
-                                <a href="#" className="flex items-center gap-3 group">
-                                    <div className="w-8 h-8 rounded bg-neutral-800 flex items-center justify-center group-hover:bg-accent-cyan/20 transition-colors">
-                                        <Download className="w-4 h-4 text-neutral-400 group-hover:text-accent-cyan" />
+                                <a href="#" onClick={(e) => { e.preventDefault(); alert("Access restricted: Please contact Mladen for Data Room access."); }} className="flex items-center gap-3 group opacity-50 cursor-not-allowed">
+                                    <div className="w-8 h-8 rounded bg-neutral-800 flex items-center justify-center">
+                                        <Download className="w-4 h-4 text-neutral-600" />
                                     </div>
                                     <div>
-                                        <div className="text-sm text-neutral-200 group-hover:underline">Technical Whitepaper</div>
-                                        <div className="text-[10px] text-neutral-500">PDF • 1.8 MB</div>
+                                        <div className="text-sm text-neutral-400">Technical Whitepaper</div>
+                                        <div className="text-[10px] text-neutral-600">PDF • Restricted</div>
                                     </div>
                                 </a>
                             </div>

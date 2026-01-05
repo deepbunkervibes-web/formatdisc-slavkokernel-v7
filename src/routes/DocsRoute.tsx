@@ -91,7 +91,16 @@ export function DocsRoute() {
                                 {doc.desc}
                             </p>
                             
-                            <button className="flex items-center gap-3 text-[10px] font-bold text-neutral-400 group-hover:text-green-500 uppercase tracking-[0.3em] transition-all duration-700">
+                            <button 
+                                onClick={() => {
+                                    if (doc.type === 'pdf') {
+                                        alert("Document is currently being updated for v7 compliance. Please contact support.");
+                                    } else {
+                                        window.open("https://docs.formatdisc.hr", "_blank");
+                                    }
+                                }}
+                                className="flex items-center gap-3 text-[10px] font-bold text-neutral-400 group-hover:text-green-500 uppercase tracking-[0.3em] transition-all duration-700"
+                            >
                                 {doc.type === 'pdf' ? <Download size={14} /> : <ExternalLink size={14} />}
                                 <span>{doc.action}</span>
                             </button>

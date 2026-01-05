@@ -7,7 +7,6 @@ import { AuditTrail } from '../components/kernel/AuditTrail';
 import { DeploymentControls } from '../components/kernel/DeploymentControls';
 
 export function KernelDashboard() {
-    console.log("KernelDashboard: Mounting...");
     return (
         <KernelProvider>
             <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-950 text-white p-4 md:p-8">

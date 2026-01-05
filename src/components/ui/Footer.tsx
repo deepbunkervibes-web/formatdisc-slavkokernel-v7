@@ -99,11 +99,14 @@ export function Footer() {
                         </p>
                     </div>
                     <div className="flex items-center gap-8">
-                        <a href="https://github.com/mladengertner" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-white transition-colors">
+                        <a href="https://github.com/formatdisc" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-white transition-colors">
                             <span className="font-mono text-[10px] tracking-widest uppercase">Github</span>
                         </a>
-                        <a href="https://hr.linkedin.com/in/mladen-gertner-0329b7364" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-white transition-colors">
+                        <a href="https://www.linkedin.com/company/formatdisc/" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-white transition-colors">
                             <span className="font-mono text-[10px] tracking-widest uppercase">LinkedIn</span>
+                        </a>
+                        <a href="https://twitter.com/formatdisc" target="_blank" rel="noopener noreferrer" className="text-neutral-700 hover:text-white transition-colors">
+                            <span className="font-mono text-[10px] tracking-widest uppercase">X (Twitter)</span>
                         </a>
                         <a href="mailto:mladen@formatdisc.hr" className="text-neutral-700 hover:text-white transition-colors">
                             <span className="font-mono text-[10px] tracking-widest uppercase">E-Mail</span>
