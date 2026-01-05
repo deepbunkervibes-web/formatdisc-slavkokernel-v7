@@ -1,0 +1,48 @@
+name: Simulation CI/CD
+
+on:
+  push:
+    branches: [ simulation ]
+  pull_request:
+    branches: [ simulation ]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Type Check
+        run: npx tsc --noEmit
+
+      - name: Run Stability & Unit Tests
+        run: npm test
+
+      - name: Build Simulation Bundle
+        run: npm run build
+        env:
+          VITE_APP_MODE: simulation
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: slavkokernel-v7
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: simulation
